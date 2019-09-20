@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q9h-4y-h1Y">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Apps Tab Bar Controller-->
+        <scene sceneID="Fbe-gZ-7hJ">
+            <objects>
+                <tabBarController id="Q9h-4y-h1Y" customClass="AppsTabBarController" customModule="AppStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lcd-BX-a2E">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="oDL-sA-YIL" kind="relationship" relationship="viewControllers" id="IR8-Zj-xQW"/>
+                        <segue destination="M7j-bL-ADa" kind="relationship" relationship="viewControllers" id="rgB-3K-Hzs"/>
+                        <segue destination="viL-DS-0qB" kind="relationship" relationship="viewControllers" id="NrI-Xd-Vor"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UMe-tM-KWU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-620" y="-183"/>
+        </scene>
+        <!--ゲーム-->
+        <scene sceneID="Q7Y-l6-g6R">
+            <objects>
+                <navigationController id="oDL-sA-YIL" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="ゲーム" image="games" id="NSd-bm-amW"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KsW-jo-XOK">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Mdr-d2-1fR" kind="relationship" relationship="rootViewController" id="9a5-b6-FST"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sZG-89-bjB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="426" y="-908"/>
+        </scene>
+        <!--Games IntroductionVC-->
+        <scene sceneID="6az-7l-Gku">
+            <objects>
+                <viewController id="Mdr-d2-1fR" customClass="GamesIntroductionVC" customModule="AppStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="4tc-Ab-aEn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w1k-uh-FR6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1277" y="-908"/>
+        </scene>
+        <!--Apps IntroductionVC-->
+        <scene sceneID="CWq-gm-gnr">
+            <objects>
+                <viewController id="pvK-BJ-9aX" customClass="AppsIntroductionVC" customModule="AppStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="m8k-3C-WyB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="inY-7C-vYd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1277" y="-183"/>
+        </scene>
+        <!--App-->
+        <scene sceneID="hzC-kF-39T">
+            <objects>
+                <navigationController id="M7j-bL-ADa" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="App" image="apps" id="kM5-4C-5Os"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ub0-es-YPG">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="pvK-BJ-9aX" kind="relationship" relationship="rootViewController" id="igI-dD-QBM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c9d-wh-lnH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="425" y="-183"/>
+        </scene>
+        <!--検索-->
+        <scene sceneID="3UE-sB-K4A">
+            <objects>
+                <navigationController id="viL-DS-0qB" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="検索" image="search" id="phf-V1-Hs8"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gYx-kA-YAO">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JEc-t3-x6W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="425" y="568"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="apps" width="25" height="25"/>
+        <image name="games" width="25" height="25"/>
+        <image name="search" width="25" height="25"/>
+    </resources>
+</document>

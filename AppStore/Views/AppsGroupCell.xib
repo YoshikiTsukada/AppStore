@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="U6d-Kb-h8P" customClass="AppsGroupCell" customModule="AppStore" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="356" height="253"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="356" height="253"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="トップ無料App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuS-3I-z3j">
+                        <rect key="frame" x="20" y="10" width="200" height="27.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="y9K-W0-94W"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="23"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ylO-JX-78m">
+                        <rect key="frame" x="0.0" y="47.5" width="356" height="205.5"/>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8C-NT-FV7">
+                        <rect key="frame" x="259" y="10" width="77" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="すべて表示"/>
+                    </button>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ylO-JX-78m" secondAttribute="trailing" id="1Bg-ch-Ol6"/>
+                <constraint firstItem="f8C-NT-FV7" firstAttribute="top" secondItem="U6d-Kb-h8P" secondAttribute="top" constant="10" id="CbM-Gf-8by"/>
+                <constraint firstItem="ylO-JX-78m" firstAttribute="leading" secondItem="U6d-Kb-h8P" secondAttribute="leading" id="aWL-Q4-AQz"/>
+                <constraint firstAttribute="trailing" secondItem="f8C-NT-FV7" secondAttribute="trailing" constant="20" id="bPV-I9-wtd"/>
+                <constraint firstItem="fuS-3I-z3j" firstAttribute="top" secondItem="U6d-Kb-h8P" secondAttribute="top" constant="10" id="ifp-ss-Twg"/>
+                <constraint firstItem="ylO-JX-78m" firstAttribute="top" secondItem="fuS-3I-z3j" secondAttribute="bottom" constant="10" id="lYF-8N-u2l"/>
+                <constraint firstAttribute="bottom" secondItem="ylO-JX-78m" secondAttribute="bottom" id="xWv-xy-Dcu"/>
+                <constraint firstItem="fuS-3I-z3j" firstAttribute="leading" secondItem="U6d-Kb-h8P" secondAttribute="leading" constant="20" id="zMf-Q6-SdI"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Gq3-1R-dNe"/>
+            <size key="customSize" width="356" height="253"/>
+            <connections>
+                <outlet property="allDisplayButton" destination="f8C-NT-FV7" id="35x-66-A3D"/>
+                <outlet property="appsCarousel" destination="ylO-JX-78m" id="vtY-f7-lhD"/>
+                <outlet property="titleLabel" destination="fuS-3I-z3j" id="wbc-rp-1Dm"/>
+            </connections>
+            <point key="canvasLocation" x="-2.8985507246376816" y="-124.21875"/>
+        </collectionViewCell>
+    </objects>
+</document>
