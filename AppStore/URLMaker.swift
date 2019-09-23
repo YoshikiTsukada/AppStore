@@ -13,39 +13,39 @@ class URLMaker {
     static let rssBase = "https://rss.itunes.apple.com/api/v1/jp/ios-apps/"
     
     static var recommendedNewApps: URL {
-        return URL(string: "\(rssBase)new-apps-we-love/all/10/explicit.json")!
+        return URL(string: "\(rssBase)new-apps-we-love/all/15/explicit.json")!
     }
     
     static var recommendedNewGames: URL {
-        return URL(string: "\(rssBase)new-games-we-love/all/10/explicit.json")!
+        return URL(string: "\(rssBase)new-games-we-love/all/15/explicit.json")!
     }
     
     static var topFree: URL {
-        return URL(string: "\(rssBase)top-free/all/10/explicit.json")!
+        return URL(string: "\(rssBase)top-free/all/15/explicit.json")!
     }
     
     static var topFreeGames: URL {
-        return URL(string: "\(rssBase)top-free/games/10/explicit.json")!
+        return URL(string: "\(rssBase)top-free/games/15/explicit.json")!
     }
     
     static var ipadTopFree: URL {
-        return URL(string: "\(rssBase)top-free-ipad/all/10/explicit.json")!
+        return URL(string: "\(rssBase)top-free-ipad/all/15/explicit.json")!
     }
     
     static var topSales: URL {
-        return URL(string: "\(rssBase)top-grossing/all/10/explicit.json")!
+        return URL(string: "\(rssBase)top-grossing/all/15/explicit.json")!
     }
     
     static var ipadTopSales: URL {
-        return URL(string: "\(rssBase)top-grossing-ipad/all/10/explicit.json")!
+        return URL(string: "\(rssBase)top-grossing-ipad/all/15/explicit.json")!
     }
     
     static var topPaid: URL {
-        return URL(string: "\(rssBase)top-paid/all/10/explicit.json")!
+        return URL(string: "\(rssBase)top-paid/all/15/explicit.json")!
     }
     
     static var topPaidGames: URL {
-        return URL(string: "\(rssBase)top-paid/games/10/explicit.json")!
+        return URL(string: "\(rssBase)top-paid/games/15/explicit.json")!
     }
     
     static func search(term: String) -> URL {
