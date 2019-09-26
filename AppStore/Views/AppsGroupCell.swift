@@ -11,7 +11,7 @@ import Foundation
 
 protocol AppsGroupCellDelegate : class {
     var classType: String { get }
-    func reload()
+    func allDisplayButtonTapped(feed: Feed?)
 }
 
 final class AppsGroupCell : UICollectionViewCell, ReusableCollectionViewCellPresenter {
@@ -49,7 +49,13 @@ final class AppsGroupCell : UICollectionViewCell, ReusableCollectionViewCellPres
     }
     
     func titleConversion() {
-        titleLabel.text = TitleConversion(delegate?.classType, titleLabel.text)?.rawValue
+        let title = TitleConversion(delegate?.classType, titleLabel.text)?.rawValue
+        titleLabel.text = title
+        data?.title = title ?? ""
+    }
+    
+    @IBAction func allDisplayButtonTapped(_ sender: Any) {
+        delegate?.allDisplayButtonTapped(feed: data)
     }
     
     //
@@ -110,7 +116,4 @@ extension AppsGroupCell {
 }
 
 extension AppsGroupCell : AppsCarouselViewDelegate {
-    func reload() {
-        delegate?.reload()
-    }
 }

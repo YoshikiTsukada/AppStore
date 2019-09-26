@@ -22,8 +22,17 @@ class IntroductionVC : UIViewController {
     }
     
     override func loadView() {
-        if let view = UINib(nibName: "IntroductionVC", bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView {
+        if let view = UINib(nibName: String(describing: IntroductionVC.self), bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView {
             self.view = view
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch (SegueType(segue.identifier), segue.destination) {
+        case let (.showIntroductionListUpVC, vc as IntroductionListUpVC):
+            guard let feed = sender as! Feed? else { return }
+            vc.data.feed = feed
+        default: break
         }
     }
     
@@ -51,8 +60,7 @@ extension IntroductionVC : UICollectionViewDataSource, UICollectionViewDelegate 
             return 0
         case .appsGroup?:
             return data.appsGroup.count
-        default:
-            return 0
+        default: return 0
         }
     }
     
@@ -66,8 +74,7 @@ extension IntroductionVC : UICollectionViewDataSource, UICollectionViewDelegate 
             cell.delegate = self
             cell.titleConversion()
             return cell
-        default:
-            return UICollectionViewCell()
+        default: return UICollectionViewCell()
         }
     }
 }
@@ -81,8 +88,7 @@ extension IntroductionVC : UICollectionViewDelegateFlowLayout {
             return .zero
         case .appsGroup?:
             return .init(width: width, height: DataSet.appsGroupCellHeight)
-        default:
-            return .zero
+        default: return .zero
         }
     }
 }
@@ -92,8 +98,8 @@ extension IntroductionVC : AppsGroupCellDelegate {
         return String(describing: type(of: self))
     }
     
-    func reload() {
-        collectionView.reloadData()
+    func allDisplayButtonTapped(feed: Feed?) {
+        performSegue(withIdentifier: SegueType.showIntroductionListUpVC.rawValue, sender: feed)
     }
 }
 
@@ -129,8 +135,8 @@ extension IntroductionVC {
 
 extension IntroductionVC {
     private enum SectionHandler : Int, CaseIterable {
-        case appsGroupHeader = 0
-        case appsGroup = 1
+        case appsGroupHeader
+        case appsGroup
         
         init?(_ section: Int) {
             switch section {
@@ -138,6 +144,16 @@ extension IntroductionVC {
             case type(of: self).appsGroup.rawValue: self = .appsGroup
             default: return nil
             }
+        }
+    }
+}
+
+extension IntroductionVC {
+    enum SegueType : String {
+        case showIntroductionListUpVC
+        
+        init?(_ identifier: String?) {
+            self.init(rawValue: identifier ?? "")
         }
     }
 }

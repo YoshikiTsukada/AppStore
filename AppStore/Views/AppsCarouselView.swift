@@ -10,7 +10,6 @@ import UIKit
 import Foundation
 
 protocol AppsCarouselViewDelegate : class {
-    func reload()
 }
 
 class AppsCarouselView : UIView {
@@ -57,7 +56,7 @@ extension AppsCarouselView : UICollectionViewDataSource, UICollectionViewDelegat
         
         let results = data.results[indexPath.row]
         let cell = AppsCarouselCell.dequeue(from: collectionView, for: indexPath, with: results)
-        cell.insertSectionLineIfNeeded(for: indexPath.row)
+        cell.insertSectionLineIfNeeded(indexPath.row % 3 != 2)
         return cell
     }
 }

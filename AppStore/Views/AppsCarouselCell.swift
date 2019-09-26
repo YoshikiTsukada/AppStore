@@ -14,10 +14,12 @@ final class AppsCarouselCell : UICollectionViewCell, ReusableCollectionViewCellP
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var getButton: UIButton!
     
-    let iconWidth: CGFloat = 50
-    
-    func insertSectionLineIfNeeded(for row: Int) {
-        guard row % 3 != 2 else { return }
+    var iconWidth: CGFloat {
+        return IntroductionVC.DataSet.appsCarouselImageWidth
+    }
+
+    func insertSectionLineIfNeeded(_ required: Bool) {
+        guard required else { return }
         
         let xIndex = IntroductionVC.DataSet.appsCarouselImageWidth + IntroductionVC.DataSet.appsCarouselImageSpacing
         let frame = CGRect(
@@ -59,7 +61,6 @@ final class AppsCarouselCell : UICollectionViewCell, ReusableCollectionViewCellP
                 }
             }
         }
-        
         setUpGetButton()
     }
 }

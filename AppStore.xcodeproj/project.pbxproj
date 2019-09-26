@@ -33,6 +33,10 @@
 		2640265D231B78C2007923CA /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2640265C231B78C2007923CA /* UIImage++.swift */; };
 		2640265F232AB77E007923CA /* CollectionViewCellRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2640265E232AB77E007923CA /* CollectionViewCellRegister.swift */; };
 		26402661232B2F8D007923CA /* ReusableCollectionViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26402660232B2F8D007923CA /* ReusableCollectionViewCellPresenter.swift */; };
+		26AC914723392351007B0194 /* IntroductionListUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AC914623392351007B0194 /* IntroductionListUpVC.swift */; };
+		26AC914923392504007B0194 /* IntroductionListUpVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26AC914823392504007B0194 /* IntroductionListUpVC.xib */; };
+		26AC914B23392793007B0194 /* IntroductionListUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AC914A23392793007B0194 /* IntroductionListUpCell.swift */; };
+		26AC914D233927E6007B0194 /* IntroductionListUpCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26AC914C233927E6007B0194 /* IntroductionListUpCell.xib */; };
 		26C0DC53233245FF00B1398F /* SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C0DC52233245FF00B1398F /* SwiftUI.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +90,10 @@
 		2640265C231B78C2007923CA /* UIImage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++.swift"; sourceTree = "<group>"; };
 		2640265E232AB77E007923CA /* CollectionViewCellRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellRegister.swift; sourceTree = "<group>"; };
 		26402660232B2F8D007923CA /* ReusableCollectionViewCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCollectionViewCellPresenter.swift; sourceTree = "<group>"; };
+		26AC914623392351007B0194 /* IntroductionListUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IntroductionListUpVC.swift; path = AppStore/Flows/IntroductionListUpVC.swift; sourceTree = SOURCE_ROOT; };
+		26AC914823392504007B0194 /* IntroductionListUpVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IntroductionListUpVC.xib; path = AppStore/Controllers/IntroductionListUpVC.xib; sourceTree = SOURCE_ROOT; };
+		26AC914A23392793007B0194 /* IntroductionListUpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IntroductionListUpCell.swift; path = AppStore/Controllers/IntroductionListUpCell.swift; sourceTree = SOURCE_ROOT; };
+		26AC914C233927E6007B0194 /* IntroductionListUpCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroductionListUpCell.xib; sourceTree = "<group>"; };
 		26C0DC52233245FF00B1398F /* SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,13 +184,16 @@
 		2640263A230C618E007923CA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				264026502312D05C007923CA /* AppsGroupCell.swift */,
+				2640264E2312C98B007923CA /* AppsGroupCell.xib */,
 				264026522312DBBC007923CA /* AppsCarouselView.swift */,
 				264026542312DC15007923CA /* AppsCarouselView.xib */,
 				264026582318219F007923CA /* AppsCarouselCell.swift */,
 				264026562318178B007923CA /* AppsCarouselCell.xib */,
-				264026502312D05C007923CA /* AppsGroupCell.swift */,
-				2640264E2312C98B007923CA /* AppsGroupCell.xib */,
+				26AC914A23392793007B0194 /* IntroductionListUpCell.swift */,
+				26AC914C233927E6007B0194 /* IntroductionListUpCell.xib */,
 				2640264C2312AE0C007923CA /* IntroductionVC.xib */,
+				26AC914823392504007B0194 /* IntroductionListUpVC.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -200,6 +211,7 @@
 		2640263C230C61A6007923CA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				26AC914623392351007B0194 /* IntroductionListUpVC.swift */,
 				26402640230C65F8007923CA /* AppsIntroductionVC.swift */,
 				26402646230F04EB007923CA /* IntroductionVC.swift */,
 				26402644230D1B16007923CA /* GamesIntroductionVC.swift */,
@@ -323,11 +335,13 @@
 			files = (
 				2640264D2312AE0C007923CA /* IntroductionVC.xib in Resources */,
 				26402643230C6661007923CA /* Introduction.storyboard in Resources */,
+				26AC914D233927E6007B0194 /* IntroductionListUpCell.xib in Resources */,
 				264026552312DC15007923CA /* AppsCarouselView.xib in Resources */,
 				26402613230BD26C007923CA /* LaunchScreen.storyboard in Resources */,
 				26402610230BD26C007923CA /* Assets.xcassets in Resources */,
 				2640260E230BD26B007923CA /* Main.storyboard in Resources */,
 				2640264F2312C98B007923CA /* AppsGroupCell.xib in Resources */,
+				26AC914923392504007B0194 /* IntroductionListUpVC.xib in Resources */,
 				264026572318178B007923CA /* AppsCarouselCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,12 +372,14 @@
 				26402645230D1B16007923CA /* GamesIntroductionVC.swift in Sources */,
 				264026592318219F007923CA /* AppsCarouselCell.swift in Sources */,
 				2640264923114CE5007923CA /* IntroductionApp.swift in Sources */,
+				26AC914B23392793007B0194 /* IntroductionListUpCell.swift in Sources */,
 				2640265F232AB77E007923CA /* CollectionViewCellRegister.swift in Sources */,
 				26402661232B2F8D007923CA /* ReusableCollectionViewCellPresenter.swift in Sources */,
 				2640263F230C6305007923CA /* AppsTabBarController.swift in Sources */,
 				26402647230F04EB007923CA /* IntroductionVC.swift in Sources */,
 				26402639230BF572007923CA /* String++.swift in Sources */,
 				26402609230BD26B007923CA /* AppDelegate.swift in Sources */,
+				26AC914723392351007B0194 /* IntroductionListUpVC.swift in Sources */,
 				2640265B231B707F007923CA /* ImageClient.swift in Sources */,
 				26C0DC53233245FF00B1398F /* SwiftUI.swift in Sources */,
 				2640264B231194C6007923CA /* APIClient.swift in Sources */,

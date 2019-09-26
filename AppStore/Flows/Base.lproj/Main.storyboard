@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q9h-4y-h1Y">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q9h-4y-h1Y">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -49,16 +47,32 @@
             <objects>
                 <viewController id="Mdr-d2-1fR" customClass="GamesIntroductionVC" customModule="AppStore" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="4tc-Ab-aEn"/>
+                    <connections>
+                        <segue destination="jnU-Hx-I7B" kind="show" identifier="showIntroductionListUpVC" id="Iyw-A9-Thh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1k-uh-FR6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1277" y="-908"/>
+        </scene>
+        <!--Introduction List UpVC-->
+        <scene sceneID="ORa-bc-fuW">
+            <objects>
+                <viewController id="jnU-Hx-I7B" customClass="IntroductionListUpVC" customModule="AppStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="nFv-I9-oTz"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jjq-Zk-4N8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2130" y="-908"/>
         </scene>
         <!--Apps IntroductionVC-->
         <scene sceneID="CWq-gm-gnr">
             <objects>
                 <viewController id="pvK-BJ-9aX" customClass="AppsIntroductionVC" customModule="AppStore" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="m8k-3C-WyB"/>
+                    <connections>
+                        <segue destination="jnU-Hx-I7B" kind="show" identifier="showIntroductionListUpVC" id="jv6-yt-qy6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="inY-7C-vYd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -101,4 +115,7 @@
         <image name="games" width="25" height="25"/>
         <image name="search" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="jv6-yt-qy6"/>
+    </inferredMetricsTieBreakers>
 </document>
