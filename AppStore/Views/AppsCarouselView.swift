@@ -16,8 +16,6 @@ class AppsCarouselView : UIView {
     var collectionView: UICollectionView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-//        layout.minimumInteritemSpacing = 0
-//        layout.minimumLineSpacing = 0
         
         let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
         collectionView.backgroundColor = .white

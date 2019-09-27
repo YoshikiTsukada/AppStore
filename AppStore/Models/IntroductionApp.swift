@@ -22,13 +22,6 @@ struct Feed : Decodable {
     var results: [Result]
 }
 
-//struct Result : Decodable {
-//    var artistName: String
-//    var id: Int
-//    var name: String
-//    var artistId: Int
-//    var artworkUrl100: URL
-//}
 struct Result : Decodable {
     var artistName: String
     var id: String

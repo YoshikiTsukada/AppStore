@@ -30,17 +30,6 @@ final class IntroductionListUpCell : UICollectionViewCell, ReusableCollectionVie
         let view = UIView(frame: frame)
         view.backgroundColor = .lightGray
         contentView.addSubview(view)
-
-//        let xIndex = IntroductionVC.DataSet.appsCarouselImageWidth + IntroductionVC.DataSet.appsCarouselImageSpacing
-//        let frame = CGRect(
-//            x: self.bounds.origin.x + xIndex,
-//            y: self.bounds.origin.y + self.bounds.height - 1,
-//            width: self.bounds.width - xIndex,
-//            height: 0.5
-//        )
-//        let view = UIView(frame: frame)
-//        view.backgroundColor = .lightGray
-//        contentView.addSubview(view)
     }
     
     func setUpGetButton() {
