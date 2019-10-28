@@ -52,6 +52,10 @@ class URLMaker {
         return URL(string: "\(searchBase)term=\(term.urlEncoded)&country=jp&media=software&entity=software&lang=ja_jp")!
     }
     
+    static func detail(id: Int) -> URL {
+        return URL(string: "https://itunes.apple.com/lookup?id=\(id)&country=jp&media=software&entity=software&lang=ja_jp")!
+    }
+    
     static func review(id: Int) -> URL {
         return URL(string: "http://itunes.apple.com/jp/rss/customerreviews/id=id/json")!
     }

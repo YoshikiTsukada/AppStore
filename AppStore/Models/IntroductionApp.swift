@@ -29,3 +29,29 @@ struct Result : Decodable {
     var artistId: String
     var artworkUrl100: String
 }
+
+struct App : Decodable {
+    var results: DetailResult
+}
+
+struct DetailResult : Decodable {
+    var screenshotUrls
+    var artworkUrl100: String
+    var advisories
+    var supportedDevices
+    var fileSizeBytes: String
+    var trackContentRating: String
+    var releaseDate: String
+    var releaseNotes: String
+    var primaryGenreId
+    var sellerName
+    var currentVersionReleaseDate
+    var primaryGenreName
+    var formattedPrice
+    var version
+    var trackId
+    var artistId
+    var description
+    var averageUserRating
+    var userRatingCount
+}
