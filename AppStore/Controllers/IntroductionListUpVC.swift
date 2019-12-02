@@ -84,7 +84,7 @@ extension IntroductionListUpVC {
     }
 }
 
-extension IntroductionListUpVC : CollectionViewCellRegister {
+extension IntroductionListUpVC : CollectionViewRegister {
     var cellTypes: [UICollectionViewCell.Type] {
         return [
             IntroductionListUpCell.self

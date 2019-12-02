@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class IntroductionListUpCell : UICollectionViewCell, ReusableCollectionViewCellPresenter {
+final class IntroductionListUpCell : UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var getButton: UIButton!
@@ -39,7 +39,7 @@ final class IntroductionListUpCell : UICollectionViewCell, ReusableCollectionVie
     }
     
     //
-    // MARK: ReusableCollectionViewCellPresenter
+    // MARK: CollectionViewCellPresenter
     //
     
     typealias T = Result

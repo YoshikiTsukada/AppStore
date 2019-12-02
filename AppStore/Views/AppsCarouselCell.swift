@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-final class AppsCarouselCell : UICollectionViewCell, ReusableCollectionViewCellPresenter {
+final class AppsCarouselCell : UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var getButton: UIButton!
@@ -40,7 +40,7 @@ final class AppsCarouselCell : UICollectionViewCell, ReusableCollectionViewCellP
     }
     
     //
-    // MARK: ReusableCollectionViewCellPresenter
+    // MARK: CollectionViewCellPresenter
     //
     
     typealias T = Result

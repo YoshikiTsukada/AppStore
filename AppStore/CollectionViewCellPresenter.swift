@@ -1,5 +1,5 @@
 //
-//  ReusableCollectionViewCellPresenter.swift
+//  CollectionViewCellPresenter.swift
 //  AppStore
 //
 //  Created by 塚田良輝 on 2019/09/13.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol ReusableCollectionViewCellPresenter : class {
+protocol CollectionViewCellPresenter : class {
     associatedtype T
     
     var data: T? { get set }
@@ -17,7 +17,7 @@ protocol ReusableCollectionViewCellPresenter : class {
     func apply(with data: T)
 }
 
-extension ReusableCollectionViewCellPresenter where Self : UICollectionViewCell {
+extension CollectionViewCellPresenter where Self : UICollectionViewCell {
     static func dequeue(from collectionView: UICollectionView, for indexPath: IndexPath, with data: T) -> Self {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: self), for: indexPath) as! Self
         cell.data = data

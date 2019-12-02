@@ -14,7 +14,7 @@ protocol AppsGroupCellDelegate : class {
     func allDisplayButtonTapped(feed: Feed?)
 }
 
-final class AppsGroupCell : UICollectionViewCell, ReusableCollectionViewCellPresenter {
+final class AppsGroupCell : UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var allDisplayButton: UIButton!
     @IBOutlet var appsCarousel: UIView!
@@ -59,7 +59,7 @@ final class AppsGroupCell : UICollectionViewCell, ReusableCollectionViewCellPres
     }
     
     //
-    // MARK: ReusableCollectionViewCellPresenter
+    // MARK: CollectionViewCellPresenter
     //
     
     typealias T = Feed

@@ -86,7 +86,7 @@ extension AppsCarouselView {
     }
 }
 
-extension AppsCarouselView : CollectionViewCellRegister {
+extension AppsCarouselView : CollectionViewRegister {
     var cellTypes: [UICollectionViewCell.Type] {
         return [
             AppsCarouselCell.self

@@ -158,7 +158,7 @@ extension IntroductionVC {
     }
 }
 
-extension IntroductionVC : CollectionViewCellRegister {
+extension IntroductionVC : CollectionViewRegister {
     var cellTypes: [UICollectionViewCell.Type] {
         return [
             AppsGroupCell.self

@@ -1,5 +1,5 @@
 //
-//  CollectionViewCellRegister.swift
+//  CollectionViewRegister.swift
 //  AppStore
 //
 //  Created by 塚田良輝 on 2019/09/13.
@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-protocol CollectionViewCellRegister : class {
+protocol CollectionViewRegister : class {
     var cellTypes: [UICollectionViewCell.Type] { get }
     func registerAllCollectionViewCells(to collectionView: UICollectionView)
     func registerCollectionViewCell(to collectionView: UICollectionView, cellType: UICollectionViewCell.Type)
 }
 
-extension CollectionViewCellRegister {
+extension CollectionViewRegister {
     var cellTypes: [UICollectionViewCell.Type] { return [] }
     
     func registerAllCollectionViewCells(to collectionView: UICollectionView) {
