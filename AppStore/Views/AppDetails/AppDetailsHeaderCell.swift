@@ -40,8 +40,6 @@ final class AppDetailsHeaderCell : UICollectionViewCell, CollectionViewCellPrese
                 let resizedImage = image?.resized(toWidth: type(of: self).iconWidth)
                 DispatchQueue.main.async {
                     self.iconImageView.image = resizedImage
-                    self.iconImageView.layer.cornerRadius = 10
-                    self.iconImageView.clipsToBounds = true
                 }
             }
         }

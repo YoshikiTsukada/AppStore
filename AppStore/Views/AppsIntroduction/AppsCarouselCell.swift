@@ -32,13 +32,7 @@ final class AppsCarouselCell : UICollectionViewCell, CollectionViewCellPresenter
         view.backgroundColor = .lightGray
         contentView.addSubview(view)
     }
-    
-    func setUpGetButton() {
-        let height = getButton.bounds.height
-        getButton.layer.cornerRadius = height / 2
-        getButton.clipsToBounds = true
-    }
-    
+
     //
     // MARK: CollectionViewCellPresenter
     //
@@ -57,11 +51,8 @@ final class AppsCarouselCell : UICollectionViewCell, CollectionViewCellPresenter
                 let resizedImage = image?.resized(toWidth: self.iconWidth)
                 DispatchQueue.main.async {
                     self.iconImageView.image = resizedImage
-                    self.iconImageView.layer.cornerRadius = 10
-                    self.iconImageView.clipsToBounds = true
                 }
             }
         }
-        setUpGetButton()
     }
 }
