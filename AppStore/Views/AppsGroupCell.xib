@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,7 +25,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ylO-JX-78m">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ylO-JX-78m" customClass="AppsCarouselView" customModule="AppStore" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="47.5" width="356" height="205.5"/>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8C-NT-FV7">
@@ -49,11 +48,10 @@
                 <constraint firstAttribute="bottom" secondItem="ylO-JX-78m" secondAttribute="bottom" id="xWv-xy-Dcu"/>
                 <constraint firstItem="fuS-3I-z3j" firstAttribute="leading" secondItem="U6d-Kb-h8P" secondAttribute="leading" constant="20" id="zMf-Q6-SdI"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="Gq3-1R-dNe"/>
             <size key="customSize" width="356" height="253"/>
             <connections>
                 <outlet property="allDisplayButton" destination="f8C-NT-FV7" id="35x-66-A3D"/>
-                <outlet property="appsCarousel" destination="ylO-JX-78m" id="vtY-f7-lhD"/>
+                <outlet property="appsCarouselView" destination="ylO-JX-78m" id="o2x-eW-Yaf"/>
                 <outlet property="titleLabel" destination="fuS-3I-z3j" id="wbc-rp-1Dm"/>
             </connections>
             <point key="canvasLocation" x="-2.8985507246376816" y="-124.21875"/>

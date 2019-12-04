@@ -17,23 +17,16 @@ protocol AppsGroupCellDelegate : class {
 final class AppsGroupCell : UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var allDisplayButton: UIButton!
-    @IBOutlet var appsCarousel: UIView!
+    @IBOutlet weak var appsCarouselView: AppsCarouselView!
     
-    var appsCarouselView: AppsCarouselView?
     var delegate: AppsGroupCellDelegate?
     
     let titleLabelHeight: CGFloat = 20
     
     func setUpAppsCarouselView(with feed: Feed) {
-        appsCarouselView?.removeFromSuperview()
-        appsCarouselView = nil
-        
-        layoutIfNeeded()
-        let view = AppsCarouselView(frame: appsCarousel.frame)
-        view.data.results = feed.results
-        view.delegate = self
-        appsCarouselView = view
-        contentView.addSubview(appsCarouselView!)
+        appsCarouselView.data.results = feed.results
+        appsCarouselView.delegate = self
+        appsCarouselView.collectionView.reloadData()
     }
     
     func insertSectionLine() {

@@ -13,34 +13,28 @@ protocol AppsCarouselViewDelegate : class {
 }
 
 class AppsCarouselView : UIView {
-    var collectionView: UICollectionView {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        
-        let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.showsHorizontalScrollIndicator = false
-        registerAllCollectionViewCells(to: collectionView)
-        return collectionView
-    }
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var data: DataSet = .empty
     var delegate: AppsCarouselViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpCollectionView()
+        loadNib()
+        registerAllCollectionViewCells(to: collectionView)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)!
+        loadNib()
+        registerAllCollectionViewCells(to: collectionView)
     }
-    
-    func setUpCollectionView() {
-        addSubview(collectionView)
-        print("setupCollectionView")
+
+    func loadNib() {
+        if let view = UINib(nibName: String(describing: type(of: self)), bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView {
+            view.frame = bounds
+            addSubview(view)
+        }
     }
 }
 
