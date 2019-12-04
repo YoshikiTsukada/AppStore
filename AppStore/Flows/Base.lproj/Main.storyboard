@@ -49,6 +49,7 @@
                     <navigationItem key="navigationItem" id="4tc-Ab-aEn"/>
                     <connections>
                         <segue destination="jnU-Hx-I7B" kind="show" identifier="showIntroductionListUpVC" id="Iyw-A9-Thh"/>
+                        <segue destination="KJg-2x-OFa" kind="show" identifier="showAppDetailsVC" id="Wv7-bA-VhL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1k-uh-FR6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -60,6 +61,9 @@
             <objects>
                 <viewController id="jnU-Hx-I7B" customClass="IntroductionListUpVC" customModule="AppStore" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="nFv-I9-oTz"/>
+                    <connections>
+                        <segue destination="KJg-2x-OFa" kind="show" identifier="showAppDetailsVC" id="aT3-b4-hs4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjq-Zk-4N8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -72,11 +76,22 @@
                     <navigationItem key="navigationItem" id="m8k-3C-WyB"/>
                     <connections>
                         <segue destination="jnU-Hx-I7B" kind="show" identifier="showIntroductionListUpVC" id="jv6-yt-qy6"/>
+                        <segue destination="KJg-2x-OFa" kind="show" identifier="showAppDetailsVC" id="MOC-6a-P3L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="inY-7C-vYd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1277" y="-183"/>
+        </scene>
+        <!--App DetailsVC-->
+        <scene sceneID="gUX-du-9kW">
+            <objects>
+                <viewController id="KJg-2x-OFa" customClass="AppDetailsVC" customModule="AppStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="dss-t8-GVo"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2JN-rN-EgE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2129" y="-183"/>
         </scene>
         <!--App-->
         <scene sceneID="hzC-kF-39T">
@@ -116,6 +131,7 @@
         <image name="search" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="aT3-b4-hs4"/>
         <segue reference="jv6-yt-qy6"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -11,7 +11,8 @@ import Foundation
 
 protocol AppsGroupCellDelegate : class {
     var classType: String { get }
-    func allDisplayButtonTapped(feed: Feed?)
+    func appsGroupCell(allDisplayButtonTappedWith feed: Feed?)
+    func appsGroupCell(didSelectAppIdWith id: String)
 }
 
 final class AppsGroupCell : UICollectionViewCell, CollectionViewCellPresenter {
@@ -48,7 +49,7 @@ final class AppsGroupCell : UICollectionViewCell, CollectionViewCellPresenter {
     }
     
     @IBAction func allDisplayButtonTapped(_ sender: Any) {
-        delegate?.allDisplayButtonTapped(feed: data)
+        delegate?.appsGroupCell(allDisplayButtonTappedWith: data)
     }
     
     //
@@ -58,8 +59,9 @@ final class AppsGroupCell : UICollectionViewCell, CollectionViewCellPresenter {
     typealias T = Feed
     var data: Feed?
     
-    func apply(with data: Feed) {
-        let feed = data
+    func apply(with data: Feed?) {
+        guard let feed = data else { return }
+        
         titleLabel.text = feed.title
         setUpAppsCarouselView(with: feed)
         insertSectionLine()
@@ -67,7 +69,7 @@ final class AppsGroupCell : UICollectionViewCell, CollectionViewCellPresenter {
 }
 
 extension AppsGroupCell {
-    enum TitleConversion : String {
+    private enum TitleConversion : String {
         case recommendedNewGames = "おすすめの新着ゲーム"
         case topFreeGames = "トップ無料ゲーム"
         case topPaidGames = "トップ有料ゲーム"
@@ -109,4 +111,7 @@ extension AppsGroupCell {
 }
 
 extension AppsGroupCell : AppsCarouselViewDelegate {
+    func appsCarouselView(didSelectAppIdWith id: String) {
+        delegate?.appsGroupCell(didSelectAppIdWith: id)
+    }
 }

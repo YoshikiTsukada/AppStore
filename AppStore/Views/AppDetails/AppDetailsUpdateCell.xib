@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="jD0-Mq-szq" customClass="AppDetailsUpdateCell" customModule="AppStore" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="437" height="162"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="G7h-mp-wnx">
+                <rect key="frame" x="0.0" y="0.0" width="437" height="162"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="バージョン2.7.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8W4-rd-9vi">
+                        <rect key="frame" x="20" y="5" width="122.5" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20.5" id="BpT-sm-buM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2週間前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mz-4d-BqW">
+                        <rect key="frame" x="355" y="5" width="62" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJB-q6-wEx">
+                        <rect key="frame" x="20" y="45.5" width="397" height="76.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2Z-PH-saU">
+                        <rect key="frame" x="340" y="92" width="77" height="30"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" title="さらに表示"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="fJB-q6-wEx" secondAttribute="trailing" constant="20" id="FE2-Zt-Qk6"/>
+                    <constraint firstAttribute="trailing" secondItem="1mz-4d-BqW" secondAttribute="trailing" constant="20" id="FTU-Gj-9hF"/>
+                    <constraint firstItem="1mz-4d-BqW" firstAttribute="top" secondItem="G7h-mp-wnx" secondAttribute="top" constant="5" id="ckk-yO-KNW"/>
+                    <constraint firstItem="fJB-q6-wEx" firstAttribute="top" secondItem="8W4-rd-9vi" secondAttribute="bottom" constant="20" id="iYa-YF-Nnb"/>
+                    <constraint firstItem="8W4-rd-9vi" firstAttribute="leading" secondItem="G7h-mp-wnx" secondAttribute="leading" constant="20" id="jU5-ph-KNf"/>
+                    <constraint firstItem="F2Z-PH-saU" firstAttribute="bottom" secondItem="fJB-q6-wEx" secondAttribute="bottom" id="jju-qd-bvw"/>
+                    <constraint firstItem="F2Z-PH-saU" firstAttribute="trailing" secondItem="fJB-q6-wEx" secondAttribute="trailing" id="laD-Mc-dwb"/>
+                    <constraint firstAttribute="bottom" secondItem="fJB-q6-wEx" secondAttribute="bottom" constant="40" id="xXN-lS-pVg"/>
+                    <constraint firstItem="fJB-q6-wEx" firstAttribute="leading" secondItem="G7h-mp-wnx" secondAttribute="leading" constant="20" id="y3I-gg-Ykf"/>
+                    <constraint firstItem="8W4-rd-9vi" firstAttribute="top" secondItem="G7h-mp-wnx" secondAttribute="top" constant="5" id="yTH-Xd-ZO7"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="437" height="162"/>
+            <connections>
+                <outlet property="newestVersionLabel" destination="8W4-rd-9vi" id="dcU-oV-vuu"/>
+                <outlet property="showMoreButton" destination="F2Z-PH-saU" id="WBf-a5-wHv"/>
+                <outlet property="updateDateLabel" destination="1mz-4d-BqW" id="NQ9-Ev-fed"/>
+                <outlet property="updateDetailsLabel" destination="fJB-q6-wEx" id="O5y-za-rN2"/>
+            </connections>
+            <point key="canvasLocation" x="248.55072463768118" y="105.13392857142857"/>
+        </collectionViewCell>
+    </objects>
+</document>

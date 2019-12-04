@@ -8,5 +8,19 @@
 
 import UIKit
 
-class AppDetailsReviewsCell : UICollectionViewCell {
+final class AppDetailsReviewsCell : UICollectionViewCell, CollectionViewCellPresenter {
+    @IBOutlet weak var averageRatingLabel: UILabel!
+
+    //
+    // MARK: CollectionViewCellPresenter
+    //
+    
+    typealias T = App
+    var data: App?
+    
+    func apply(with data: App?) {
+        guard let result = data?.results.first else { return }
+        
+        averageRatingLabel.text = String(result.averageUserRating)
+    }
 }

@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 class IntroductionVC : UIViewController {
-    @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var data: DataSet = .empty
     var accessUrls: [URL] { return [] }
@@ -32,6 +32,9 @@ class IntroductionVC : UIViewController {
         case let (.showIntroductionListUpVC, vc as IntroductionListUpVC):
             guard let feed = sender as! Feed? else { return }
             vc.data.feed = feed
+        case let (.showAppDetailsVC, vc as AppDetailsVC):
+            guard let id = sender as! String? else { return }
+            vc.data.id = id
         default: break
         }
     }
@@ -49,7 +52,11 @@ class IntroductionVC : UIViewController {
     }
 }
 
-extension IntroductionVC : UICollectionViewDataSource, UICollectionViewDelegate {
+extension IntroductionVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    //
+    // MARK: UICollectionViewDataSource
+    //
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return SectionHandler.allCases.count
     }
@@ -77,9 +84,15 @@ extension IntroductionVC : UICollectionViewDataSource, UICollectionViewDelegate 
         default: return UICollectionViewCell()
         }
     }
-}
-
-extension IntroductionVC : UICollectionViewDelegateFlowLayout {
+    
+    //
+    // MARK: UICollectionViewDelegate
+    //
+    
+    //
+    // MARK: UICollectionViewDelegateFlowLayout
+    //
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         
@@ -98,8 +111,12 @@ extension IntroductionVC : AppsGroupCellDelegate {
         return String(describing: type(of: self))
     }
     
-    func allDisplayButtonTapped(feed: Feed?) {
+    func appsGroupCell(allDisplayButtonTappedWith feed: Feed?) {
         performSegue(withIdentifier: SegueType.showIntroductionListUpVC.rawValue, sender: feed)
+    }
+    
+    func appsGroupCell(didSelectAppIdWith id: String) {
+        performSegue(withIdentifier: SegueType.showAppDetailsVC.rawValue, sender: id)
     }
 }
 
@@ -151,6 +168,7 @@ extension IntroductionVC {
 extension IntroductionVC {
     enum SegueType : String {
         case showIntroductionListUpVC
+        case showAppDetailsVC
         
         init?(_ identifier: String?) {
             self.init(rawValue: identifier ?? "")

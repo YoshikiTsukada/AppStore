@@ -45,9 +45,10 @@ final class IntroductionListUpCell : UICollectionViewCell, CollectionViewCellPre
     typealias T = Result
     var data: Result?
     
-    func apply(with data: Result) {
+    func apply(with data: Result?) {
         iconImageView.image = nil
-        let result = data
+        guard let result = data else { return }
+        
         titleLabel.text = result.name
         
         if let url = URL(string: result.artworkUrl100) {

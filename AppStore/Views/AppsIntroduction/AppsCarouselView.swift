@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 
 protocol AppsCarouselViewDelegate : class {
+    func appsCarouselView(didSelectAppIdWith id: String)
 }
 
 class AppsCarouselView : UIView {
@@ -38,7 +39,11 @@ class AppsCarouselView : UIView {
     }
 }
 
-extension AppsCarouselView : UICollectionViewDataSource, UICollectionViewDelegate {
+extension AppsCarouselView : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    //
+    // MARK: UICollectionViewDataSource
+    //
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.results.count
     }
@@ -51,9 +56,21 @@ extension AppsCarouselView : UICollectionViewDataSource, UICollectionViewDelegat
         cell.insertSectionLineIfNeeded(indexPath.row % 3 != 2)
         return cell
     }
-}
-
-extension AppsCarouselView : UICollectionViewDelegateFlowLayout {
+    
+    //
+    // MARK: UICollectionViewDelegate
+    //
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
+        let id = data.results[indexPath.item].id
+        delegate?.appsCarouselView(didSelectAppIdWith: id)
+    }
+    
+    //
+    // MARK: UICollectionViewDelegateFlowLayout
+    //
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         return .init(width: IntroductionVC.DataSet.appsCarouselCellWidth(width), height: IntroductionVC.DataSet.appsCarouselCellHeight)

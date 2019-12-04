@@ -31,27 +31,28 @@ struct Result : Decodable {
 }
 
 struct App : Decodable {
-    var results: DetailResult
+    var results: [DetailResult]
 }
 
 struct DetailResult : Decodable {
-    var screenshotUrls
+    var screenshotUrls: [String]
     var artworkUrl100: String
-    var advisories
-    var supportedDevices
+    var advisories: [String]
+    var supportedDevices: [String]
     var fileSizeBytes: String
     var trackContentRating: String
     var releaseDate: String
-    var releaseNotes: String
-    var primaryGenreId
-    var sellerName
-    var currentVersionReleaseDate
-    var primaryGenreName
-    var formattedPrice
-    var version
-    var trackId
-    var artistId
-    var description
-    var averageUserRating
-    var userRatingCount
+    var releaseNotes: String?
+    var primaryGenreId: Int
+    var sellerName: String
+    var currentVersionReleaseDate: String
+    var primaryGenreName: String
+    var formattedPrice: String
+    var version: String
+    var trackName: String
+    var trackId: Int
+    var artistId: Int
+    var description: String
+    var averageUserRating: Float
+    var userRatingCount: Int
 }

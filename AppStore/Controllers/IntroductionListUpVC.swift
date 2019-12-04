@@ -9,7 +9,7 @@
 import UIKit
 
 class IntroductionListUpVC : BaseViewController {
-    @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var data: DataSet = .empty
     
@@ -24,7 +24,11 @@ class IntroductionListUpVC : BaseViewController {
     }
 }
 
-extension IntroductionListUpVC : UICollectionViewDataSource, UICollectionViewDelegate {
+extension IntroductionListUpVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    //
+    // MARK: UICollectionViewDataSource
+    //
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.feed?.results.count ?? 0
     }
@@ -36,9 +40,15 @@ extension IntroductionListUpVC : UICollectionViewDataSource, UICollectionViewDel
         cell.insertSectionLineIfNeeded(indexPath.row - 1 < data.feed?.results.count ?? 0)
         return cell
     }
-}
-
-extension IntroductionListUpVC : UICollectionViewDelegateFlowLayout {
+    
+    //
+    // MARK: UICollectionViewDelegate
+    //
+    
+    //
+    // MARK: UICollectionViewDelegateFlowLayout
+    //
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         return .init(width: DataSet.cellWidth(width), height: DataSet.cellHeight)

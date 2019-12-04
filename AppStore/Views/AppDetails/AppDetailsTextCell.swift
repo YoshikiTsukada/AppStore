@@ -8,9 +8,26 @@
 
 import UIKit
 
-class AppDetailsTextCell : UICollectionViewCell {
-    @IBOutlet var mainTextLabel: UILabel!
-    @IBOutlet var showMoreButton: UILabel!
-    @IBOutlet var developerView: UIStackView!
-    @IBOutlet var developerNameLabel: UILabel!
+final class AppDetailsTextCell : UICollectionViewCell, CollectionViewCellPresenter {
+    @IBOutlet weak var mainTextLabel: UILabel!
+    @IBOutlet weak var showMoreButton: UIButton!
+    @IBOutlet weak var developerView: UIStackView!
+    @IBOutlet weak var developerNameLabel: UILabel!
+    
+    @IBAction func showMoreButtonTapped(_ sender: Any) {
+    }
+    
+    //
+    // MARK: CollectionViewCellPresenter
+    //
+    
+    typealias T = App
+    var data: App?
+    
+    func apply(with data: App?) {
+        guard let result = data?.results.first else { return }
+        
+        mainTextLabel.text = result.description
+        developerNameLabel.text = result.sellerName
+    }
 }

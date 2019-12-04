@@ -11,6 +11,7 @@ import Foundation
 class APIClient {
     static func parseJson<T: Decodable>(from url: URL, completion: @escaping ((T) -> Void)) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
+            print(url)
             if let error = error {
                 print(error)
                 return
