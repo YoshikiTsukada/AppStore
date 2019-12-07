@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IntroductionListUpVC : UIViewController {
+class IntroductionListUpVC : BaseViewController {
     @IBOutlet var collectionView: UICollectionView!
     
     var data: DataSet = .empty
@@ -18,13 +18,7 @@ class IntroductionListUpVC : UIViewController {
         registerAllCollectionViewCells(to: collectionView)
         applyNavigationItem()
     }
-    
-    override func loadView() {
-           if let view = UINib(nibName: String(describing: IntroductionListUpVC.self), bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView {
-               self.view = view
-           }
-    }
-    
+
     func applyNavigationItem() {
         navigationItem.title = data.feed?.title
     }
