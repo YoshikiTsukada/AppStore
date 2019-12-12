@@ -14,8 +14,11 @@ class AppDetailsVC : UIViewController {
     
     var data: DataSet = .empty
     
+    var firstImage: UIImage?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         registerAllCollectionViewCells(to: collectionView)
         fetchAppDetails()
     }
@@ -29,11 +32,33 @@ class AppDetailsVC : UIViewController {
     func fetchAppDetails() {
         guard let id = data.id else { return }
         
+        let width: CGFloat = UIScreen.main.bounds.width - 40
         let url: URL = URLMaker.detail(id: id)
         APIClient.parseJson(from: url) { (response: App) in
             self.data.app = response
+            self.fetchImage(width: width)
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    func fetchImage(width: CGFloat) {
+        guard let urlString = data.app?.results.first?.screenshotUrls.first else { return }
+        
+        if let url = URL(string: urlString) {
+            ImageClient.request(with: url) { image in
+                guard let image = image else { return }
+                
+                if image.size.width > image.size.height {
+                    self.firstImage = image.resized(toWidth: width)
+                }
+                else {
+                    self.firstImage = image.resized(toWidth: width * 2 / 3)
+                }
+                DispatchQueue.main.async {
+                    self.collectionView.reloadSections([SectionHandler.imagesSection])
+                }
             }
         }
     }
@@ -60,9 +85,12 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
             return cell
         case .images:
             let cell = AppDetailsImagesCell.dequeue(from: collectionView, for: indexPath, with: app)
+            cell.firstImage = firstImage
+            cell.delegate = self
             return cell
         case .text:
             let cell = AppDetailsTextCell.dequeue(from: collectionView, for: indexPath, with: app)
+            cell.delegate = self
             return cell
         case .reviews:
             let cell = AppDetailsReviewsCell.dequeue(from: collectionView, for: indexPath, with: app)
@@ -98,7 +126,22 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
-        return .init(width: width, height: 190)
+
+        switch SectionHandler(indexPath.section) {
+        case .header:
+            return .init(width: width, height: 190)
+        case .images:
+            return AppDetailsImagesCell.estimatedSize(width: width, image: firstImage)
+        case .text:
+            return .init(width: width, height: 190)
+        case .reviews:
+            return .init(width: width, height: 190)
+        case .update:
+            return .init(width: width, height: 190)
+        case .information:
+            return .init(width: width, height: 190)
+        default: return .zero
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -128,6 +171,18 @@ extension AppDetailsVC {
         case reviews
         case update
         case information
+        
+        static var imagesIndexPath: IndexPath {
+            return .init(item: defaultNumberOfItems - 1, section: imagesSection)
+        }
+        
+        static var imagesSection: Int {
+            return images.rawValue
+        }
+        
+        static var textSection: Int {
+            return text.rawValue
+        }
         
         static let defaultNumberOfItems = 1
         
@@ -161,5 +216,15 @@ extension AppDetailsVC : CollectionViewRegister {
         return [
             AppDetailsSectionHeaderCell.self,
         ]
+    }
+}
+
+extension AppDetailsVC : AppDetailsImageCellDelegate {
+    func appDetailsImageCell(estimatedSize size: CGSize?) {
+    }
+}
+
+extension AppDetailsVC : AppDetailsTextCellDelegate {
+    func appDetailsTextCell() {
     }
 }

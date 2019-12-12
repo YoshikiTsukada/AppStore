@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -33,12 +32,11 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="fii-LA-TsH" secondAttribute="trailing" constant="20" id="4Td-4B-J3i"/>
                 <constraint firstItem="1XR-LP-XzH" firstAttribute="top" secondItem="T9U-x0-9c3" secondAttribute="top" constant="10" id="716-6k-9um"/>
-                <constraint firstItem="b88-p0-S8l" firstAttribute="bottom" secondItem="fii-LA-TsH" secondAttribute="bottom" constant="10" id="BSP-Se-2ER"/>
-                <constraint firstItem="b88-p0-S8l" firstAttribute="bottom" secondItem="1XR-LP-XzH" secondAttribute="bottom" constant="10" id="IyO-nv-rlI"/>
+                <constraint firstAttribute="bottom" secondItem="fii-LA-TsH" secondAttribute="bottom" constant="10" id="BSP-Se-2ER"/>
+                <constraint firstAttribute="bottom" secondItem="1XR-LP-XzH" secondAttribute="bottom" constant="10" id="IyO-nv-rlI"/>
                 <constraint firstItem="1XR-LP-XzH" firstAttribute="leading" secondItem="T9U-x0-9c3" secondAttribute="leading" constant="20" id="Pl1-7h-1Q1"/>
                 <constraint firstItem="fii-LA-TsH" firstAttribute="top" secondItem="T9U-x0-9c3" secondAttribute="top" constant="10" id="vjv-SD-qtV"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="b88-p0-S8l"/>
             <connections>
                 <outlet property="rightButton" destination="fii-LA-TsH" id="Kkf-og-KnS"/>
                 <outlet property="sectionTitleLabel" destination="1XR-LP-XzH" id="sCB-oD-8Gj"/>

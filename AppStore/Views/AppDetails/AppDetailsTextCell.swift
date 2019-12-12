@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol AppDetailsTextCellDelegate : class {
+    func appDetailsTextCell()
+}
+
 final class AppDetailsTextCell : UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet weak var mainTextLabel: UILabel!
     @IBOutlet weak var showMoreButton: UIButton!
     @IBOutlet weak var developerView: UIStackView!
     @IBOutlet weak var developerNameLabel: UILabel!
+    
+    var delegate: AppDetailsTextCellDelegate?
     
     @IBAction func showMoreButtonTapped(_ sender: Any) {
     }
