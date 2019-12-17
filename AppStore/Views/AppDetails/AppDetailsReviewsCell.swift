@@ -9,7 +9,16 @@
 import UIKit
 
 final class AppDetailsReviewsCell : UICollectionViewCell, CollectionViewCellPresenter {
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var averageRatingLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        registerAllCollectionViewCells(to: collectionView)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    }
 
     //
     // MARK: CollectionViewCellPresenter
@@ -22,5 +31,23 @@ final class AppDetailsReviewsCell : UICollectionViewCell, CollectionViewCellPres
         guard let result = data?.results.first else { return }
         
         averageRatingLabel.text = String(result.averageUserRating)
+    }
+}
+
+extension AppDetailsReviewsCell : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+}
+
+extension AppDetailsReviewsCell : CollectionViewRegister {
+    var cellTypes: [UICollectionViewCell.Type] {
+        return [
+            AppDetailsReviewCell.self,
+        ]
     }
 }
