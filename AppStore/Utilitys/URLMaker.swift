@@ -8,6 +8,8 @@
 
 import Foundation
 
+// http://www.ianbauters.be/genreid/documentation/itunes_search_api_jp/index.html
+
 class URLMaker {
     static let searchBase = "https://itunes.apple.com/search?"
     static let rssBase = "https://rss.itunes.apple.com/api/v1/jp/ios-apps/"

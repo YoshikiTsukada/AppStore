@@ -30,7 +30,7 @@ final class AppDetailsImagesCell : UICollectionViewCell, CollectionViewCellPrese
     static func estimatedSize(width: CGFloat, image: UIImage?) -> CGSize {
         guard let size = image?.size else { return .zero }
         
-        return .init(width: width, height: size.height)
+        return .init(width: width, height: size.height + 21)
     }
     
     //

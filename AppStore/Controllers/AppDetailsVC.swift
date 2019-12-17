@@ -13,6 +13,7 @@ class AppDetailsVC : UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var data: DataSet = .empty
+    var cellSize: CellSizePresenter = .empty
     
     var firstImage: UIImage?
     
@@ -90,6 +91,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
             return cell
         case .text:
             let cell = AppDetailsTextCell.dequeue(from: collectionView, for: indexPath, with: app)
+            cell.buttonTapped = cellSize.showMoreButtonTapped
             cell.delegate = self
             return cell
         case .reviews:
@@ -133,7 +135,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
         case .images:
             return AppDetailsImagesCell.estimatedSize(width: width, image: firstImage)
         case .text:
-            return .init(width: width, height: 190)
+            return AppDetailsTextCell.estimatedSize(width: width, height: cellSize.textCellHeight)
         case .reviews:
             return .init(width: width, height: 190)
         case .update:
@@ -149,7 +151,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
         
         switch SectionHandler(section) {
         case .reviews, .update, .information:
-            return .init(width: width, height: 100)
+            return .init(width: width, height: 40)
         default: return .zero
         }
     }
@@ -160,6 +162,14 @@ extension AppDetailsVC {
         var id: String?
         var app: App?
         static let empty: DataSet = .init()
+    }
+}
+
+extension AppDetailsVC {
+    struct CellSizePresenter {
+        var textCellHeight: CGFloat = 190
+        var showMoreButtonTapped: Bool = false
+        static let empty: CellSizePresenter = .init()
     }
 }
 
@@ -225,6 +235,9 @@ extension AppDetailsVC : AppDetailsImageCellDelegate {
 }
 
 extension AppDetailsVC : AppDetailsTextCellDelegate {
-    func appDetailsTextCell() {
+    func appDetailsTextCell(labelSizeToFit height: CGFloat) {
+        cellSize.textCellHeight += height
+        cellSize.showMoreButtonTapped = true
+        collectionView.reloadSections([SectionHandler.textSection])
     }
 }

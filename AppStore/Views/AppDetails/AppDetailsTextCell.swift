@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AppDetailsTextCellDelegate : class {
-    func appDetailsTextCell()
+    func appDetailsTextCell(labelSizeToFit height: CGFloat)
 }
 
 final class AppDetailsTextCell : UICollectionViewCell, CollectionViewCellPresenter {
@@ -20,7 +20,21 @@ final class AppDetailsTextCell : UICollectionViewCell, CollectionViewCellPresent
     
     var delegate: AppDetailsTextCellDelegate?
     
+    var buttonTapped: Bool = false {
+        didSet {
+            showMoreButton.isHidden = buttonTapped
+        }
+    }
+    
+    static func estimatedSize(width: CGFloat, height: CGFloat = 190) -> CGSize {
+        return .init(width: width, height: height)
+    }
+    
     @IBAction func showMoreButtonTapped(_ sender: Any) {
+        let beforeWidth = mainTextLabel.frame.height
+        mainTextLabel.sizeToFit()
+        let afterWidth = mainTextLabel.frame.height
+        delegate?.appDetailsTextCell(labelSizeToFit: afterWidth - beforeWidth)
     }
     
     //

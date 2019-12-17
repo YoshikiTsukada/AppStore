@@ -26,7 +26,7 @@ final class AppDetailsSectionHeaderCell : UICollectionReusableView, CollectionRe
         var (title, buttonTitle): (String, String)
         switch section {
         case SectionHandler.reviews.rawValue:
-            (title, buttonTitle) = ("評価とレビュー", "全て表示")
+            (title, buttonTitle) = ("評価とレビュー", "すべて表示")
         case SectionHandler.update.rawValue:
             (title, buttonTitle) = ("アップデート", "バージョン履歴")
         case SectionHandler.information.rawValue:
