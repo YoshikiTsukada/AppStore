@@ -14,13 +14,22 @@ final class AppDetailsReviewCell : UICollectionViewCell, CollectionViewCellPrese
     @IBOutlet weak var reviewLabel: UILabel!
     @IBOutlet weak var showMoreButton: UIButton!
     
+    static func estimatedSize(with width: CGFloat) -> CGSize {
+        return .init(width: width, height: 250)
+    }
+    
     //
     // MARK: CollectionViewCellPresenter
     //
     
-    typealias T = App
-    var data: App?
+    typealias T = Review
+    var data: Review?
     
-    func apply(with data: App?) {
+    func apply(with data: Review?) {
+        guard let review = data else { return }
+        
+        titleLabel.text = review.title
+        nameLabel.text = review.name
+        reviewLabel.text = review.content
     }
 }

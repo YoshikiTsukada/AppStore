@@ -22,6 +22,7 @@ class AppDetailsVC : UIViewController {
         
         registerAllCollectionViewCells(to: collectionView)
         fetchAppDetails()
+        fetchReviews()
     }
     
     override func loadView() {
@@ -40,6 +41,18 @@ class AppDetailsVC : UIViewController {
             self.fetchImage(width: width)
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    func fetchReviews() {
+        guard let id = data.id else { return }
+        
+        let url: URL = URLMaker.review(id: id)
+        APIClient.parseJsonToReviews(from: url) { reviews in
+            self.data.reviews = reviews
+            DispatchQueue.main.async {
+                self.collectionView.reloadSections([SectionHandler.reviewsSection])
             }
         }
     }
@@ -80,6 +93,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let app = data.app
+        let reviews = data.reviews
         switch SectionHandler(indexPath.section) {
         case .header:
             let cell = AppDetailsHeaderCell.dequeue(from: collectionView, for: indexPath, with: app)
@@ -95,7 +109,8 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
             cell.delegate = self
             return cell
         case .reviews:
-            let cell = AppDetailsReviewsCell.dequeue(from: collectionView, for: indexPath, with: app)
+            let cell = AppDetailsReviewsCell.dequeue(from: collectionView, for: indexPath, with: reviews)
+            cell.apply(ratingLabel: app)
             return cell
         case .update:
             let cell = AppDetailsUpdateCell.dequeue(from: collectionView, for: indexPath, with: app)
@@ -137,7 +152,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
         case .text:
             return AppDetailsTextCell.estimatedSize(width: width, height: cellSize.textCellHeight)
         case .reviews:
-            return .init(width: width, height: 190)
+            return .init(width: width, height: 375)
         case .update:
             return .init(width: width, height: 190)
         case .information:
@@ -161,6 +176,7 @@ extension AppDetailsVC {
     struct DataSet {
         var id: String?
         var app: App?
+        var reviews: [Review]?
         static let empty: DataSet = .init()
     }
 }
@@ -192,6 +208,10 @@ extension AppDetailsVC {
         
         static var textSection: Int {
             return text.rawValue
+        }
+        
+        static var reviewsSection: Int {
+            return reviews.rawValue
         }
         
         static let defaultNumberOfItems = 1

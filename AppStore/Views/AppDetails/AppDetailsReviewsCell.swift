@@ -19,28 +19,54 @@ final class AppDetailsReviewsCell : UICollectionViewCell, CollectionViewCellPres
         collectionView.dataSource = self
         collectionView.delegate = self
     }
-
+    
+    func apply(ratingLabel app: App?) {
+        guard let rating = app?.results.first?.averageUserRating else { return }
+        
+        averageRatingLabel.text = String(rating)
+    }
+    
     //
     // MARK: CollectionViewCellPresenter
     //
     
-    typealias T = App
-    var data: App?
+    typealias T = [Review]
+    var data: [Review]?
     
-    func apply(with data: App?) {
-        guard let result = data?.results.first else { return }
-        
-        averageRatingLabel.text = String(result.averageUserRating)
+    func apply(with data: [Review]?) {
+        collectionView.reloadData()
     }
 }
 
 extension AppDetailsReviewsCell : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    //
+    // MARK: UICollectionViewDataSource
+    //
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return min(data?.count ?? 0, 6)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        let review = data?[indexPath.item]
+        let cell = AppDetailsReviewCell.dequeue(from: collectionView, for: indexPath, with: review)
+        return cell
+    }
+    //
+    // MARK: UICollectionViewDelegate
+    //
+    
+    //
+    // MARK: UICollectionViewDelegateFlowLayout
+    //
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width - 20 * 2
+        return AppDetailsReviewCell.estimatedSize(with: width)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 0, left: 20, bottom: 0, right: 20)
     }
 }
 

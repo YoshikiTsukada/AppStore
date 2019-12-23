@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 struct AppsGroupHeading {
     var tag: String
@@ -55,4 +56,29 @@ struct DetailResult : Decodable {
     var description: String
     var averageUserRating: Float
     var userRatingCount: Int
+}
+
+public struct Review {
+    public let id: Int
+    public var name: String
+    public var rating: String
+    public var title: String
+    public var content: String
+    
+    public init?(_ json: JSON) {
+        guard let name = json["author"]["name"]["label"].string else { return nil }
+        guard let rating = json["im:rating"]["label"].string else { return nil }
+        guard let title = json["title"]["label"].string else { return nil }
+        guard let content = json["content"]["label"].string else { return nil }
+        
+        id = json["id"]["label"].intValue
+        self.name = name
+        self.rating = rating
+        self.title = title
+        self.content = content
+    }
+    
+    public static func load(_ array: [JSON]) -> [Review] {
+        return array.compactMap { Review($0) }
+    }
 }
