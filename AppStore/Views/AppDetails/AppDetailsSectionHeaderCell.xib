@@ -28,6 +28,9 @@
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="bdV-Fy-eUr"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="16"/>
+                    <connections>
+                        <action selector="rightButtonTapped:" destination="T9U-x0-9c3" eventType="touchUpInside" id="8a2-3x-0zq"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>

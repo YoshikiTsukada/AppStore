@@ -13,40 +13,89 @@ final class AppDetailsSectionHeaderCell : UICollectionReusableView, CollectionRe
     @IBOutlet weak var sectionTitleLabel: UILabel!
     @IBOutlet weak var rightButton: UIButton!
     
+    private var cellKind: CellKindPresenter?
+    
+    var titles: (String, String)? {
+        return cellKind?.title
+    }
+    
+    static func estimatedSize(with width: CGFloat, cellKind: CellKindPresenter?) -> CGSize {
+        guard let cellKind = cellKind else { return .zero }
+        
+        switch cellKind {
+        case .reviews, .update, .information:
+            return .init(width: width, height: 40)
+        default: return .zero
+        }
+    }
+    
+    func showAllReviews() {
+    }
+    
+    func showUpdate() {
+    }
+    
+    func showInformation() {
+    }
+    
+    @IBAction func rightButtonTapped(_ sender: Any) {
+        switch cellKind {
+        case .reviews:
+            showAllReviews()
+        case .update:
+            showUpdate()
+        case .information:
+            showInformation()
+        default: break
+        }
+    }
+    
     //
     // MARK: CollectionReusableViewPresenter
     //
     
-    typealias T = Int
-    var data: Int?
+    typealias T = CellKindPresenter
+    var data: CellKindPresenter?
     
-    func apply(with data: Int?) {
-        guard let section = data else { return }
+    func apply(with data: CellKindPresenter?) {
+        cellKind = data
         
-        var (title, buttonTitle): (String, String)
-        switch section {
-        case SectionHandler.reviews.rawValue:
-            (title, buttonTitle) = ("評価とレビュー", "すべて表示")
-        case SectionHandler.update.rawValue:
-            (title, buttonTitle) = ("アップデート", "バージョン履歴")
-        case SectionHandler.information.rawValue:
-            (title, buttonTitle) = ("情報", "")
-        default:
-            (title, buttonTitle) = ("", "")
-        }
-        
-        sectionTitleLabel.text = title
-        rightButton.setTitle(buttonTitle, for: .normal)
+        sectionTitleLabel.text = titles?.0
+        rightButton.setTitle(titles?.1, for: .normal)
     }
 }
 
 extension AppDetailsSectionHeaderCell {
-    private enum SectionHandler : Int {
+    enum CellKindPresenter : Int {
         case header
         case images
         case text
         case reviews
         case update
         case information
+        
+        init?(_ section: Int) {
+            switch section {
+            case type(of: self).header.rawValue: self = .header
+            case type(of: self).images.rawValue: self = .images
+            case type(of: self).text.rawValue: self = .text
+            case type(of: self).reviews.rawValue: self = .reviews
+            case type(of: self).update.rawValue: self = .update
+            case type(of: self).information.rawValue: self = .information
+            default: return nil
+            }
+        }
+        
+        var title: (String, String) {
+            switch self {
+            case .reviews:
+                return ("評価とレビュー", "全て表示")
+            case .update:
+                return ("アップデート", "バージョン履歴")
+            case .information:
+                return ("情報", "")
+            default: return ("", "")
+            }
+        }
     }
 }

@@ -88,7 +88,12 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return SectionHandler.defaultNumberOfItems
+        switch SectionHandler(section) {
+        case .information:
+            return AppDetailsInformationCell.CellKindPresenter.allCases.count
+        default:
+            return SectionHandler.defaultNumberOfItems
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -116,21 +121,19 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
             let cell = AppDetailsUpdateCell.dequeue(from: collectionView, for: indexPath, with: app)
             return cell
         case .information:
-            let cell = AppDetailsInformationCell.dequeue(from: collectionView, for: indexPath, with: app)
+            guard let app = app, let cellKind = AppDetailsInformationCell.CellKindPresenter(indexPath.item) else { return UICollectionViewCell() }
+            
+            let cell = AppDetailsInformationCell.dequeue(from: collectionView, for: indexPath, with: (app, cellKind))
             return cell
         default: return UICollectionViewCell()
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let section = SectionHandler(indexPath.section)
+        let cellKind = AppDetailsSectionHeaderCell.CellKindPresenter(indexPath.section)
         
-        switch section {
-        case .reviews, .update, .information:
-            let cell = AppDetailsSectionHeaderCell.dequeue(from: collectionView, of: kind, for: indexPath, with: section?.rawValue)
-            return cell
-        default: return UICollectionReusableView()
-        }
+        let cell = AppDetailsSectionHeaderCell.dequeue(from: collectionView, of: kind, for: indexPath, with: cellKind)
+        return cell
     }
 
     //
@@ -146,29 +149,34 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
 
         switch SectionHandler(indexPath.section) {
         case .header:
-            return .init(width: width, height: 190)
+            return AppDetailsHeaderCell.estimatedSize(with: width)
         case .images:
             return AppDetailsImagesCell.estimatedSize(width: width, image: firstImage)
         case .text:
             return AppDetailsTextCell.estimatedSize(width: width, height: cellSize.textCellHeight)
         case .reviews:
-            return .init(width: width, height: 375)
+            return AppDetailsReviewsCell.estimatedSize(with: width)
         case .update:
-            return .init(width: width, height: 190)
+            return .init(width: width, height: 135)
         case .information:
-            return .init(width: width, height: 190)
+            return AppDetailsInformationCell.estimatedSize(with: width)
         default: return .zero
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        switch SectionHandler(section) {
+        case .information:
+            return 0
+        default: return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.bounds.width
+        let cellKind = AppDetailsSectionHeaderCell.CellKindPresenter(section)
         
-        switch SectionHandler(section) {
-        case .reviews, .update, .information:
-            return .init(width: width, height: 40)
-        default: return .zero
-        }
+        return AppDetailsSectionHeaderCell.estimatedSize(with: width, cellKind: cellKind)
     }
 }
 

@@ -40,12 +40,15 @@ struct DetailResult : Decodable {
     var artworkUrl100: String
     var advisories: [String]
     var supportedDevices: [String]
+    var languageCodesISO2A: [String]
     var fileSizeBytes: String
+    var contentAdvisoryRating: String
     var trackContentRating: String
     var releaseDate: String
     var releaseNotes: String?
     var primaryGenreId: Int
     var sellerName: String
+    var genres: [String]
     var currentVersionReleaseDate: String
     var primaryGenreName: String
     var formattedPrice: String

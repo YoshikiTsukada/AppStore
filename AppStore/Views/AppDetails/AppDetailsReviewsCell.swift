@@ -26,6 +26,10 @@ final class AppDetailsReviewsCell : UICollectionViewCell, CollectionViewCellPres
         averageRatingLabel.text = String(rating)
     }
     
+    static func estimatedSize(with width: CGFloat) -> CGSize {
+        return .init(width: width, height: 375)
+    }
+    
     //
     // MARK: CollectionViewCellPresenter
     //

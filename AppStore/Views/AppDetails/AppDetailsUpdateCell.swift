@@ -24,7 +24,7 @@ final class AppDetailsUpdateCell : UICollectionViewCell, CollectionViewCellPrese
     func apply(with data: App?) {
         guard let result = data?.results.first else { return }
         
-        newestVersionLabel.text = result.version
+        newestVersionLabel.text = "バージョン\(result.version)"
         updateDateLabel.text = result.currentVersionReleaseDate
         updateDetailsLabel.text = result.releaseNotes
     }
