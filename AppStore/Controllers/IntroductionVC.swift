@@ -124,7 +124,6 @@ extension IntroductionVC : AppsGroupCellDelegate {
 
 extension IntroductionVC {
     struct DataSet {
-        var heading: AppsGroupHeading?
         var appsGroups: [AppsGroup] = []
         static let empty: DataSet = .init()
         
