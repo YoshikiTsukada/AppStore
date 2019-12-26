@@ -27,6 +27,24 @@ class APIClient {
         }.resume()
     }
     
+    static func parseJsonToAppsGroup(from url: URL, completion: @escaping (AppsGroup?) -> Void) {
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            print(url)
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            do {
+                let json = JSON(data)
+                let appsGroup = AppsGroup(json["feed"])
+                completion(appsGroup)
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+    
     static func parseJsonToAppDetails(from url: URL, completion: @escaping (AppDetails?) -> Void) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             print(url)

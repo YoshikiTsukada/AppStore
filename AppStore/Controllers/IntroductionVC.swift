@@ -30,8 +30,8 @@ class IntroductionVC : UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch (SegueType(segue.identifier), segue.destination) {
         case let (.showIntroductionListUpVC, vc as IntroductionListUpVC):
-            guard let feed = sender as! Feed? else { return }
-            vc.data.feed = feed
+            guard let appsGroup = sender as! AppsGroup? else { return }
+            vc.data.appsGroup = appsGroup
         case let (.showAppDetailsVC, vc as AppDetailsVC):
             guard let id = sender as! String? else { return }
             vc.data.id = id
@@ -41,11 +41,13 @@ class IntroductionVC : UIViewController {
     
     func fetchApps() {
         accessUrls.forEach { url in
-            APIClient.parseJson(from: url) { (response: AppsGroup) in
-                self.data.appsGroup.append(response)
-                let index = IndexPath(row: self.data.appsGroup.count - 1, section: SectionHandler.appsGroup.rawValue)
-                DispatchQueue.main.async {
-                    self.collectionView.insertItems(at: [index])
+            APIClient.parseJsonToAppsGroup(from: url) { appsGroup in
+                if let appsGroup = appsGroup {
+                    self.data.appsGroups.append(appsGroup)
+                    let index = IndexPath(row: self.data.appsGroups.count - 1, section: SectionHandler.appsGroup.rawValue)
+                    DispatchQueue.main.async {
+                        self.collectionView.insertItems(at: [index])
+                    }
                 }
             }
         }
@@ -66,7 +68,7 @@ extension IntroductionVC : UICollectionViewDataSource, UICollectionViewDelegate,
         case .appsGroupHeader?:
             return 0
         case .appsGroup?:
-            return data.appsGroup.count
+            return data.appsGroups.count
         default: return 0
         }
     }
@@ -76,8 +78,8 @@ extension IntroductionVC : UICollectionViewDataSource, UICollectionViewDelegate,
         case .appsGroupHeader?:
             return UICollectionViewCell()
         case .appsGroup?:
-            let feed = data.appsGroup[indexPath.row].feed
-            let cell = AppsGroupCell.dequeue(from: collectionView, for: indexPath, with: feed)
+            let appsGroup = data.appsGroups[indexPath.item]
+            let cell = AppsGroupCell.dequeue(from: collectionView, for: indexPath, with: appsGroup)
             cell.delegate = self
             cell.titleConversion()
             return cell
@@ -111,8 +113,8 @@ extension IntroductionVC : AppsGroupCellDelegate {
         return String(describing: type(of: self))
     }
     
-    func appsGroupCell(allDisplayButtonTappedWith feed: Feed?) {
-        performSegue(withIdentifier: SegueType.showIntroductionListUpVC.rawValue, sender: feed)
+    func appsGroupCell(allDisplayButtonTappedWith appsGroup: AppsGroup?) {
+        performSegue(withIdentifier: SegueType.showIntroductionListUpVC.rawValue, sender: appsGroup)
     }
     
     func appsGroupCell(didSelectAppIdWith id: String) {
@@ -123,7 +125,7 @@ extension IntroductionVC : AppsGroupCellDelegate {
 extension IntroductionVC {
     struct DataSet {
         var heading: AppsGroupHeading?
-        var appsGroup: [AppsGroup] = []
+        var appsGroups: [AppsGroup] = []
         static let empty: DataSet = .init()
         
         static let appsGroupTitleLabelHeight: CGFloat = 30

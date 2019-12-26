@@ -11,7 +11,7 @@ import Foundation
 
 protocol AppsGroupCellDelegate : class {
     var classType: String { get }
-    func appsGroupCell(allDisplayButtonTappedWith feed: Feed?)
+    func appsGroupCell(allDisplayButtonTappedWith appsGroup: AppsGroup?)
     func appsGroupCell(didSelectAppIdWith id: String)
 }
 
@@ -24,8 +24,8 @@ final class AppsGroupCell : UICollectionViewCell, CollectionViewCellPresenter {
     
     let titleLabelHeight: CGFloat = 20
     
-    func setUpAppsCarouselView(with feed: Feed) {
-        appsCarouselView.data.results = feed.results
+    func setUpAppsCarouselView(with appsGroup: AppsGroup) {
+        appsCarouselView.data.apps = appsGroup.apps
         appsCarouselView.delegate = self
         appsCarouselView.collectionView.reloadData()
     }
@@ -56,14 +56,14 @@ final class AppsGroupCell : UICollectionViewCell, CollectionViewCellPresenter {
     // MARK: CollectionViewCellPresenter
     //
     
-    typealias T = Feed
-    var data: Feed?
+    typealias T = AppsGroup
+    var data: AppsGroup?
     
-    func apply(with data: Feed?) {
-        guard let feed = data else { return }
+    func apply(with data: AppsGroup?) {
+        guard let appsGroup = data else { return }
         
-        titleLabel.text = feed.title
-        setUpAppsCarouselView(with: feed)
+        titleLabel.text = appsGroup.title
+        setUpAppsCarouselView(with: appsGroup)
         insertSectionLine()
     }
 }

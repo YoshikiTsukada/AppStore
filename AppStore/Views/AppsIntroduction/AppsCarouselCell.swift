@@ -37,16 +37,16 @@ final class AppsCarouselCell : UICollectionViewCell, CollectionViewCellPresenter
     // MARK: CollectionViewCellPresenter
     //
     
-    typealias T = Result
-    var data: Result?
+    typealias T = App
+    var data: App?
     
-    func apply(with data: Result?) {
+    func apply(with data: App?) {
         iconImageView.image = nil
-        guard let result = data else { return }
+        guard let app = data else { return }
         
-        titleLabel.text = result.name
+        titleLabel.text = app.name
         
-        if let url = URL(string: result.artworkUrl100) {
+        if let url = URL(string: app.iconUrl) {
             ImageClient.request(with: url) { image in
                 let resizedImage = image?.resized(toWidth: self.iconWidth)
                 DispatchQueue.main.async {

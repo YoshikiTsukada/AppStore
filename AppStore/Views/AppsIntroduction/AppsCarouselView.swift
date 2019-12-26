@@ -45,14 +45,14 @@ extension AppsCarouselView : UICollectionViewDataSource, UICollectionViewDelegat
     //
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.results.count
+        return data.apps.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard data.results.count > 0 else { return UICollectionViewCell() }
+        guard data.apps.count > 0 else { return UICollectionViewCell() }
         
-        let results = data.results[indexPath.row]
-        let cell = AppsCarouselCell.dequeue(from: collectionView, for: indexPath, with: results)
+        let app = data.apps[indexPath.row]
+        let cell = AppsCarouselCell.dequeue(from: collectionView, for: indexPath, with: app)
         cell.insertSectionLineIfNeeded(indexPath.row % 3 != 2)
         return cell
     }
@@ -63,7 +63,7 @@ extension AppsCarouselView : UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)
-        let id = data.results[indexPath.item].id
+        let id = data.apps[indexPath.item].id
         delegate?.appsCarouselView(didSelectAppIdWith: id)
     }
     
@@ -92,7 +92,7 @@ extension AppsCarouselView : UICollectionViewDataSource, UICollectionViewDelegat
 
 extension AppsCarouselView {
     struct DataSet {
-        var results: [Result] = []
+        var apps: [App] = []
         static let empty: DataSet = .init()
     }
 }

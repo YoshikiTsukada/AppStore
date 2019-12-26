@@ -20,7 +20,7 @@ class IntroductionListUpVC : BaseViewController {
     }
 
     func applyNavigationItem() {
-        navigationItem.title = data.feed?.title
+        navigationItem.title = data.appsGroup?.title
     }
 }
 
@@ -30,14 +30,14 @@ extension IntroductionListUpVC : UICollectionViewDataSource, UICollectionViewDel
     //
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.feed?.results.count ?? 0
+        return data.appsGroup?.apps.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let result = data.feed?.results[indexPath.row] else { return UICollectionViewCell() }
+        guard let app = data.appsGroup?.apps[indexPath.row] else { return UICollectionViewCell() }
         
-        let cell = IntroductionListUpCell.dequeue(from: collectionView, for: indexPath, with: result)
-        cell.insertSectionLineIfNeeded(indexPath.row - 1 < data.feed?.results.count ?? 0)
+        let cell = IntroductionListUpCell.dequeue(from: collectionView, for: indexPath, with: app)
+        cell.insertSectionLineIfNeeded(indexPath.row - 1 < data.appsGroup?.apps.count ?? 0)
         return cell
     }
     
@@ -65,7 +65,7 @@ extension IntroductionListUpVC : UICollectionViewDataSource, UICollectionViewDel
 
 extension IntroductionListUpVC {
     struct DataSet {
-        var feed: Feed?
+        var appsGroup: AppsGroup?
         static let empty: DataSet = .init()
         
         static let iconImageWidth: CGFloat = 95
