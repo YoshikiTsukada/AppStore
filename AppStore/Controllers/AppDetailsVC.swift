@@ -110,7 +110,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
             return cell
         case .text:
             let cell = AppDetailsTextCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
-            cell.buttonTapped = cellSize.showMoreButtonTapped
+            cell.buttonTapped = cellSize.textCellShowMoreButtonTapped
             cell.delegate = self
             return cell
         case .reviews:
@@ -119,6 +119,8 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
             return cell
         case .update:
             let cell = AppDetailsUpdateCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
+            cell.buttonTapped = cellSize.updateCellShowMoreButtonTapped
+            cell.delegate = self
             return cell
         case .information:
             guard let appDetails = appDetails, let cellKind = AppDetailsInformationCell.CellKindPresenter(indexPath.item) else { return UICollectionViewCell() }
@@ -157,7 +159,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
         case .reviews:
             return AppDetailsReviewsCell.estimatedSize(with: width)
         case .update:
-            return .init(width: width, height: 135)
+            return AppDetailsUpdateCell.estimatedSize(width: width, height: cellSize.updateCellHeight)
         case .information:
             return AppDetailsInformationCell.estimatedSize(with: width)
         default: return .zero
@@ -192,7 +194,11 @@ extension AppDetailsVC {
 extension AppDetailsVC {
     struct CellSizePresenter {
         var textCellHeight: CGFloat = 190
-        var showMoreButtonTapped: Bool = false
+        var textCellShowMoreButtonTapped: Bool = false
+        
+        var updateCellHeight: CGFloat = 135
+        var updateCellShowMoreButtonTapped: Bool = false
+        
         static let empty: CellSizePresenter = .init()
     }
 }
@@ -220,6 +226,10 @@ extension AppDetailsVC {
         
         static var reviewsSection: Int {
             return reviews.rawValue
+        }
+        
+        static var updateSection: Int {
+            return update.rawValue
         }
         
         static let defaultNumberOfItems = 1
@@ -265,7 +275,15 @@ extension AppDetailsVC : AppDetailsImageCellDelegate {
 extension AppDetailsVC : AppDetailsTextCellDelegate {
     func appDetailsTextCell(labelSizeToFit height: CGFloat) {
         cellSize.textCellHeight += height
-        cellSize.showMoreButtonTapped = true
+        cellSize.textCellShowMoreButtonTapped = true
         collectionView.reloadSections([SectionHandler.textSection])
+    }
+}
+
+extension AppDetailsVC : AppDetailsUpdateCellDelegate {
+    func appDetailsUpdateCell(labelSizeToFit height: CGFloat) {
+        cellSize.updateCellHeight += height
+        cellSize.updateCellShowMoreButtonTapped = true
+        collectionView.reloadSections([SectionHandler.updateSection])
     }
 }
