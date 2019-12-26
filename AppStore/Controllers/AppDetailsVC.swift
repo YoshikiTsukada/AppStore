@@ -36,8 +36,8 @@ class AppDetailsVC : UIViewController {
         
         let width: CGFloat = UIScreen.main.bounds.width - 40
         let url: URL = URLMaker.detail(id: id)
-        APIClient.parseJson(from: url) { (response: App) in
-            self.data.app = response
+        APIClient.parseJsonToAppDetails(from: url) { appDetails in
+            self.data.appDetails = appDetails
             self.fetchImage(width: width)
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -58,7 +58,7 @@ class AppDetailsVC : UIViewController {
     }
     
     func fetchImage(width: CGFloat) {
-        guard let urlString = data.app?.results.first?.screenshotUrls.first else { return }
+        guard let urlString = data.appDetails?.screenshotUrls.first else { return }
         
         if let url = URL(string: urlString) {
             ImageClient.request(with: url) { image in
@@ -97,33 +97,33 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let app = data.app
+        let appDetails = data.appDetails
         let reviews = data.reviews
         switch SectionHandler(indexPath.section) {
         case .header:
-            let cell = AppDetailsHeaderCell.dequeue(from: collectionView, for: indexPath, with: app)
+            let cell = AppDetailsHeaderCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
             return cell
         case .images:
-            let cell = AppDetailsImagesCell.dequeue(from: collectionView, for: indexPath, with: app)
+            let cell = AppDetailsImagesCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
             cell.firstImage = firstImage
             cell.delegate = self
             return cell
         case .text:
-            let cell = AppDetailsTextCell.dequeue(from: collectionView, for: indexPath, with: app)
+            let cell = AppDetailsTextCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
             cell.buttonTapped = cellSize.showMoreButtonTapped
             cell.delegate = self
             return cell
         case .reviews:
             let cell = AppDetailsReviewsCell.dequeue(from: collectionView, for: indexPath, with: reviews)
-            cell.apply(ratingLabel: app)
+            cell.apply(ratingLabel: appDetails)
             return cell
         case .update:
-            let cell = AppDetailsUpdateCell.dequeue(from: collectionView, for: indexPath, with: app)
+            let cell = AppDetailsUpdateCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
             return cell
         case .information:
-            guard let app = app, let cellKind = AppDetailsInformationCell.CellKindPresenter(indexPath.item) else { return UICollectionViewCell() }
+            guard let appDetails = appDetails, let cellKind = AppDetailsInformationCell.CellKindPresenter(indexPath.item) else { return UICollectionViewCell() }
             
-            let cell = AppDetailsInformationCell.dequeue(from: collectionView, for: indexPath, with: (app, cellKind))
+            let cell = AppDetailsInformationCell.dequeue(from: collectionView, for: indexPath, with: (appDetails, cellKind))
             return cell
         default: return UICollectionViewCell()
         }
@@ -183,7 +183,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
 extension AppDetailsVC {
     struct DataSet {
         var id: String?
-        var app: App?
+        var appDetails: AppDetails?
         var reviews: [Review]?
         static let empty: DataSet = .init()
     }

@@ -30,28 +30,28 @@ final class AppDetailsInformationCell : UICollectionViewCell, CollectionViewCell
     // MARK: CollectionViewCellPresenter
     //
     
-    typealias T = (App, CellKindPresenter)
-    var data: (App, CellKindPresenter)?
+    typealias T = (AppDetails, CellKindPresenter)
+    var data: (AppDetails, CellKindPresenter)?
     
-    func apply(with data: (App, CellKindPresenter)?) {
+    func apply(with data: (AppDetails, CellKindPresenter)?) {
         cellKind = data?.1
         titleLabel.text = title
         
-        guard let app = data?.0.results.first else { return }
+        guard let appDetails = data?.0 else { return }
         
         switch cellKind {
         case .distributor:
-            itemLabel.text = app.sellerName
+            itemLabel.text = appDetails.sellerName
         case .dataSize:
-            itemLabel.text = "\(app.fileSizeBytes)Bytes"
+            itemLabel.text = "\(appDetails.fileSizeBytes)Bytes"
         case .category:
-            itemLabel.text = app.genres.first
+            itemLabel.text = appDetails.genres.first
         case .compatible:
-            itemLabel.text = app.supportedDevices.first
+            itemLabel.text = appDetails.supportedDevices.first
         case .language:
-            itemLabel.text = app.languageCodesISO2A.first
+            itemLabel.text = appDetails.languageCodes.first
         case .ageLimit:
-            itemLabel.text = app.contentAdvisoryRating
+            itemLabel.text = appDetails.ageLimit
         case .billing:
             itemLabel.text = "なし"
         default: break

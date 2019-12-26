@@ -27,6 +27,25 @@ class APIClient {
         }.resume()
     }
     
+    static func parseJsonToAppDetails(from url: URL, completion: @escaping (AppDetails?) -> Void) {
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            print(url)
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            do {
+                let json = JSON(data)
+                guard let detailsJson = json["results"].array?.first else { return }
+                let appDetails = AppDetails(detailsJson)
+                completion(appDetails)
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+    
     static func parseJsonToReviews(from url: URL, completion: @escaping (([Review]) -> Void)) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             print(url)

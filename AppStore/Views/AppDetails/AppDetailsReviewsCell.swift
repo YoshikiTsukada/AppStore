@@ -20,8 +20,8 @@ final class AppDetailsReviewsCell : UICollectionViewCell, CollectionViewCellPres
         collectionView.delegate = self
     }
     
-    func apply(ratingLabel app: App?) {
-        guard let rating = app?.results.first?.averageUserRating else { return }
+    func apply(ratingLabel appDetails: AppDetails?) {
+        guard let rating = appDetails?.averageUserRating else { return }
         
         averageRatingLabel.text = String(rating)
     }

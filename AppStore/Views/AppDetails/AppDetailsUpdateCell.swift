@@ -18,14 +18,14 @@ final class AppDetailsUpdateCell : UICollectionViewCell, CollectionViewCellPrese
     // MARK: CollectionViewCellPresenter
     //
     
-    typealias T = App
-    var data: App?
+    typealias T = AppDetails
+    var data: AppDetails?
     
-    func apply(with data: App?) {
-        guard let result = data?.results.first else { return }
+    func apply(with data: AppDetails?) {
+        guard let appDetails = data else { return }
         
-        newestVersionLabel.text = "バージョン\(result.version)"
-        updateDateLabel.text = result.currentVersionReleaseDate
-        updateDetailsLabel.text = result.releaseNotes
+        newestVersionLabel.text = "バージョン\(appDetails.version)"
+        updateDateLabel.text = appDetails.currentVersionReleaseDate
+        updateDetailsLabel.text = appDetails.releaseNotes
     }
 }

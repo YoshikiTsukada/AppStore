@@ -41,13 +41,13 @@ final class AppDetailsTextCell : UICollectionViewCell, CollectionViewCellPresent
     // MARK: CollectionViewCellPresenter
     //
     
-    typealias T = App
-    var data: App?
+    typealias T = AppDetails
+    var data: AppDetails?
     
-    func apply(with data: App?) {
-        guard let result = data?.results.first else { return }
+    func apply(with data: AppDetails?) {
+        guard let appDetails = data else { return }
         
-        mainTextLabel.text = result.description
-        developerNameLabel.text = result.sellerName
+        mainTextLabel.text = appDetails.description
+        developerNameLabel.text = appDetails.sellerName
     }
 }

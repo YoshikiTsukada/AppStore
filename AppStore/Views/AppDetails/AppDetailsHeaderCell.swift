@@ -27,19 +27,19 @@ final class AppDetailsHeaderCell : UICollectionViewCell, CollectionViewCellPrese
     // MARK: CollectionViewCellPresenter
     //
     
-    typealias T = App
-    var data: App?
+    typealias T = AppDetails
+    var data: AppDetails?
     
-    func apply(with data: App?) {
-        guard let result = data?.results.first else { return }
+    func apply(with data: AppDetails?) {
+        guard let appDetails = data else { return }
         
-        titleLabel.text = result.trackName
-        companyNameLabel.text = result.sellerName
-        getButton.setTitle(result.formattedPrice, for: .normal)
-        reviewAmountLabel.text = "\(result.userRatingCount)件の評価"
-        targetAgeLabel.text = result.trackContentRating
-        
-        if let url = URL(string: result.artworkUrl100) {
+        titleLabel.text = appDetails.trackName
+        companyNameLabel.text = appDetails.sellerName
+        getButton.setTitle(appDetails.price, for: .normal)
+        reviewAmountLabel.text = "\(appDetails.userRatingCount)件の評価"
+        targetAgeLabel.text = appDetails.ageLimit
+
+        if let url = URL(string: appDetails.iconUrl) {
             ImageClient.request(with: url) { image in
                 let resizedImage = image?.resized(toWidth: type(of: self).iconWidth)
                 DispatchQueue.main.async {
