@@ -18,7 +18,16 @@ class IntroductionListUpVC : BaseViewController {
         registerAllCollectionViewCells(to: collectionView)
         applyNavigationItem()
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch (segue.identifier, segue.destination) {
+        case let ("showAppDetailsVC", vc as AppDetailsVC):
+            let app = sender as! App
+            vc.data.id = app.id
+        default: break
+        }
+    }
+    
     func applyNavigationItem() {
         navigationItem.title = data.appsGroup?.title
     }
@@ -34,16 +43,22 @@ extension IntroductionListUpVC : UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let app = data.appsGroup?.apps[indexPath.row] else { return UICollectionViewCell() }
+        guard let app = data.appsGroup?.apps[indexPath.item] else { return UICollectionViewCell() }
         
         let cell = IntroductionListUpCell.dequeue(from: collectionView, for: indexPath, with: app)
-        cell.insertSectionLineIfNeeded(indexPath.row - 1 < data.appsGroup?.apps.count ?? 0)
+        cell.insertSectionLineIfNeeded(indexPath.item - 1 < data.appsGroup?.apps.count ?? 0)
         return cell
     }
     
     //
     // MARK: UICollectionViewDelegate
     //
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let app = data.appsGroup?.apps[indexPath.item] else { return }
+        
+        performSegue(withIdentifier: "showAppDetailsVC", sender: app)
+    }
     
     //
     // MARK: UICollectionViewDelegateFlowLayout

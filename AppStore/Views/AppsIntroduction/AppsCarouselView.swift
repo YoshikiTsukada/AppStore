@@ -51,9 +51,9 @@ extension AppsCarouselView : UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard data.apps.count > 0 else { return UICollectionViewCell() }
         
-        let app = data.apps[indexPath.row]
+        let app = data.apps[indexPath.item]
         let cell = AppsCarouselCell.dequeue(from: collectionView, for: indexPath, with: app)
-        cell.insertSectionLineIfNeeded(indexPath.row % 3 != 2)
+        cell.insertSectionLineIfNeeded(indexPath.item % 3 != 2)
         return cell
     }
     
