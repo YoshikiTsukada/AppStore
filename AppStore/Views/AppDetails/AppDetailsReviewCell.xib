@@ -113,6 +113,7 @@
             <connections>
                 <outlet property="dateLabel" destination="Gm3-Rw-J8a" id="5gk-fP-9u0"/>
                 <outlet property="nameLabel" destination="JWG-4U-CLl" id="vXc-8Z-sTQ"/>
+                <outlet property="ratingLabel" destination="z4N-w9-KzT" id="1X8-Jz-Ar6"/>
                 <outlet property="reviewLabel" destination="SAw-HE-Mdp" id="mpg-5K-KbH"/>
                 <outlet property="showMoreButton" destination="LyT-t8-2n4" id="0e7-Rq-RiB"/>
                 <outlet property="titleLabel" destination="K7s-CU-upP" id="oYG-ER-IPD"/>

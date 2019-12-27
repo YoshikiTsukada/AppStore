@@ -31,6 +31,15 @@ class AppDetailsVC : UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch (segue.identifier, segue.destination) {
+        case let ("showAllReviews", vc as AllReviewsVC):
+            vc.data.appDetails = data.appDetails
+            vc.data.reviews = data.reviews
+        default: break
+        }
+    }
+    
     func fetchAppDetails() {
         guard let id = data.id else { return }
         
@@ -115,7 +124,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
             return cell
         case .reviews:
             let cell = AppDetailsReviewsCell.dequeue(from: collectionView, for: indexPath, with: reviews)
-            cell.apply(ratingLabel: appDetails)
+            cell.apply(appDetails: appDetails)
             return cell
         case .update:
             let cell = AppDetailsUpdateCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
@@ -135,6 +144,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
         let cellKind = AppDetailsSectionHeaderCell.CellKindPresenter(indexPath.section)
         
         let cell = AppDetailsSectionHeaderCell.dequeue(from: collectionView, of: kind, for: indexPath, with: cellKind)
+        cell.delegate = self
         return cell
     }
 
@@ -285,5 +295,14 @@ extension AppDetailsVC : AppDetailsUpdateCellDelegate {
         cellSize.updateCellHeight += height
         cellSize.updateCellShowMoreButtonTapped = true
         collectionView.reloadSections([SectionHandler.updateSection])
+    }
+}
+
+extension AppDetailsVC : AppDetailsSectionHeaderCellDelegate {
+    func appDetailsSectionHeaderCell(didTapReviewButton cell: AppDetailsSectionHeaderCell) {
+        performSegue(withIdentifier: "showAllReviews", sender: nil)
+    }
+    
+    func appDetailsSectionHeaderCell(didTapUpdateButton cell: AppDetailsSectionHeaderCell) {
     }
 }

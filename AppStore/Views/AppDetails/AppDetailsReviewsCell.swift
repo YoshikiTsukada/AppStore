@@ -10,7 +10,7 @@ import UIKit
 
 final class AppDetailsReviewsCell : UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var averageRatingLabel: UILabel!
+    @IBOutlet weak var auxiliaryView: ReviewAuxiliaryView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,10 +20,8 @@ final class AppDetailsReviewsCell : UICollectionViewCell, CollectionViewCellPres
         collectionView.delegate = self
     }
     
-    func apply(ratingLabel appDetails: AppDetails?) {
-        guard let rating = appDetails?.averageUserRating else { return }
-        
-        averageRatingLabel.text = String(rating)
+    func apply(appDetails: AppDetails?) {
+        auxiliaryView.apply(appDetails: appDetails)
     }
     
     static func estimatedSize(with width: CGFloat) -> CGSize {
@@ -65,7 +63,7 @@ extension AppDetailsReviewsCell : UICollectionViewDataSource, UICollectionViewDe
     //
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width - 20 * 2
+        let width = collectionView.bounds.width
         return AppDetailsReviewCell.estimatedSize(with: width)
     }
     

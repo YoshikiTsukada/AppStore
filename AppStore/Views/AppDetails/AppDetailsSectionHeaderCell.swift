@@ -9,9 +9,16 @@
 import Foundation
 import UIKit
 
+protocol AppDetailsSectionHeaderCellDelegate : class {
+    func appDetailsSectionHeaderCell(didTapReviewButton cell: AppDetailsSectionHeaderCell)
+    func appDetailsSectionHeaderCell(didTapUpdateButton cell: AppDetailsSectionHeaderCell)
+}
+
 final class AppDetailsSectionHeaderCell : UICollectionReusableView, CollectionReusableViewPresenter {
     @IBOutlet weak var sectionTitleLabel: UILabel!
     @IBOutlet weak var rightButton: UIButton!
+    
+    var delegate: AppDetailsSectionHeaderCellDelegate?
     
     private var cellKind: CellKindPresenter?
     
@@ -30,12 +37,11 @@ final class AppDetailsSectionHeaderCell : UICollectionReusableView, CollectionRe
     }
     
     func showAllReviews() {
+        delegate?.appDetailsSectionHeaderCell(didTapReviewButton: self)
     }
     
     func showUpdate() {
-    }
-    
-    func showInformation() {
+        delegate?.appDetailsSectionHeaderCell(didTapUpdateButton: self)
     }
     
     @IBAction func rightButtonTapped(_ sender: Any) {
@@ -44,8 +50,6 @@ final class AppDetailsSectionHeaderCell : UICollectionReusableView, CollectionRe
             showAllReviews()
         case .update:
             showUpdate()
-        case .information:
-            showInformation()
         default: break
         }
     }
@@ -89,7 +93,7 @@ extension AppDetailsSectionHeaderCell {
         var title: (String, String) {
             switch self {
             case .reviews:
-                return ("評価とレビュー", "全て表示")
+                return ("評価とレビュー", "すべて表示")
             case .update:
                 return ("アップデート", "バージョン履歴")
             case .information:

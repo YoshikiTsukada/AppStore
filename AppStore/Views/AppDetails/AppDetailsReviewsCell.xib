@@ -17,25 +17,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="334" height="184"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gR-zh-wZr">
-                        <rect key="frame" x="20" y="0.0" width="100" height="50"/>
+                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pne-16-o47" customClass="ReviewAuxiliaryView" customModule="AppStore" customModuleProvider="target">
+                        <rect key="frame" x="20" y="0.0" width="294" height="70"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="100" id="igS-FD-Esx"/>
-                            <constraint firstAttribute="width" secondItem="2gR-zh-wZr" secondAttribute="height" multiplier="2:1" id="tZe-0m-BJt"/>
+                            <constraint firstAttribute="height" constant="70" id="qeu-rp-HLl"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
-                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5段階評価中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ovd-he-LXV">
-                        <rect key="frame" x="20" y="55" width="100" height="15"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="15" id="0P9-7D-nwx"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="13"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    </view>
                     <collectionView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ois-nX-f47">
                         <rect key="frame" x="0.0" y="90" width="334" height="54"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -55,23 +43,21 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="2gR-zh-wZr" firstAttribute="leading" secondItem="zF7-Lc-tMd" secondAttribute="leading" constant="20" id="2YB-1C-BP6"/>
-                    <constraint firstItem="ovd-he-LXV" firstAttribute="leading" secondItem="zF7-Lc-tMd" secondAttribute="leading" constant="20" id="Frl-VU-aFY"/>
+                    <constraint firstItem="pne-16-o47" firstAttribute="leading" secondItem="zF7-Lc-tMd" secondAttribute="leading" constant="20" id="4si-ww-HZA"/>
+                    <constraint firstItem="pne-16-o47" firstAttribute="top" secondItem="zF7-Lc-tMd" secondAttribute="top" id="NVp-M4-cah"/>
                     <constraint firstAttribute="bottom" secondItem="5Rx-ki-CyR" secondAttribute="bottom" id="XiA-Bn-F25"/>
+                    <constraint firstAttribute="trailing" secondItem="pne-16-o47" secondAttribute="trailing" constant="20" id="aC2-QI-jYj"/>
                     <constraint firstAttribute="trailing" secondItem="ois-nX-f47" secondAttribute="trailing" id="e3a-tY-j0W"/>
-                    <constraint firstItem="ovd-he-LXV" firstAttribute="width" secondItem="2gR-zh-wZr" secondAttribute="width" id="eqL-af-958"/>
                     <constraint firstAttribute="trailing" secondItem="5Rx-ki-CyR" secondAttribute="trailing" constant="20" id="iWj-hy-fLi"/>
-                    <constraint firstItem="2gR-zh-wZr" firstAttribute="top" secondItem="zF7-Lc-tMd" secondAttribute="top" id="jxv-LS-cYj"/>
+                    <constraint firstItem="ois-nX-f47" firstAttribute="top" secondItem="pne-16-o47" secondAttribute="bottom" constant="20" id="jNo-t4-bBD"/>
                     <constraint firstItem="ois-nX-f47" firstAttribute="leading" secondItem="zF7-Lc-tMd" secondAttribute="leading" id="let-r4-JR9"/>
                     <constraint firstItem="5Rx-ki-CyR" firstAttribute="leading" secondItem="zF7-Lc-tMd" secondAttribute="leading" constant="20" id="lwM-eg-8th"/>
                     <constraint firstAttribute="bottom" secondItem="ois-nX-f47" secondAttribute="bottom" constant="40" id="ngk-Yo-Cah"/>
-                    <constraint firstItem="ois-nX-f47" firstAttribute="top" secondItem="ovd-he-LXV" secondAttribute="bottom" constant="20" id="tnL-Vo-Qwr"/>
-                    <constraint firstItem="ovd-he-LXV" firstAttribute="top" secondItem="2gR-zh-wZr" secondAttribute="bottom" constant="5" id="yn4-KE-sb9"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="334" height="184"/>
             <connections>
-                <outlet property="averageRatingLabel" destination="2gR-zh-wZr" id="Sgb-pS-EIn"/>
+                <outlet property="auxiliaryView" destination="pne-16-o47" id="8KN-hy-eth"/>
                 <outlet property="collectionView" destination="ois-nX-f47" id="5xR-35-p0H"/>
             </connections>
             <point key="canvasLocation" x="91.304347826086968" y="-229.01785714285714"/>

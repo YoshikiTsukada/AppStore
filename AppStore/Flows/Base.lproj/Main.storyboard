@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q9h-4y-h1Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q9h-4y-h1Y">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -88,10 +88,23 @@
             <objects>
                 <viewController id="KJg-2x-OFa" customClass="AppDetailsVC" customModule="AppStore" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="dss-t8-GVo"/>
+                    <connections>
+                        <segue destination="QO8-Tp-0Dv" kind="show" identifier="showAllReviews" id="ixK-nz-NyO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2JN-rN-EgE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2129" y="-183"/>
+        </scene>
+        <!--All ReviewsVC-->
+        <scene sceneID="G5B-BA-wtT">
+            <objects>
+                <viewController id="QO8-Tp-0Dv" customClass="AllReviewsVC" customModule="AppStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="EBQ-q8-O67"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TIy-Bu-o50" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2991" y="-183"/>
         </scene>
         <!--App-->
         <scene sceneID="hzC-kF-39T">
@@ -131,7 +144,7 @@
         <image name="search" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aT3-b4-hs4"/>
+        <segue reference="Wv7-bA-VhL"/>
         <segue reference="jv6-yt-qy6"/>
     </inferredMetricsTieBreakers>
 </document>
