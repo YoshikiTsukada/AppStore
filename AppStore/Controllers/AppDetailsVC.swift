@@ -21,6 +21,7 @@ class AppDetailsVC : BaseViewController {
         super.viewDidLoad()
         
         registerAllCollectionViewCells(to: collectionView)
+        navigationController?.navigationBar.isHidden = false
         fetchAppDetails()
         fetchReviews()
     }

@@ -132,10 +132,26 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="M7j-XF-dhA" kind="relationship" relationship="rootViewController" id="cpb-4I-BGT"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JEc-t3-x6W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="425" y="568"/>
+        </scene>
+        <!--Apps SearchVC-->
+        <scene sceneID="GYa-WO-1RZ">
+            <objects>
+                <viewController id="M7j-XF-dhA" customClass="AppsSearchVC" customModule="AppStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="X9G-2R-dKY"/>
+                    <connections>
+                        <segue destination="KJg-2x-OFa" kind="show" identifier="showAppDetails" id="wQq-IZ-51L"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ofP-Nv-zpc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1277" y="568"/>
         </scene>
     </scenes>
     <resources>
@@ -144,7 +160,7 @@
         <image name="search" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Wv7-bA-VhL"/>
+        <segue reference="wQq-IZ-51L"/>
         <segue reference="jv6-yt-qy6"/>
     </inferredMetricsTieBreakers>
 </document>

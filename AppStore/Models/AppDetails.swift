@@ -83,4 +83,8 @@ public struct AppDetails {
         self.averageUserRating = averageUserRating
         self.userRatingCount = userRatingCount
     }
+    
+    static func load(_ array: [JSON]) -> [AppDetails] {
+        return array.compactMap { AppDetails($0) }
+    }
 }

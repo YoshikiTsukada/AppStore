@@ -64,7 +64,7 @@ class APIClient {
         }.resume()
     }
     
-    static func parseJsonToReviews(from url: URL, completion: @escaping (([Review]) -> Void)) {
+    static func parseJsonToReviews(from url: URL, completion: @escaping ([Review]) -> Void) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             print(url)
             if let error = error {
@@ -76,6 +76,24 @@ class APIClient {
                 let json = JSON(data)
                 let reviews = Review.load(json["feed"]["entry"].arrayValue)
                 completion(reviews)
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+    
+    static func parseJsonToSearchResults(from url: URL, completion: @escaping ([AppDetails]) -> Void) {
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            print(url)
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            do {
+                let json = JSON(data)
+                let appDetails = AppDetails.load(json["results"].arrayValue)
+                completion(appDetails)
             } catch {
                 print(error)
             }
