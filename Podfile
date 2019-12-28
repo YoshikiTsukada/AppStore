@@ -7,6 +7,7 @@ target 'AppStore' do
 
   # Pods for AppStore
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'SwiftDate', '~> 6.0'
 
   target 'AppStoreTests' do
     inherit! :search_paths

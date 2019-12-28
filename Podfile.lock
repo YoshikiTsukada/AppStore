@@ -1,16 +1,20 @@
 PODS:
+  - SwiftDate (6.1.0)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
+  - SwiftDate (~> 6.0)
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   trunk:
+    - SwiftDate
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  SwiftDate: fa2bb3962056bb44047b4b85a30044e5eae30b03
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 832ecd0d6459877055c3947a4c8d5c081e4606dc
+PODFILE CHECKSUM: ca485d370696447a664152cd4b8102da80522b8c
 
 COCOAPODS: 1.8.4
