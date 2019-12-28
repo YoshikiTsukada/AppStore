@@ -48,7 +48,7 @@ final class AppDetailsUpdateCell : UICollectionViewCell, CollectionViewCellPrese
         guard let appDetails = data else { return }
         
         newestVersionLabel.text = "バージョン\(appDetails.version)"
-        updateDateLabel.text = appDetails.currentVersionReleaseDate
+        updateDateLabel.text = appDetails.currentVersionReleaseDate?.toISO([.withFullDate])
         updateDetailsLabel.text = appDetails.releaseNotes
     }
 }

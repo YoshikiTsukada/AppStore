@@ -6,6 +6,7 @@
 //
 
 import SwiftyJSON
+import SwiftDate
 
 public struct AppDetails {
     public let id: Int
@@ -22,7 +23,11 @@ public struct AppDetails {
     public var primaryGenreId: Int
     public var sellerName: String
     public var genres: [String]
-    public var currentVersionReleaseDate: String
+    public var currentVersionReleaseDateString: String
+    public var currentVersionReleaseDate: DateInRegion? {
+        return DateInRegion(currentVersionReleaseDateString)
+    }
+    
     public var primaryGenreName: String
     public var price: String
     public var version: String
@@ -46,7 +51,7 @@ public struct AppDetails {
         guard let primaryGenreId = json["primaryGenreId"].int else { return nil }
         guard let sellerName = json["sellerName"].string else { return nil }
         guard let genres = json["genres"].array else { return nil }
-        guard let currentVersionReleaseDate = json["currentVersionReleaseDate"].string else { return nil }
+        guard let currentVersionReleaseDateString = json["currentVersionReleaseDate"].string else { return nil }
         guard let primaryGenreName = json["primaryGenreName"].string else { return nil }
         guard let price = json["formattedPrice"].string else { return nil }
         guard let version = json["version"].string else { return nil }
@@ -69,7 +74,7 @@ public struct AppDetails {
         self.primaryGenreId = primaryGenreId
         self.sellerName = sellerName
         self.genres = genres.compactMap { $0.string }
-        self.currentVersionReleaseDate = currentVersionReleaseDate
+        self.currentVersionReleaseDateString = currentVersionReleaseDateString
         self.primaryGenreName = primaryGenreName
         self.price = price
         self.version = version
