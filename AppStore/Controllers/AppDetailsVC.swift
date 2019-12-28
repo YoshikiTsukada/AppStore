@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class AppDetailsVC : UIViewController {
+class AppDetailsVC : BaseViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var data: DataSet = .empty
@@ -23,12 +23,6 @@ class AppDetailsVC : UIViewController {
         registerAllCollectionViewCells(to: collectionView)
         fetchAppDetails()
         fetchReviews()
-    }
-    
-    override func loadView() {
-        if let view = UINib(nibName: String(describing: AppDetailsVC.self), bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView {
-            self.view = view
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
