@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import Kingfisher
 
 final class AppsCarouselCell : UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet var iconImageView: UIImageView!
@@ -47,12 +48,7 @@ final class AppsCarouselCell : UICollectionViewCell, CollectionViewCellPresenter
         titleLabel.text = app.name
         
         if let url = URL(string: app.iconUrl) {
-            ImageClient.request(with: url) { image in
-                let resizedImage = image?.resized(toWidth: self.iconWidth)
-                DispatchQueue.main.async {
-                    self.iconImageView.image = resizedImage
-                }
-            }
+            iconImageView.kf.setImage(with: url)
         }
     }
 }

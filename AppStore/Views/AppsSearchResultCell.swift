@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class AppsSearchResultCell : UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet weak var iconImageView: UIImageView!
@@ -15,39 +16,52 @@ final class AppsSearchResultCell : UICollectionViewCell, CollectionViewCellPrese
     @IBOutlet weak var imagesBackView: UIView!
     @IBOutlet weak var getButton: UIButton!
     
-    var firstImage: UIImage?
-    var imageWidth: CGFloat? {
-        return firstImage?.size.width
+    func addImagesToBackView() {
+        guard let urlString = data?.screenshotUrls.first else { return }
+        
+        let firstImageView = UIImageView()
+        if let url = URL(string: urlString) {
+            firstImageView.kf.setImage(with: url) { result in
+                switch result {
+                case .success(let imageValue):
+                    let width = UIScreen.main.bounds.width - 20 * 2
+                    let size = imageValue.image.size
+                    if size.width > size.height {
+                        firstImageView.frame.size = CGSize(width: width, height: size.height * (width / size.width))
+                        firstImageView.clipsToBounds = true
+                        firstImageView.layer.cornerRadius = 20
+                        self.imagesBackView.addSubview(firstImageView)
+                    }
+                    else {
+                        self.addOtherImagesToBackViewWith(firstImageView)
+                    }
+                default: break
+                }
+            }
+        }
     }
     
-    var images: [UIImage]?
-    
-    var numberOfImages: Int?
-
-    func addImagesToBackView() {
-        DispatchQueue.main.async {
-            let imageView = UIImageView(image: self.firstImage)
-            imageView.clipsToBounds = true
-            imageView.layer.cornerRadius = 10
-            self.imagesBackView.addSubview(imageView)
-        }
+    func addOtherImagesToBackViewWith(_ firstImageView: UIImageView) {
+        guard data?.screenshotUrls.count ?? 0 >= 3 else { return }
         
-        if numberOfImages == 3 {
-            guard data?.screenshotUrls.count ?? 0 >= 3 else { return }
-            
-            [data?.screenshotUrls[1], data?.screenshotUrls[2]].enumerated().forEach { index, urlString in
-                if let url = URL(string: urlString ?? "") {
-                    ImageClient.request(with: url) { image in
-                        let resizedImage = image?.resized(toWidth: self.firstImage?.size.width ?? 100)
-                        DispatchQueue.main.async {
-                            let imageView = UIImageView(image: resizedImage)
-                            imageView.clipsToBounds = true
-                            imageView.layer.cornerRadius = 10
-                            imageView.frame.origin.x += CGFloat(index + 1) * (self.imageWidth! + 10)
-                            self.imagesBackView.addSubview(imageView)
-                        }
-                    }
-                }
+        let screenSize = UIScreen.main.bounds.size
+        let width = (screenSize.width - 20 * 2 - 10 * 2) / 3
+        let size = CGSize(width: width, height: screenSize.height * (width / screenSize.width))
+        
+        firstImageView.frame.size = size
+        firstImageView.clipsToBounds = true
+        firstImageView.layer.cornerRadius = 10
+        imagesBackView.addSubview(firstImageView)
+        
+        [data?.screenshotUrls[1], data?.screenshotUrls[2]].enumerated().forEach { index, urlString in
+            if let url = URL(string: urlString ?? "") {
+                let imageView = UIImageView()
+                imageView.kf.setImage(with: url)
+                imageView.frame.origin.x += CGFloat(index + 1) * (size.width + 10)
+                imageView.frame.size = size
+                imageView.clipsToBounds = true
+                imageView.layer.cornerRadius = 10
+                imagesBackView.addSubview(imageView)
             }
         }
     }
@@ -59,8 +73,9 @@ final class AppsSearchResultCell : UICollectionViewCell, CollectionViewCellPrese
     }
     
     static func estimatedSize(with width: CGFloat) -> CGSize {
+        let screenSize = UIScreen.main.bounds.size
         let cellWidth = width - 20 * 2
-        let backViewHeight = (cellWidth - 10 * 2) / 3 * (667 / 375)
+        let backViewHeight = (cellWidth - 10 * 2) / 3 * (screenSize.height / screenSize.width)
         let cellHeight = 80 + 20 + backViewHeight
         return .init(width: cellWidth, height: cellHeight)
     }
@@ -81,32 +96,9 @@ final class AppsSearchResultCell : UICollectionViewCell, CollectionViewCellPrese
         getButton.setTitle(appDetails.price, for: .normal)
         
         if let url = URL(string: appDetails.iconUrl) {
-            ImageClient.request(with: url) { image in
-                let resizedImage = image?.resized(toWidth: 80)
-                DispatchQueue.main.async {
-                    self.iconImageView.image = resizedImage
-                }
-            }
+            iconImageView.kf.setImage(with: url)
         }
         
-        guard let urlString = appDetails.screenshotUrls.first else { return }
-        
-        if let url = URL(string: urlString) {
-            ImageClient.request(with: url) { image in
-                guard let image = image else { return }
-                
-                let width = UIScreen.main.bounds.width - 20 * 2
-                if image.size.width > image.size.height {
-                    self.firstImage = image.resized(toWidth: width)
-                    self.numberOfImages = 1
-                }
-                else {
-                    self.firstImage = image.resized(toWidth: (width - 10 * 2) / 3)
-                    self.numberOfImages = 3
-                }
-                
-                self.addImagesToBackView()
-            }
-        }
+        addImagesToBackView()
     }
 }

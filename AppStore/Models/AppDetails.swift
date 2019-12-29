@@ -19,7 +19,7 @@ public struct AppDetails {
     public var fileSizeBytes: String
     public var ageLimit: String
     public var releaseDate: String
-    public var releaseNotes: String
+    public var releaseNotes: String?
     public var primaryGenreId: Int
     public var sellerName: String
     public var genres: [String]
@@ -47,7 +47,6 @@ public struct AppDetails {
         guard let fileSizeBytes = json["fileSizeBytes"].string else { return nil }
         guard let ageLimit = json["contentAdvisoryRating"].string else { return nil }
         guard let releaseDate = json["releaseDate"].string else { return nil }
-        guard let releaseNotes = json["releaseNotes"].string else { return nil }
         guard let primaryGenreId = json["primaryGenreId"].int else { return nil }
         guard let sellerName = json["sellerName"].string else { return nil }
         guard let genres = json["genres"].array else { return nil }
@@ -70,7 +69,7 @@ public struct AppDetails {
         self.fileSizeBytes = fileSizeBytes
         self.ageLimit = ageLimit
         self.releaseDate = releaseDate
-        self.releaseNotes = releaseNotes
+        releaseNotes = json["releaseNotes"].string
         self.primaryGenreId = primaryGenreId
         self.sellerName = sellerName
         self.genres = genres.compactMap { $0.string }

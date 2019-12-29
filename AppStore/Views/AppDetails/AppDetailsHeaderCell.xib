@@ -35,7 +35,7 @@
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="JUo-Fh-RM2"/>
                         </constraints>
                         <attributedString key="attributedText">
-                            <fragment content="a">
+                            <fragment content=" ">
                                 <attributes>
                                     <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <font key="NSFont" size="19" name="HiraginoSans-W6"/>

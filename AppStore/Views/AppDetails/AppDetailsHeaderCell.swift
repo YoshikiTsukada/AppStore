@@ -40,12 +40,7 @@ final class AppDetailsHeaderCell : UICollectionViewCell, CollectionViewCellPrese
         targetAgeLabel.text = appDetails.ageLimit
 
         if let url = URL(string: appDetails.iconUrl) {
-            ImageClient.request(with: url) { image in
-                let resizedImage = image?.resized(toWidth: type(of: self).iconWidth)
-                DispatchQueue.main.async {
-                    self.iconImageView.image = resizedImage
-                }
-            }
+            iconImageView.kf.setImage(with: url)
         }
     }
 }

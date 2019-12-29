@@ -28,20 +28,7 @@ final class AppDetailsImagesImageCell : UICollectionViewCell, CollectionViewCell
         guard let data = data else { return }
         
         if let url = URL(string: data) {
-            ImageClient.request(with: url) { image in
-                guard let image = image else { return }
-                let resizedImage: UIImage?
-                let width = UIScreen.main.bounds.width
-                if image.size.width > image.size.height {
-                    resizedImage = image.resized(toWidth: width)
-                }
-                else {
-                    resizedImage = image.resized(toWidth: width * 2 / 3)
-                }
-                DispatchQueue.main.async {
-                    self.imageView.image = resizedImage
-                }
-            }
+            imageView.kf.setImage(with: url)
         }
     }
 }

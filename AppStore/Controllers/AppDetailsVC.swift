@@ -65,17 +65,20 @@ class AppDetailsVC : BaseViewController {
         guard let urlString = data.appDetails?.screenshotUrls.first else { return }
         
         if let url = URL(string: urlString) {
-            ImageClient.request(with: url) { image in
-                guard let image = image else { return }
-                
-                if image.size.width > image.size.height {
-                    self.firstImage = image.resized(toWidth: width)
-                }
-                else {
-                    self.firstImage = image.resized(toWidth: width * 2 / 3)
-                }
-                DispatchQueue.main.async {
-                    self.collectionView.reloadSections([SectionHandler.imagesSection])
+            DispatchQueue.main.async {
+                UIImageView().kf.setImage(with: url) { result in
+                    switch result {
+                    case .success(let imageValue):
+                        let size = imageValue.image.size
+                        if size.width > size.height {
+                            self.firstImage = imageValue.image.resized(toWidth: width)
+                        }
+                        else {
+                            self.firstImage = imageValue.image.resized(toWidth: width * 2 / 3)
+                        }
+                        self.collectionView.reloadSections([SectionHandler.imagesSection])
+                    default: break
+                    }
                 }
             }
         }
