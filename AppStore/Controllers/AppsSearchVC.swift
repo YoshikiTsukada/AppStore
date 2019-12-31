@@ -45,12 +45,9 @@ class AppsSearchVC : BaseViewController {
     func fetchSearchResults() {
         guard let text = text else { return }
         
-        let url: URL = URLMaker.search(term: text)
-        APIClient.parseJsonToSearchResults(from: url) { searchResults in
-            self.data.resultApps = searchResults
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
+        GetSearchResults(term: text).execute(in: .background).then(in: .main) { [weak self] searchResults in
+            self?.data.resultApps = searchResults
+            self?.collectionView.reloadData()
         }
     }
 }

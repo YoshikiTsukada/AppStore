@@ -6,7 +6,6 @@
 //  Copyright © 2019 塚田良輝. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class AppDetailsVC : BaseViewController {
@@ -39,25 +38,19 @@ class AppDetailsVC : BaseViewController {
         guard let id = data.id else { return }
         
         let width: CGFloat = UIScreen.main.bounds.width - 40
-        let url: URL = URLMaker.detail(id: id)
-        APIClient.parseJsonToAppDetails(from: url) { appDetails in
-            self.data.appDetails = appDetails
-            self.fetchImage(width: width)
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
+        GetAppDetails(id: id).execute(in: .background).then(in: .main) { [weak self] appDetails in
+            self?.data.appDetails = appDetails
+            self?.collectionView.reloadSections([SectionHandler.header.rawValue])
+            self?.fetchImage(width: width)
         }
     }
     
     func fetchReviews() {
         guard let id = data.id else { return }
         
-        let url: URL = URLMaker.review(id: id)
-        APIClient.parseJsonToReviews(from: url) { reviews in
-            self.data.reviews = reviews
-            DispatchQueue.main.async {
-                self.collectionView.reloadSections([SectionHandler.reviewsSection])
-            }
+        GetReviews(id: id).execute(in: .background).then(in: .main) { [weak self] reviews in
+            self?.data.reviews = reviews
+            self?.collectionView.reloadSections([SectionHandler.reviewsSection])
         }
     }
     
@@ -65,20 +58,18 @@ class AppDetailsVC : BaseViewController {
         guard let urlString = data.appDetails?.screenshotUrls.first else { return }
         
         if let url = URL(string: urlString) {
-            DispatchQueue.main.async {
-                UIImageView().kf.setImage(with: url) { result in
-                    switch result {
-                    case .success(let imageValue):
-                        let size = imageValue.image.size
-                        if size.width > size.height {
-                            self.firstImage = imageValue.image.resized(toWidth: width)
-                        }
-                        else {
-                            self.firstImage = imageValue.image.resized(toWidth: width * 2 / 3)
-                        }
-                        self.collectionView.reloadSections([SectionHandler.imagesSection])
-                    default: break
+            UIImageView().kf.setImage(with: url) { result in
+                switch result {
+                case .success(let imageValue):
+                    let size = imageValue.image.size
+                    if size.width > size.height {
+                        self.firstImage = imageValue.image.resized(toWidth: width)
                     }
+                    else {
+                        self.firstImage = imageValue.image.resized(toWidth: width * 2 / 3)
+                    }
+                    self.collectionView.reloadSections([SectionHandler.imagesSection])
+                default: break
                 }
             }
         }

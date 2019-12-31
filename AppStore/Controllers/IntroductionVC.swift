@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Foundation
 
 class IntroductionVC : UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
@@ -41,13 +40,11 @@ class IntroductionVC : UIViewController {
     
     func fetchApps() {
         accessUrls.forEach { url in
-            APIClient.parseJsonToAppsGroup(from: url) { appsGroup in
+            GetAppsGroup(url: url).execute(in: .background).then(in: .main) { [weak self] appsGroup in
                 if let appsGroup = appsGroup {
-                    self.data.appsGroups.append(appsGroup)
-                    let index = IndexPath(row: self.data.appsGroups.count - 1, section: SectionHandler.appsGroup.rawValue)
-                    DispatchQueue.main.async {
-                        self.collectionView.insertItems(at: [index])
-                    }
+                    self?.data.appsGroups.append(appsGroup)
+                    let indexPath = IndexPath(row: (self?.data.appsGroups.count ?? 1) - 1, section: SectionHandler.appsGroupSection)
+                    self?.collectionView.insertItems(at: [indexPath])
                 }
             }
         }
@@ -155,6 +152,10 @@ extension IntroductionVC {
     private enum SectionHandler : Int, CaseIterable {
         case appsGroupHeader
         case appsGroup
+        
+        static var appsGroupSection: Int {
+            return appsGroup.rawValue
+        }
         
         init?(_ section: Int) {
             switch section {

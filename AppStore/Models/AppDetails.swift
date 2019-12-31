@@ -36,7 +36,9 @@ public struct AppDetails {
     public var averageUserRating: Float
     public var userRatingCount: Int
     
-    public init?(_ json: JSON) {
+    public init?(_ json: JSON?) {
+        guard let json = json else { return nil }
+
         guard let id = json["trackId"].int else { return nil }
         guard let artistId = json["artistId"].int else { return nil }
         guard let screenshotUrls = json["screenshotUrls"].array else { return nil }
@@ -85,5 +87,29 @@ public struct AppDetails {
     
     static func load(_ array: [JSON]) -> [AppDetails] {
         return array.compactMap { AppDetails($0) }
+    }
+}
+
+public class GetAppDetails: PromiseOperation<AppDetails?> {
+    public init(id: String) {
+        super.init()
+        
+        url = URLMaker.detail(id: id)
+        
+        jsonResponse = { json in
+            AppDetails(json["results"].array?.first)
+        }
+    }
+}
+
+public class GetSearchResults: PromiseOperation<[AppDetails]> {
+    public init(term: String) {
+        super.init()
+        
+        url = URLMaker.search(term: term)
+        
+        jsonResponse = { json in
+            AppDetails.load(json["results"].arrayValue)
+        }
     }
 }

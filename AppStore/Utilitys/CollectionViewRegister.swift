@@ -6,7 +6,6 @@
 //  Copyright © 2019 塚田良輝. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 protocol CollectionViewRegister : class {

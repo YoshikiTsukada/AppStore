@@ -5,7 +5,6 @@
 //  Created by 塚田良輝 on 2019/12/03.
 //
 
-import Foundation
 import UIKit
 
 protocol CollectionReusableViewPresenter : class {

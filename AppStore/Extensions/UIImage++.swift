@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Foundation
 
 extension UIImage {
     func resized(toWidth width: CGFloat) -> UIImage? {

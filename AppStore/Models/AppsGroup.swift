@@ -45,3 +45,15 @@ public struct App {
         return array.compactMap { App($0) }
     }
 }
+
+public class GetAppsGroup: PromiseOperation<AppsGroup?> {
+    public init(url: URL) {
+        super.init()
+        
+        self.url = url
+        
+        jsonResponse = { json in
+            AppsGroup(json["feed"])
+        }
+    }
+}

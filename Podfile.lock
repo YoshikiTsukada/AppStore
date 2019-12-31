@@ -1,4 +1,5 @@
 PODS:
+  - HydraAsync (2.0.2)
   - Kingfisher (5.12.0):
     - Kingfisher/Core (= 5.12.0)
   - Kingfisher/Core (5.12.0)
@@ -6,21 +7,24 @@ PODS:
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
+  - HydraAsync
   - Kingfisher (~> 5.0)
   - SwiftDate (~> 6.0)
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   trunk:
+    - HydraAsync
     - Kingfisher
     - SwiftDate
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  HydraAsync: 690b8c1c9dcde7ee1093cee363a6c1ce36b56a83
   Kingfisher: dc6e0f53bb5b12c3e75bedb0e01bbd7a640eea69
   SwiftDate: fa2bb3962056bb44047b4b85a30044e5eae30b03
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 91d0bbd1024cdab2b338e2d499d78f9da4189e77
+PODFILE CHECKSUM: a04f4366562869602b67c1ad7a0d5f2978eeeb7e
 
 COCOAPODS: 1.8.4

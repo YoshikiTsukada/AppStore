@@ -31,3 +31,15 @@ public struct Review {
         return array.compactMap { Review($0) }
     }
 }
+
+public class GetReviews: PromiseOperation<[Review]> {
+    public init(id: String) {
+        super.init()
+        
+        url = URLMaker.review(id: id)
+        
+        jsonResponse = { json in
+            Review.load(json["feed"]["entry"].arrayValue)
+        }
+    }
+}
