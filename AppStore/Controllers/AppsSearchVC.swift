@@ -126,3 +126,9 @@ extension AppsSearchVC : CollectionViewRegister {
         ]
     }
 }
+
+extension AppsSearchVC : ScrollableToTop {
+    var scrollableView: Any? {
+        return collectionView
+    }
+}

@@ -20,3 +20,9 @@ class AppsIntroductionVC : IntroductionVC {
         ]
     }
 }
+
+extension AppsIntroductionVC : ScrollableToTop {
+    var scrollableView: Any? {
+        return collectionView
+    }
+}
