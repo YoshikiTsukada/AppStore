@@ -5,8 +5,8 @@
 //  Created by 塚田良輝 on 2019/12/26.
 //
 
-import SwiftyJSON
 import SwiftDate
+import SwiftyJSON
 
 public struct AppDetails {
     public let id: Int
@@ -27,7 +27,7 @@ public struct AppDetails {
     public var currentVersionReleaseDate: DateInRegion? {
         return DateInRegion(currentVersionReleaseDateString)
     }
-    
+
     public var primaryGenreName: String
     public var price: String
     public var version: String
@@ -35,7 +35,7 @@ public struct AppDetails {
     public var description: String
     public var averageUserRating: Float
     public var userRatingCount: Int
-    
+
     public init?(_ json: JSON?) {
         guard let json = json else { return nil }
 
@@ -60,7 +60,7 @@ public struct AppDetails {
         guard let description = json["description"].string else { return nil }
         guard let averageUserRating = json["averageUserRating"].float else { return nil }
         guard let userRatingCount = json["userRatingCount"].int else { return nil }
-        
+
         self.id = id
         self.artistId = artistId
         self.screenshotUrls = screenshotUrls.compactMap { $0.string }
@@ -84,7 +84,7 @@ public struct AppDetails {
         self.averageUserRating = averageUserRating
         self.userRatingCount = userRatingCount
     }
-    
+
     static func load(_ array: [JSON]) -> [AppDetails] {
         return array.compactMap { AppDetails($0) }
     }
@@ -93,9 +93,9 @@ public struct AppDetails {
 public class GetAppDetails: PromiseOperation<AppDetails?> {
     public init(id: String) {
         super.init()
-        
+
         url = URLMaker.detail(id: id)
-        
+
         jsonResponse = { json in
             AppDetails(json["results"].array?.first)
         }
@@ -105,9 +105,9 @@ public class GetAppDetails: PromiseOperation<AppDetails?> {
 public class GetSearchResults: PromiseOperation<[AppDetails]> {
     public init(term: String) {
         super.init()
-        
+
         url = URLMaker.search(term: term)
-        
+
         jsonResponse = { json in
             AppDetails.load(json["results"].arrayValue)
         }

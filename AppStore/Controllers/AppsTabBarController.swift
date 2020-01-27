@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ScrollableToTop : class {
+protocol ScrollableToTop: class {
     var scrollableView: Any? { get }
     func scrollToTop()
 }
@@ -27,23 +27,22 @@ extension ScrollableToTop {
     }
 }
 
-class AppsTabBarController : UITabBarController {
+class AppsTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         delegate = self
         apply()
     }
-    
-    func apply() {
-    }
+
+    func apply() {}
 }
 
-extension AppsTabBarController : UITabBarControllerDelegate {
+extension AppsTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         guard selectedViewController == viewController else { return true }
         guard let nav = viewController as? UINavigationController else { return true }
-        
+
         if nav.viewControllers.count == 1 {
             if let vc = nav.viewControllers.first as? ScrollableToTop {
                 vc.scrollToTop()

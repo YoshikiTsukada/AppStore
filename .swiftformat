@@ -1,0 +1,3 @@
+--disable strongOutlets, blankLinesAroundMark
+--stripunusedargs closure-only
+--exclude Pods

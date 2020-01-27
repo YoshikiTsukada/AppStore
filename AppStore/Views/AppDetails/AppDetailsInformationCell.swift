@@ -8,20 +8,20 @@
 
 import UIKit
 
-final class AppDetailsInformationCell : UICollectionViewCell, CollectionViewCellPresenter {
+final class AppDetailsInformationCell: UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var itemLabel: UILabel!
-    
+
     private var cellKind: CellKindPresenter?
-    
+
 //    var isTapEnable: Bool? {
 //        return cellKind?.isTapEnable
 //    }
-    
+
     var title: String? {
         return cellKind?.title
     }
-    
+
     static func estimatedSize(with width: CGFloat) -> CGSize {
         return .init(width: width, height: 50)
     }
@@ -29,16 +29,16 @@ final class AppDetailsInformationCell : UICollectionViewCell, CollectionViewCell
     //
     // MARK: CollectionViewCellPresenter
     //
-    
+
     typealias T = (AppDetails, CellKindPresenter)
     var data: (AppDetails, CellKindPresenter)?
-    
+
     func apply(with data: (AppDetails, CellKindPresenter)?) {
         cellKind = data?.1
         titleLabel.text = title
-        
+
         guard let appDetails = data?.0 else { return }
-        
+
         switch cellKind {
         case .distributor:
             itemLabel.text = appDetails.sellerName
@@ -60,7 +60,7 @@ final class AppDetailsInformationCell : UICollectionViewCell, CollectionViewCell
 }
 
 extension AppDetailsInformationCell {
-    enum CellKindPresenter : Int, CaseIterable {
+    enum CellKindPresenter: Int, CaseIterable {
         case distributor
         case dataSize
         case category
@@ -81,7 +81,7 @@ extension AppDetailsInformationCell {
             default: return nil
             }
         }
-        
+
 //        var isTapEnable: Bool {
 //            switch self {
 //            case .distributor, .dataSize:
@@ -91,7 +91,7 @@ extension AppDetailsInformationCell {
 //            default: return false
 //            }
 //        }
-        
+
         var title: String {
             switch self {
             case .distributor:

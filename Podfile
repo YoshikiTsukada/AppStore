@@ -6,6 +6,7 @@ target 'AppStore' do
   use_frameworks!
 
   # Pods for AppStore
+  pod 'SwiftFormat/CLI'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'SwiftDate', '~> 6.0'
   pod 'Kingfisher', '~> 5.0'

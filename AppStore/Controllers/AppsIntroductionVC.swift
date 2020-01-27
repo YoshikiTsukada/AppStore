@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AppsIntroductionVC : IntroductionVC {
+class AppsIntroductionVC: IntroductionVC {
     override var accessUrls: [URL] {
         return [
             URLMaker.recommendedNewApps,
@@ -16,12 +16,12 @@ class AppsIntroductionVC : IntroductionVC {
             URLMaker.ipadTopFree,
             URLMaker.topSales,
             URLMaker.ipadTopSales,
-            URLMaker.topPaid
+            URLMaker.topPaid,
         ]
     }
 }
 
-extension AppsIntroductionVC : ScrollableToTop {
+extension AppsIntroductionVC: ScrollableToTop {
     var scrollableView: Any? {
         return collectionView
     }

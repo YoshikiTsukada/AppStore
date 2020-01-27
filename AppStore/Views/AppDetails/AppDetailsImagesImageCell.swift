@@ -12,21 +12,21 @@ protocol AppDetailsImagesImageCellDelegate: class {
     func appDetailsImagesImageCell(estimatedSize size: CGSize?)
 }
 
-final class AppDetailsImagesImageCell : UICollectionViewCell, CollectionViewCellPresenter {
+final class AppDetailsImagesImageCell: UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet weak var imageView: UIImageView!
-    
+
     var delegate: AppDetailsImagesImageCellDelegate?
-    
+
     //
     // MARK: CollectionViewCellPresenter
     //
-    
+
     typealias T = String
     var data: String?
-    
+
     func apply(with data: String?) {
         guard let data = data else { return }
-        
+
         if let url = URL(string: data) {
             imageView.kf.setImage(with: url)
         }

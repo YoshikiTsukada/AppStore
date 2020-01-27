@@ -7,27 +7,27 @@
 
 import UIKit
 
-class AllReviewsVC : BaseViewController {
+class AllReviewsVC: BaseViewController {
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     var data: DataSet = .empty
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         registerAllCollectionViewCells(to: collectionView)
     }
 }
 
-extension AllReviewsVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension AllReviewsVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     //
     // MARK: UICollectionViewDataSource
     //
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return SectionHandler.allCases.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch SectionHandler(section) {
         case .reviews:
@@ -36,7 +36,7 @@ extension AllReviewsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
             return SectionHandler.defaultNumberOfItem
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch SectionHandler(indexPath.section) {
         case .heading:
@@ -48,25 +48,25 @@ extension AllReviewsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
         default: return UICollectionViewCell()
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let cellKind = AllReviewsSectionHeaderCell.CellKindPresenter(indexPath.section)
-        
+
         let cell = AllReviewsSectionHeaderCell.dequeue(from: collectionView, of: kind, for: indexPath, with: cellKind)
         return cell
     }
-    
+
     //
     // MARK: UICollectionViewDelegate
     //
-    
+
     //
     // MARK: UICollectionViewDelegateFlowLayout
     //
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
-        
+
         switch SectionHandler(indexPath.section) {
         case .heading:
             return AllReviewsHeaderCell.estimatedSize(with: width)
@@ -75,19 +75,19 @@ extension AllReviewsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
         default: return .zero
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 0, bottom: 20, right: 0)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 15
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.bounds.width
         let cellKind = AllReviewsSectionHeaderCell.CellKindPresenter(section)
-        
+
         return AllReviewsSectionHeaderCell.estimatedSize(with: width, cellKind: cellKind)
     }
 }
@@ -104,9 +104,9 @@ extension AllReviewsVC {
     private enum SectionHandler: Int, CaseIterable {
         case heading
         case reviews
-        
+
         static let defaultNumberOfItem = 1
-        
+
         init?(_ section: Int) {
             switch section {
             case type(of: self).heading.rawValue: self = .heading
@@ -117,14 +117,14 @@ extension AllReviewsVC {
     }
 }
 
-extension AllReviewsVC : CollectionViewRegister {
+extension AllReviewsVC: CollectionViewRegister {
     var cellTypes: [UICollectionViewCell.Type] {
         return [
             AllReviewsHeaderCell.self,
             AppDetailsReviewCell.self,
         ]
     }
-    
+
     var headerCellTypes: [UICollectionReusableView.Type] {
         return [
             AllReviewsSectionHeaderCell.self,

@@ -8,45 +8,45 @@
 
 import UIKit
 
-protocol AppDetailsUpdateCellDelegate : class {
+protocol AppDetailsUpdateCellDelegate: class {
     func appDetailsUpdateCell(labelSizeToFit height: CGFloat)
 }
 
-final class AppDetailsUpdateCell : UICollectionViewCell, CollectionViewCellPresenter {
+final class AppDetailsUpdateCell: UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet weak var newestVersionLabel: UILabel!
     @IBOutlet weak var updateDateLabel: UILabel!
     @IBOutlet weak var updateDetailsLabel: UILabel!
     @IBOutlet weak var showMoreButton: UIButton!
-    
+
     var delegate: AppDetailsUpdateCellDelegate?
-    
+
     var buttonTapped: Bool = false {
         didSet {
             showMoreButton.isHidden = buttonTapped
         }
     }
-    
+
     static func estimatedSize(width: CGFloat, height: CGFloat = 135) -> CGSize {
         return .init(width: width, height: height)
     }
-    
+
     @IBAction func showMoreButtonTapped(_ sender: Any) {
         let beforeWidth = updateDetailsLabel.frame.height
         updateDetailsLabel.sizeToFit()
         let afterWidth = updateDetailsLabel.frame.height
         delegate?.appDetailsUpdateCell(labelSizeToFit: afterWidth - beforeWidth)
     }
-    
+
     //
     // MARK: CollectionViewCellPresenter
     //
-    
+
     typealias T = AppDetails
     var data: AppDetails?
-    
+
     func apply(with data: AppDetails?) {
         guard let appDetails = data else { return }
-        
+
         newestVersionLabel.text = "バージョン\(appDetails.version)"
         updateDateLabel.text = appDetails.currentVersionReleaseDate?.toISO([.withFullDate])
         updateDetailsLabel.text = appDetails.releaseNotes

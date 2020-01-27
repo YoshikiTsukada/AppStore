@@ -8,17 +8,17 @@
 
 import Foundation
 
-class GamesIntroductionVC : IntroductionVC {
+class GamesIntroductionVC: IntroductionVC {
     override var accessUrls: [URL] {
         return [
             URLMaker.recommendedNewGames,
             URLMaker.topFreeGames,
-            URLMaker.topPaidGames
+            URLMaker.topPaidGames,
         ]
     }
 }
 
-extension GamesIntroductionVC : ScrollableToTop {
+extension GamesIntroductionVC: ScrollableToTop {
     var scrollableView: Any? {
         return collectionView
     }

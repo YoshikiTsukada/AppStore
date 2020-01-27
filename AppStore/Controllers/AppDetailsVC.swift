@@ -8,23 +8,23 @@
 
 import UIKit
 
-class AppDetailsVC : BaseViewController {
+class AppDetailsVC: BaseViewController {
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     var data: DataSet = .empty
     var cellSize: CellSizePresenter = .empty
-    
+
     var firstImage: UIImage?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         registerAllCollectionViewCells(to: collectionView)
         navigationController?.navigationBar.isHidden = false
         fetchAppDetails()
         fetchReviews()
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch (segue.identifier, segue.destination) {
         case let ("showAllReviews", vc as AllReviewsVC):
@@ -33,10 +33,10 @@ class AppDetailsVC : BaseViewController {
         default: break
         }
     }
-    
+
     func fetchAppDetails() {
         guard let id = data.id else { return }
-        
+
         let width: CGFloat = UIScreen.main.bounds.width - 40
         GetAppDetails(id: id).execute(in: .background).then(in: .main) { [weak self] appDetails in
             self?.data.appDetails = appDetails
@@ -44,28 +44,27 @@ class AppDetailsVC : BaseViewController {
             self?.fetchImage(width: width)
         }
     }
-    
+
     func fetchReviews() {
         guard let id = data.id else { return }
-        
+
         GetReviews(id: id).execute(in: .background).then(in: .main) { [weak self] reviews in
             self?.data.reviews = reviews
             self?.collectionView.reloadSections([SectionHandler.reviewsSection])
         }
     }
-    
+
     func fetchImage(width: CGFloat) {
         guard let urlString = data.appDetails?.screenshotUrls.first else { return }
-        
+
         if let url = URL(string: urlString) {
             UIImageView().kf.setImage(with: url) { result in
                 switch result {
-                case .success(let imageValue):
+                case let .success(imageValue):
                     let size = imageValue.image.size
                     if size.width > size.height {
                         self.firstImage = imageValue.image.resized(toWidth: width)
-                    }
-                    else {
+                    } else {
                         self.firstImage = imageValue.image.resized(toWidth: width * 2 / 3)
                     }
                     self.collectionView.reloadSections([SectionHandler.imagesSection])
@@ -76,15 +75,15 @@ class AppDetailsVC : BaseViewController {
     }
 }
 
-extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension AppDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     //
     // MARK: UICollectionViewDataSource
     //
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return SectionHandler.allCases.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch SectionHandler(section) {
         case .information:
@@ -93,7 +92,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
             return SectionHandler.defaultNumberOfItems
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let appDetails = data.appDetails
         let reviews = data.reviews
@@ -122,16 +121,16 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
             return cell
         case .information:
             guard let appDetails = appDetails, let cellKind = AppDetailsInformationCell.CellKindPresenter(indexPath.item) else { return UICollectionViewCell() }
-            
+
             let cell = AppDetailsInformationCell.dequeue(from: collectionView, for: indexPath, with: (appDetails, cellKind))
             return cell
         default: return UICollectionViewCell()
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let cellKind = AppDetailsSectionHeaderCell.CellKindPresenter(indexPath.section)
-        
+
         let cell = AppDetailsSectionHeaderCell.dequeue(from: collectionView, of: kind, for: indexPath, with: cellKind)
         cell.delegate = self
         return cell
@@ -140,11 +139,11 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
     //
     // MARK: UICollectionViewDelegate
     //
-    
+
     //
     // MARK: UICollectionViewDelegateFlowLayout
     //
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
 
@@ -164,7 +163,7 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
         default: return .zero
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         switch SectionHandler(section) {
         case .information:
@@ -172,11 +171,11 @@ extension AppDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, U
         default: return 0
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.bounds.width
         let cellKind = AppDetailsSectionHeaderCell.CellKindPresenter(section)
-        
+
         return AppDetailsSectionHeaderCell.estimatedSize(with: width, cellKind: cellKind)
     }
 }
@@ -194,45 +193,45 @@ extension AppDetailsVC {
     struct CellSizePresenter {
         var textCellHeight: CGFloat = 190
         var textCellShowMoreButtonTapped: Bool = false
-        
+
         var updateCellHeight: CGFloat = 135
         var updateCellShowMoreButtonTapped: Bool = false
-        
+
         static let empty: CellSizePresenter = .init()
     }
 }
 
 extension AppDetailsVC {
-    private enum SectionHandler : Int, CaseIterable {
+    private enum SectionHandler: Int, CaseIterable {
         case header
         case images
         case text
         case reviews
         case update
         case information
-        
+
         static var imagesIndexPath: IndexPath {
             return .init(item: defaultNumberOfItems - 1, section: imagesSection)
         }
-        
+
         static var imagesSection: Int {
             return images.rawValue
         }
-        
+
         static var textSection: Int {
             return text.rawValue
         }
-        
+
         static var reviewsSection: Int {
             return reviews.rawValue
         }
-        
+
         static var updateSection: Int {
             return update.rawValue
         }
-        
+
         static let defaultNumberOfItems = 1
-        
+
         init?(_ section: Int) {
             switch section {
             case type(of: self).header.rawValue: self = .header
@@ -247,7 +246,7 @@ extension AppDetailsVC {
     }
 }
 
-extension AppDetailsVC : CollectionViewRegister {
+extension AppDetailsVC: CollectionViewRegister {
     var cellTypes: [UICollectionViewCell.Type] {
         return [
             AppDetailsHeaderCell.self,
@@ -258,7 +257,7 @@ extension AppDetailsVC : CollectionViewRegister {
             AppDetailsInformationCell.self,
         ]
     }
-    
+
     var headerCellTypes: [UICollectionReusableView.Type] {
         return [
             AppDetailsSectionHeaderCell.self,
@@ -266,12 +265,11 @@ extension AppDetailsVC : CollectionViewRegister {
     }
 }
 
-extension AppDetailsVC : AppDetailsImageCellDelegate {
-    func appDetailsImageCell(estimatedSize size: CGSize?) {
-    }
+extension AppDetailsVC: AppDetailsImageCellDelegate {
+    func appDetailsImageCell(estimatedSize size: CGSize?) {}
 }
 
-extension AppDetailsVC : AppDetailsTextCellDelegate {
+extension AppDetailsVC: AppDetailsTextCellDelegate {
     func appDetailsTextCell(labelSizeToFit height: CGFloat) {
         cellSize.textCellHeight += height
         cellSize.textCellShowMoreButtonTapped = true
@@ -279,7 +277,7 @@ extension AppDetailsVC : AppDetailsTextCellDelegate {
     }
 }
 
-extension AppDetailsVC : AppDetailsUpdateCellDelegate {
+extension AppDetailsVC: AppDetailsUpdateCellDelegate {
     func appDetailsUpdateCell(labelSizeToFit height: CGFloat) {
         cellSize.updateCellHeight += height
         cellSize.updateCellShowMoreButtonTapped = true
@@ -287,11 +285,10 @@ extension AppDetailsVC : AppDetailsUpdateCellDelegate {
     }
 }
 
-extension AppDetailsVC : AppDetailsSectionHeaderCellDelegate {
+extension AppDetailsVC: AppDetailsSectionHeaderCellDelegate {
     func appDetailsSectionHeaderCell(didTapReviewButton cell: AppDetailsSectionHeaderCell) {
         performSegue(withIdentifier: "showAllReviews", sender: nil)
     }
-    
-    func appDetailsSectionHeaderCell(didTapUpdateButton cell: AppDetailsSectionHeaderCell) {
-    }
+
+    func appDetailsSectionHeaderCell(didTapUpdateButton cell: AppDetailsSectionHeaderCell) {}
 }

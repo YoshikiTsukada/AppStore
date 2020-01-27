@@ -8,24 +8,24 @@
 
 import UIKit
 
-class IntroductionVC : UIViewController {
+class IntroductionVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     var data: DataSet = .empty
     var accessUrls: [URL] { return [] }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         registerAllCollectionViewCells(to: collectionView)
         fetchApps()
     }
-    
+
     override func loadView() {
         if let view = UINib(nibName: String(describing: IntroductionVC.self), bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView {
             self.view = view
         }
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch (SegueType(segue.identifier), segue.destination) {
         case let (.showIntroductionListUpVC, vc as IntroductionListUpVC):
@@ -37,7 +37,7 @@ class IntroductionVC : UIViewController {
         default: break
         }
     }
-    
+
     func fetchApps() {
         accessUrls.forEach { url in
             GetAppsGroup(url: url).execute(in: .background).then(in: .main) { [weak self] appsGroup in
@@ -51,15 +51,15 @@ class IntroductionVC : UIViewController {
     }
 }
 
-extension IntroductionVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension IntroductionVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     //
     // MARK: UICollectionViewDataSource
     //
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return SectionHandler.allCases.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch SectionHandler(section) {
         case .appsGroupHeader?:
@@ -69,7 +69,7 @@ extension IntroductionVC : UICollectionViewDataSource, UICollectionViewDelegate,
         default: return 0
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch SectionHandler(indexPath.section) {
         case .appsGroupHeader?:
@@ -83,18 +83,18 @@ extension IntroductionVC : UICollectionViewDataSource, UICollectionViewDelegate,
         default: return UICollectionViewCell()
         }
     }
-    
+
     //
     // MARK: UICollectionViewDelegate
     //
-    
+
     //
     // MARK: UICollectionViewDelegateFlowLayout
     //
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
-        
+
         switch SectionHandler(indexPath.section) {
         case .appsGroupHeader?:
             return .zero
@@ -105,15 +105,15 @@ extension IntroductionVC : UICollectionViewDataSource, UICollectionViewDelegate,
     }
 }
 
-extension IntroductionVC : AppsGroupCellDelegate {
+extension IntroductionVC: AppsGroupCellDelegate {
     var classType: String {
         return String(describing: type(of: self))
     }
-    
+
     func appsGroupCell(allDisplayButtonTappedWith appsGroup: AppsGroup?) {
         performSegue(withIdentifier: SegueType.showIntroductionListUpVC.rawValue, sender: appsGroup)
     }
-    
+
     func appsGroupCell(didSelectAppIdWith id: String) {
         performSegue(withIdentifier: SegueType.showAppDetailsVC.rawValue, sender: id)
     }
@@ -123,7 +123,7 @@ extension IntroductionVC {
     struct DataSet {
         var appsGroups: [AppsGroup] = []
         static let empty: DataSet = .init()
-        
+
         static let appsGroupTitleLabelHeight: CGFloat = 30
         static let appsGroupTitleLabelSpacing: CGFloat = 10
         static var appsGroupCellHeight: CGFloat {
@@ -132,16 +132,17 @@ extension IntroductionVC {
                 + appsCarouselCellHeight * 3
                 + appsCarouselCellVerticalSpacing * 2
         }
-        
+
         static var appsCarouselCellHeight: CGFloat {
             return appsCarouselImageWidth + appsCarouselImageSpacing * 2
         }
+
         static let appsCarouselImageWidth: CGFloat = 70
         static let appsCarouselImageSpacing: CGFloat = 10
         static let appsCarouselCellVerticalSpacing: CGFloat = 0
         static let appsCarouselCellHorizontalSpacing: CGFloat = 10
         static let appsCarouselCellHorizontalSectionInset: CGFloat = 20
-        
+
         static func appsCarouselCellWidth(_ width: CGFloat) -> CGFloat {
             return width - appsCarouselCellHorizontalSectionInset * 2
         }
@@ -149,14 +150,14 @@ extension IntroductionVC {
 }
 
 extension IntroductionVC {
-    private enum SectionHandler : Int, CaseIterable {
+    private enum SectionHandler: Int, CaseIterable {
         case appsGroupHeader
         case appsGroup
-        
+
         static var appsGroupSection: Int {
             return appsGroup.rawValue
         }
-        
+
         init?(_ section: Int) {
             switch section {
             case type(of: self).appsGroupHeader.rawValue: self = .appsGroupHeader
@@ -168,20 +169,20 @@ extension IntroductionVC {
 }
 
 extension IntroductionVC {
-    enum SegueType : String {
+    enum SegueType: String {
         case showIntroductionListUpVC
         case showAppDetailsVC
-        
+
         init?(_ identifier: String?) {
             self.init(rawValue: identifier ?? "")
         }
     }
 }
 
-extension IntroductionVC : CollectionViewRegister {
+extension IntroductionVC: CollectionViewRegister {
     var cellTypes: [UICollectionViewCell.Type] {
         return [
-            AppsGroupCell.self
+            AppsGroupCell.self,
         ]
     }
 }

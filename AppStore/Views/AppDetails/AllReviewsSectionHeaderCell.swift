@@ -7,37 +7,36 @@
 
 import UIKit
 
-final class AllReviewsSectionHeaderCell : UICollectionReusableView, CollectionReusableViewPresenter {
-    
+final class AllReviewsSectionHeaderCell: UICollectionReusableView, CollectionReusableViewPresenter {
     private var cellKind: CellKindPresenter?
-    
+
     static func estimatedSize(with width: CGFloat, cellKind: CellKindPresenter?) -> CGSize {
         guard let cellKind = cellKind else { return .zero }
-        
+
         switch cellKind {
         case .heading:
             return .init(width: width, height: 50)
         default: return .zero
         }
     }
-    
+
     //
     // MARK: CollectionReusableViewPresenter
     //
-    
+
     typealias T = CellKindPresenter
     var data: CellKindPresenter?
-    
+
     func apply(with data: CellKindPresenter?) {
         cellKind = data
     }
 }
 
 extension AllReviewsSectionHeaderCell {
-    enum CellKindPresenter : Int {
+    enum CellKindPresenter: Int {
         case heading
         case reviews
-        
+
         init?(_ section: Int) {
             switch section {
             case type(of: self).heading.rawValue: self = .heading

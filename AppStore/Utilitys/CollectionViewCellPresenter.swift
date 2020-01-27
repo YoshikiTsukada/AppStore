@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol CollectionViewCellPresenter : class {
+protocol CollectionViewCellPresenter: class {
     associatedtype T
-    
+
     var data: T? { get set }
     static func dequeue(from collectionView: UICollectionView, for indexPath: IndexPath, with data: T?) -> Self
     func apply(with data: T?)
 }
 
-extension CollectionViewCellPresenter where Self : UICollectionViewCell {
+extension CollectionViewCellPresenter where Self: UICollectionViewCell {
     static func dequeue(from collectionView: UICollectionView, for indexPath: IndexPath, with data: T?) -> Self {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: self), for: indexPath) as! Self
         cell.data = data

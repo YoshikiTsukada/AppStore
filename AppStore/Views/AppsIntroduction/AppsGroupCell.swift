@@ -6,62 +6,62 @@
 //  Copyright © 2019 塚田良輝. All rights reserved.
 //
 
-import UIKit
 import Foundation
+import UIKit
 
-protocol AppsGroupCellDelegate : class {
+protocol AppsGroupCellDelegate: class {
     var classType: String { get }
     func appsGroupCell(allDisplayButtonTappedWith appsGroup: AppsGroup?)
     func appsGroupCell(didSelectAppIdWith id: String)
 }
 
-final class AppsGroupCell : UICollectionViewCell, CollectionViewCellPresenter {
+final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var allDisplayButton: UIButton!
     @IBOutlet weak var appsCarouselView: AppsCarouselView!
-    
+
     var delegate: AppsGroupCellDelegate?
-    
+
     let titleLabelHeight: CGFloat = 20
-    
+
     func setUpAppsCarouselView(with appsGroup: AppsGroup) {
         appsCarouselView.data.apps = appsGroup.apps
         appsCarouselView.delegate = self
         appsCarouselView.collectionView.reloadData()
     }
-    
+
     func insertSectionLine() {
         let frame = CGRect(
-            x: self.bounds.origin.x + IntroductionVC.DataSet.appsCarouselCellHorizontalSectionInset,
-            y: self.bounds.origin.y + self.bounds.height - 1,
-            width: self.bounds.width - IntroductionVC.DataSet.appsCarouselCellHorizontalSectionInset * 2,
+            x: bounds.origin.x + IntroductionVC.DataSet.appsCarouselCellHorizontalSectionInset,
+            y: bounds.origin.y + bounds.height - 1,
+            width: bounds.width - IntroductionVC.DataSet.appsCarouselCellHorizontalSectionInset * 2,
             height: 0.5
         )
         let view = UIView(frame: frame)
         view.backgroundColor = .lightGray
         contentView.addSubview(view)
     }
-    
+
     func titleConversion() {
         let title = TitleConversion(delegate?.classType, titleLabel.text)?.rawValue
         titleLabel.text = title
         data?.title = title ?? ""
     }
-    
+
     @IBAction func allDisplayButtonTapped(_ sender: Any) {
         delegate?.appsGroupCell(allDisplayButtonTappedWith: data)
     }
-    
+
     //
     // MARK: CollectionViewCellPresenter
     //
-    
+
     typealias T = AppsGroup
     var data: AppsGroup?
-    
+
     func apply(with data: AppsGroup?) {
         guard let appsGroup = data else { return }
-        
+
         titleLabel.text = appsGroup.title
         setUpAppsCarouselView(with: appsGroup)
         insertSectionLine()
@@ -69,7 +69,7 @@ final class AppsGroupCell : UICollectionViewCell, CollectionViewCellPresenter {
 }
 
 extension AppsGroupCell {
-    private enum TitleConversion : String {
+    private enum TitleConversion: String {
         case recommendedNewGames = "おすすめの新着ゲーム"
         case topFreeGames = "トップ無料ゲーム"
         case topPaidGames = "トップ有料ゲーム"
@@ -79,7 +79,7 @@ extension AppsGroupCell {
         case topSalesApp = "トップセールス"
         case ipadTopSales = "トップセールスiPad"
         case topPaid = "トップ有料"
-        
+
         static let recommendedNewGamesTitle = "おすすめの新着ゲーム"
         static let topFreeGamesTitle = "Top Free iPhone Apps"
         static let topPaidGamesTitle = "Top Paid iPhone Apps"
@@ -89,11 +89,11 @@ extension AppsGroupCell {
         static let topSalesAppTitle = "Top Grossing iPhone Apps"
         static let ipadTopSalesTitle = "Top Grossing iPad Apps"
         static let topPaidTitle = "Top Paid iPhone Apps"
-        
+
         init?(_ classType: String?, _ title: String?) {
             let game = String(describing: GamesIntroductionVC.self)
             let app = String(describing: AppsIntroductionVC.self)
-            
+
             switch (classType, title) {
             case (game, type(of: self).recommendedNewGamesTitle): self = type(of: self).recommendedNewGames
             case (game, type(of: self).topFreeGamesTitle): self = type(of: self).topFreeGames
@@ -110,7 +110,7 @@ extension AppsGroupCell {
     }
 }
 
-extension AppsGroupCell : AppsCarouselViewDelegate {
+extension AppsGroupCell: AppsCarouselViewDelegate {
     func appsCarouselView(didSelectAppIdWith id: String) {
         delegate?.appsGroupCell(didSelectAppIdWith: id)
     }

@@ -6,19 +6,19 @@
 //  Copyright © 2019 塚田良輝. All rights reserved.
 //
 
-import UIKit
 import Foundation
+import UIKit
 
-protocol AppsCarouselViewDelegate : class {
+protocol AppsCarouselViewDelegate: class {
     func appsCarouselView(didSelectAppIdWith id: String)
 }
 
-class AppsCarouselView : UIView {
+class AppsCarouselView: UIView {
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     var data: DataSet = .empty
     var delegate: AppsCarouselViewDelegate?
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNib()
@@ -39,52 +39,52 @@ class AppsCarouselView : UIView {
     }
 }
 
-extension AppsCarouselView : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension AppsCarouselView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     //
     // MARK: UICollectionViewDataSource
     //
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.apps.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard data.apps.count > 0 else { return UICollectionViewCell() }
-        
+
         let app = data.apps[indexPath.item]
         let cell = AppsCarouselCell.dequeue(from: collectionView, for: indexPath, with: app)
         cell.insertSectionLineIfNeeded(indexPath.item % 3 != 2)
         return cell
     }
-    
+
     //
     // MARK: UICollectionViewDelegate
     //
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)
         let id = data.apps[indexPath.item].id
         delegate?.appsCarouselView(didSelectAppIdWith: id)
     }
-    
+
     //
     // MARK: UICollectionViewDelegateFlowLayout
     //
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         return .init(width: IntroductionVC.DataSet.appsCarouselCellWidth(width), height: IntroductionVC.DataSet.appsCarouselCellHeight)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let spacing = IntroductionVC.DataSet.appsCarouselCellHorizontalSectionInset
         return .init(top: 0, left: spacing, bottom: 0, right: spacing)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return IntroductionVC.DataSet.appsCarouselCellHorizontalSpacing
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return IntroductionVC.DataSet.appsCarouselCellVerticalSpacing
     }
@@ -97,10 +97,10 @@ extension AppsCarouselView {
     }
 }
 
-extension AppsCarouselView : CollectionViewRegister {
+extension AppsCarouselView: CollectionViewRegister {
     var cellTypes: [UICollectionViewCell.Type] {
         return [
-            AppsCarouselCell.self
+            AppsCarouselCell.self,
         ]
     }
 }
