@@ -12,6 +12,7 @@ $ open AppStore.xcworkspace
 ## Used Libraries
 ### Command line tool
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen)
+- [SwiftFormat](https://github.com/nicklockwood/SwiftFormat)
 
 ### CocoaPods
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
