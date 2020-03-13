@@ -17,9 +17,3 @@ class GamesIntroductionVC: IntroductionVC {
         ]
     }
 }
-
-extension GamesIntroductionVC: ScrollableToTop {
-    var scrollableView: Any? {
-        return collectionView
-    }
-}

@@ -12,7 +12,11 @@ class IntroductionVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
     var data: DataSet = .empty
-    var accessUrls: [URL] { return [] }
+    var accessUrls: [URL] {
+        return [
+            // Must override accessUrls in IntroductionVC subclass
+        ]
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -184,5 +188,11 @@ extension IntroductionVC: CollectionViewRegister {
         return [
             AppsGroupCell.self,
         ]
+    }
+}
+
+extension IntroductionVC: ScrollableToTop {
+    var scrollableView: Any? {
+        return collectionView
     }
 }
