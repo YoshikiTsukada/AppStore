@@ -14,7 +14,7 @@ class IntroductionVC: UIViewController {
     var data: DataSet = .empty
     var accessUrls: [URL] {
         return [
-            // Must override accessUrls in IntroductionVC subclass
+            // Must override `accessUrls` in IntroductionVC subclass.
         ]
     }
 

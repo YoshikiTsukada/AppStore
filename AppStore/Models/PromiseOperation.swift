@@ -12,6 +12,12 @@ public class PromiseOperation<Value> {
     public var url: URL?
     public var jsonResponse: ((JSON) -> Value)?
 
+    public init() {
+        jsonResponse = { _ in
+            fatalError("Must implement `jsonResponse` in PromiseOperation subclass.")
+        }
+    }
+
     public func execute(in context: Context? = nil) -> Promise<Value> {
         return .init(in: context) { resolve, reject, _ in
             URLSession.shared.dataTask(with: self.url!) { data, _, error in
