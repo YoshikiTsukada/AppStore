@@ -1,6 +1,8 @@
 # AppStore
 Clone application of AppStore
 
+<img width="754" alt="スクリーンショット 2020-03-27 22 28 46" src="https://user-images.githubusercontent.com/46738820/77766334-d9c75480-7082-11ea-923d-c93db429d838.png">
+
 ## Installation
 ```
 $ brew install xcodegen
