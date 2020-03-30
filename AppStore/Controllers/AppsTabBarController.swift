@@ -28,6 +28,30 @@ extension ScrollableToTop {
 }
 
 class AppsTabBarController: UITabBarController {
+    private struct TabBarItem {
+        let title: String
+        let image: UIImage
+        let rootVC: UIViewController
+    }
+
+    private let tabBarItems: [TabBarItem] = [
+        .init(
+            title: "ゲーム",
+            image: #imageLiteral(resourceName: "games"),
+            rootVC: GamesIntroductionVC()
+        ),
+        .init(
+            title: "App",
+            image: #imageLiteral(resourceName: "apps"),
+            rootVC: AppsIntroductionVC()
+        ),
+        .init(
+            title: "検索",
+            image: #imageLiteral(resourceName: "search"),
+            rootVC: AppsSearchVC()
+        ),
+    ]
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,7 +59,15 @@ class AppsTabBarController: UITabBarController {
         apply()
     }
 
-    func apply() {}
+    func apply() {
+        var nvcs: [UINavigationController] = []
+        tabBarItems.enumerated().forEach { tag, item in
+            let nvc = UINavigationController(rootViewController: item.rootVC)
+            nvc.tabBarItem = .init(title: item.title, image: item.image, tag: tag)
+            nvcs.append(nvc)
+        }
+        setViewControllers(nvcs, animated: false)
+    }
 }
 
 extension AppsTabBarController: UITabBarControllerDelegate {
