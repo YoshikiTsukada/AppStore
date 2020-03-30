@@ -7,6 +7,8 @@ target 'AppStore' do
 
   # Pods for AppStore
   pod 'SwiftFormat/CLI'
+  pod 'RxSwift', '~> 5'
+  pod 'RxCocoa', '~> 5'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'SwiftDate', '~> 6.0'
   pod 'Kingfisher', '~> 5.0'

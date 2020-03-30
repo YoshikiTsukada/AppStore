@@ -3,6 +3,12 @@ PODS:
   - Kingfisher (5.12.0):
     - Kingfisher/Core (= 5.12.0)
   - Kingfisher/Core (5.12.0)
+  - RxCocoa (5.0.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.0.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.0.1)
   - SwiftDate (6.1.0)
   - SwiftFormat/CLI (0.43.1)
   - SwiftyJSON (4.3.0)
@@ -10,6 +16,8 @@ PODS:
 DEPENDENCIES:
   - HydraAsync
   - Kingfisher (~> 5.0)
+  - RxCocoa (~> 5)
+  - RxSwift (~> 5)
   - SwiftDate (~> 6.0)
   - SwiftFormat/CLI
   - SwiftyJSON (~> 4.0)
@@ -18,6 +26,9 @@ SPEC REPOS:
   trunk:
     - HydraAsync
     - Kingfisher
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SwiftDate
     - SwiftFormat
     - SwiftyJSON
@@ -25,10 +36,13 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   HydraAsync: 690b8c1c9dcde7ee1093cee363a6c1ce36b56a83
   Kingfisher: dc6e0f53bb5b12c3e75bedb0e01bbd7a640eea69
+  RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
+  RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
+  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
   SwiftDate: fa2bb3962056bb44047b4b85a30044e5eae30b03
   SwiftFormat: e73bae96d000ae07ffb9e3636929ca5e9d5c1efd
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: ec7d299d82b17df04518faeb7f4ce4d11036aafd
+PODFILE CHECKSUM: 910af3cef14f7c4f84f68f25bef21c1951ac7680
 
 COCOAPODS: 1.8.4
