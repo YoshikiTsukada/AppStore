@@ -60,13 +60,13 @@ class AppsTabBarController: UITabBarController {
     }
 
     func apply() {
-        var nvcs: [UINavigationController] = []
+        var navs: [UINavigationController] = []
         tabBarItems.enumerated().forEach { tag, item in
-            let nvc = UINavigationController(rootViewController: item.rootVC)
-            nvc.tabBarItem = .init(title: item.title, image: item.image, tag: tag)
-            nvcs.append(nvc)
+            let nav = UINavigationController(rootViewController: item.rootVC)
+            nav.tabBarItem = .init(title: item.title, image: item.image, tag: tag)
+            navs.append(nav)
         }
-        setViewControllers(nvcs, animated: false)
+        setViewControllers(navs, animated: false)
     }
 }
 
