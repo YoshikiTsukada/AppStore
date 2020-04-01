@@ -11,10 +11,21 @@ import UIKit
 class AppDetailsVC: BaseViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
+    private let selectedAppStore: SelectedAppStore
+
     var data: DataSet = .empty
     var cellSize: CellSizePresenter = .empty
 
     var firstImage: UIImage?
+
+    init(selectedAppStore: SelectedAppStore) {
+        self.selectedAppStore = selectedAppStore
+        super.init(nibName: "AppDetailsVC", bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

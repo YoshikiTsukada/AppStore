@@ -6,75 +6,51 @@
 //  Copyright © 2019 塚田良輝. All rights reserved.
 //
 
+import RxCocoa
+import RxSwift
 import UIKit
 
 class IntroductionListUpVC: BaseViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
-    var data: DataSet = .empty
+    private let actionCreator: ActionCreator = .init()
+    private let appsGroupStore: AppsGroupStore
+    private let selectedAppStore: SelectedAppStore = .init()
+
+    private let dataSource: AppsGroupListDataSource
+    private let disposeBag = DisposeBag()
+
+    private lazy var showAppDetailsDisposable: Disposable = {
+        selectedAppStore.appObservable
+            .flatMap { $0 == nil ? .empty() : Observable.just(()) }
+            .bind(to: Binder(self) { `self`, _ in
+                let vc = AppDetailsVC(selectedAppStore: self.selectedAppStore)
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
+    }()
+
+    init(appsGroupStore: AppsGroupStore) {
+        self.appsGroupStore = appsGroupStore
+        dataSource = .init(actionCreator: actionCreator, appsGroupStore: appsGroupStore)
+        super.init(nibName: "IntroductionListUpVC", bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerAllCollectionViewCells(to: collectionView)
+
+        dataSource.configure(collectionView)
+
+        _ = showAppDetailsDisposable
+
         applyNavigationItem()
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch (segue.identifier, segue.destination) {
-        case let ("showAppDetailsVC", vc as AppDetailsVC):
-            let app = sender as! App
-            vc.data.id = app.id
-        default: break
-        }
-    }
-
     func applyNavigationItem() {
-        navigationItem.title = data.appsGroup?.title
-    }
-}
-
-extension IntroductionListUpVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    //
-    // MARK: UICollectionViewDataSource
-    //
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.appsGroup?.apps.count ?? 0
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let app = data.appsGroup?.apps[indexPath.item] else { return UICollectionViewCell() }
-
-        let cell = IntroductionListUpCell.dequeue(from: collectionView, for: indexPath, with: app)
-        cell.insertSectionLineIfNeeded(indexPath.item - 1 < data.appsGroup?.apps.count ?? 0)
-        return cell
-    }
-
-    //
-    // MARK: UICollectionViewDelegate
-    //
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let app = data.appsGroup?.apps[indexPath.item] else { return }
-
-        performSegue(withIdentifier: "showAppDetailsVC", sender: app)
-    }
-
-    //
-    // MARK: UICollectionViewDelegateFlowLayout
-    //
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width
-        return .init(width: DataSet.cellWidth(width), height: DataSet.cellHeight)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return DataSet.cellEdge
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return DataSet.cellSpacing
+        navigationItem.title = appsGroupStore.selectedAppsGroup?.title
     }
 }
 
@@ -103,13 +79,5 @@ extension IntroductionListUpVC {
         }
 
         static let cellSpacing: CGFloat = 0
-    }
-}
-
-extension IntroductionListUpVC: CollectionViewRegister {
-    var cellTypes: [UICollectionViewCell.Type] {
-        return [
-            IntroductionListUpCell.self,
-        ]
     }
 }

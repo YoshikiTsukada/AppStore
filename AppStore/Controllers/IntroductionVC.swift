@@ -21,6 +21,7 @@ class IntroductionVC: UIViewController {
     private let disposeBag = DisposeBag()
 
     private lazy var showAppDetailsDisposable: Disposable = {
+        // fix
         selectedAppStore.appObservable
             .flatMap { $0 == nil ? .empty() : Observable.just(()) }
             .bind(to: Binder(self) { `self`, _ in
@@ -30,6 +31,7 @@ class IntroductionVC: UIViewController {
     }()
 
     private lazy var showIntroductionListDisposable: Disposable = {
+        // fix
         appsGroupStore.selectedAppsGroupObservable
             .flatMap { $0 == nil ? .empty() : Observable.just(()) }
             .bind(to: Binder(self) { `self`, _ in
@@ -65,10 +67,24 @@ class IntroductionVC: UIViewController {
             })
             .disposed(by: disposeBag)
 
-        _ = showAppDetailsDisposable
-        _ = showIntroductionListDisposable
+//        _ = showAppDetailsDisposable
+//        _ = showIntroductionListDisposable
 
         actionCreator.fetchApps(by: accessUrls)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        _ = showAppDetailsDisposable
+        _ = showIntroductionListDisposable
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        showAppDetailsDisposable.dispose()
+        showIntroductionListDisposable.dispose()
     }
 
     override func loadView() {

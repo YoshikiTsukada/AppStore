@@ -20,6 +20,7 @@ final class SelectedAppStore {
             switch action {
             case let .selectedApp(app):
                 self._app.accept(app)
+
             default: return
             }
         }
