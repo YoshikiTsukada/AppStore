@@ -1,4 +1,4 @@
-# Uncomment the next line to define a global platform for your project
+#Uncomment the next line to define a global platform for your project
 platform :ios, '12.4'
 
 target 'AppStore' do
@@ -6,7 +6,7 @@ target 'AppStore' do
   use_frameworks!
 
   # Pods for AppStore
-  pod 'SwiftFormat/CLI'
+  #pod 'SwiftFormat/CLI'
   pod 'RxSwift', '~> 5'
   pod 'RxCocoa', '~> 5'
   pod 'SwiftyJSON', '~> 4.0'

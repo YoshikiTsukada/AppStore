@@ -10,7 +10,6 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.0.1)
   - SwiftDate (6.1.0)
-  - SwiftFormat/CLI (0.43.1)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
@@ -19,7 +18,6 @@ DEPENDENCIES:
   - RxCocoa (~> 5)
   - RxSwift (~> 5)
   - SwiftDate (~> 6.0)
-  - SwiftFormat/CLI
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
@@ -30,7 +28,6 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - SwiftDate
-    - SwiftFormat
     - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -40,9 +37,8 @@ SPEC CHECKSUMS:
   RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
   RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
   SwiftDate: fa2bb3962056bb44047b4b85a30044e5eae30b03
-  SwiftFormat: e73bae96d000ae07ffb9e3636929ca5e9d5c1efd
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 910af3cef14f7c4f84f68f25bef21c1951ac7680
+PODFILE CHECKSUM: b63102ff83c1618cf7d3821ba97568fd6bec3586
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1
