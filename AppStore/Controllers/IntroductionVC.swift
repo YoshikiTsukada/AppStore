@@ -6,22 +6,69 @@
 //  Copyright © 2019 塚田良輝. All rights reserved.
 //
 
+import RxCocoa
+import RxSwift
 import UIKit
 
 class IntroductionVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
-    var data: DataSet = .empty
+    private let actionCreator: ActionCreator = .init()
+    private let appsGroupStore: AppsGroupStore = .init()
+    private let selectedAppStore: SelectedAppStore = .init()
+
+    private let dataSource: AppsGroupDataSource
+    private let disposeBag = DisposeBag()
+
+    private lazy var showAppDetailsDisposable: Disposable = {
+        selectedAppStore.appObservable
+            .flatMap { $0 == nil ? .empty() : Observable.just(()) }
+            .bind(to: Binder(self) { `self`, _ in
+                let vc = AppDetailsVC(selectedAppStore: self.selectedAppStore)
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
+    }()
+
+    private lazy var showIntroductionListDisposable: Disposable = {
+        appsGroupStore.selectedAppsGroupObservable
+            .flatMap { $0 == nil ? .empty() : Observable.just(()) }
+            .bind(to: Binder(self) { `self`, _ in
+                let vc = IntroductionListUpVC(appsGroupStore: self.appsGroupStore)
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
+    }()
+
     var accessUrls: [URL] {
         return [
             // Must override `accessUrls` in IntroductionVC subclass.
         ]
     }
 
+    init() {
+        dataSource = .init(actionCreator: actionCreator, appsGroupStore: appsGroupStore)
+        super.init(nibName: "IntroductionVC", bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerAllCollectionViewCells(to: collectionView)
-        fetchApps()
+
+        dataSource.configure(collectionView)
+
+        appsGroupStore.appsGroupsObservable
+            .map { _ in }
+            .bind(to: Binder(collectionView) { collectionView, _ in
+                collectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
+
+        _ = showAppDetailsDisposable
+        _ = showIntroductionListDisposable
+
+        actionCreator.fetchApps(by: accessUrls)
     }
 
     override func loadView() {
@@ -29,99 +76,21 @@ class IntroductionVC: UIViewController {
             self.view = view
         }
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch (SegueType(segue.identifier), segue.destination) {
-        case let (.showIntroductionListUpVC, vc as IntroductionListUpVC):
-            guard let appsGroup = sender as! AppsGroup? else { return }
-            vc.data.appsGroup = appsGroup
-        case let (.showAppDetailsVC, vc as AppDetailsVC):
-            guard let id = sender as! String? else { return }
-            vc.data.id = id
-        default: break
-        }
-    }
-
-    func fetchApps() {
-        accessUrls.forEach { url in
-            GetAppsGroup(url: url).execute(in: .background).then(in: .main) { [weak self] appsGroup in
-                if let appsGroup = appsGroup {
-                    self?.data.appsGroups.append(appsGroup)
-                    let indexPath = IndexPath(row: (self?.data.appsGroups.count ?? 1) - 1, section: SectionHandler.appsGroupSection)
-                    self?.collectionView.insertItems(at: [indexPath])
-                }
-            }
-        }
-    }
 }
 
-extension IntroductionVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    //
-    // MARK: UICollectionViewDataSource
-    //
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return SectionHandler.allCases.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch SectionHandler(section) {
-        case .appsGroupHeader?:
-            return 0
-        case .appsGroup?:
-            return data.appsGroups.count
-        default: return 0
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch SectionHandler(indexPath.section) {
-        case .appsGroupHeader?:
-            return UICollectionViewCell()
-        case .appsGroup?:
-            let appsGroup = data.appsGroups[indexPath.item]
-            let cell = AppsGroupCell.dequeue(from: collectionView, for: indexPath, with: appsGroup)
-            cell.delegate = self
-            cell.titleConversion()
-            return cell
-        default: return UICollectionViewCell()
-        }
-    }
-
-    //
-    // MARK: UICollectionViewDelegate
-    //
-
-    //
-    // MARK: UICollectionViewDelegateFlowLayout
-    //
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width
-
-        switch SectionHandler(indexPath.section) {
-        case .appsGroupHeader?:
-            return .zero
-        case .appsGroup?:
-            return .init(width: width, height: DataSet.appsGroupCellHeight)
-        default: return .zero
-        }
-    }
-}
-
-extension IntroductionVC: AppsGroupCellDelegate {
-    var classType: String {
-        return String(describing: type(of: self))
-    }
-
-    func appsGroupCell(allDisplayButtonTappedWith appsGroup: AppsGroup?) {
-        performSegue(withIdentifier: SegueType.showIntroductionListUpVC.rawValue, sender: appsGroup)
-    }
-
-    func appsGroupCell(didSelectAppIdWith id: String) {
-        performSegue(withIdentifier: SegueType.showAppDetailsVC.rawValue, sender: id)
-    }
-}
+// extension IntroductionVC: AppsGroupCellDelegate {
+//    var classType: String {
+//        return String(describing: type(of: self))
+//    }
+//
+//    func appsGroupCell(allDisplayButtonTappedWith appsGroup: AppsGroup?) {
+//        performSegue(withIdentifier: SegueType.showIntroductionListUpVC.rawValue, sender: appsGroup)
+//    }
+//
+//    func appsGroupCell(didSelectAppIdWith id: String) {
+//        performSegue(withIdentifier: SegueType.showAppDetailsVC.rawValue, sender: id)
+//    }
+// }
 
 extension IntroductionVC {
     struct DataSet {
@@ -150,44 +119,6 @@ extension IntroductionVC {
         static func appsCarouselCellWidth(_ width: CGFloat) -> CGFloat {
             return width - appsCarouselCellHorizontalSectionInset * 2
         }
-    }
-}
-
-extension IntroductionVC {
-    private enum SectionHandler: Int, CaseIterable {
-        case appsGroupHeader
-        case appsGroup
-
-        static var appsGroupSection: Int {
-            return appsGroup.rawValue
-        }
-
-        init?(_ section: Int) {
-            switch section {
-            case type(of: self).appsGroupHeader.rawValue: self = .appsGroupHeader
-            case type(of: self).appsGroup.rawValue: self = .appsGroup
-            default: return nil
-            }
-        }
-    }
-}
-
-extension IntroductionVC {
-    enum SegueType: String {
-        case showIntroductionListUpVC
-        case showAppDetailsVC
-
-        init?(_ identifier: String?) {
-            self.init(rawValue: identifier ?? "")
-        }
-    }
-}
-
-extension IntroductionVC: CollectionViewRegister {
-    var cellTypes: [UICollectionViewCell.Type] {
-        return [
-            AppsGroupCell.self,
-        ]
     }
 }
 

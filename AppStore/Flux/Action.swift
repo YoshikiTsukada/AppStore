@@ -6,5 +6,7 @@
 //
 
 enum Action {
-    case a(String)
+    case getAppsGroup(AppsGroup?)
+    case selectedAppsGroup(AppsGroup?)
+    case selectedApp(App)
 }

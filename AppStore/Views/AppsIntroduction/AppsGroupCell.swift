@@ -6,7 +6,8 @@
 //  Copyright © 2019 塚田良輝. All rights reserved.
 //
 
-import Foundation
+import RxCocoa
+import RxSwift
 import UIKit
 
 protocol AppsGroupCellDelegate: class {
@@ -20,13 +21,26 @@ final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet var allDisplayButton: UIButton!
     @IBOutlet weak var appsCarouselView: AppsCarouselView!
 
-    var delegate: AppsGroupCellDelegate?
-
+//    var delegate: AppsGroupCellDelegate?
     let titleLabelHeight: CGFloat = 20
+
+    private let actionCreator: ActionCreator = .init()
+
+    private let disposeBag = DisposeBag()
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        allDisplayButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.actionCreator.showIntroductionList(self?.data)
+            }
+            .disposed(by: disposeBag)
+    }
 
     func setUpAppsCarouselView(with appsGroup: AppsGroup) {
         appsCarouselView.data.apps = appsGroup.apps
-        appsCarouselView.delegate = self
+//        appsCarouselView.delegate = self
         appsCarouselView.collectionView.reloadData()
     }
 
@@ -43,14 +57,14 @@ final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
     }
 
     func titleConversion() {
-        let title = TitleConversion(delegate?.classType, titleLabel.text)?.rawValue
-        titleLabel.text = title
-        data?.title = title ?? ""
+//        let title = TitleConversion(delegate?.classType, titleLabel.text)?.rawValue
+//        titleLabel.text = title
+//        data?.title = title ?? ""
     }
 
-    @IBAction func allDisplayButtonTapped(_ sender: Any) {
-        delegate?.appsGroupCell(allDisplayButtonTappedWith: data)
-    }
+//    @IBAction func allDisplayButtonTapped(_ sender: Any) {
+//        delegate?.appsGroupCell(allDisplayButtonTappedWith: data)
+//    }
 
     //
     // MARK: CollectionViewCellPresenter
@@ -110,8 +124,8 @@ extension AppsGroupCell {
     }
 }
 
-extension AppsGroupCell: AppsCarouselViewDelegate {
-    func appsCarouselView(didSelectAppIdWith id: String) {
-        delegate?.appsGroupCell(didSelectAppIdWith: id)
-    }
-}
+// extension AppsGroupCell: AppsCarouselViewDelegate {
+//    func appsCarouselView(didSelectAppIdWith id: String) {
+//        delegate?.appsGroupCell(didSelectAppIdWith: id)
+//    }
+// }
