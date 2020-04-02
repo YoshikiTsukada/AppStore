@@ -105,38 +105,39 @@ extension AppDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let appDetails = data.appDetails
-        let reviews = data.reviews
-        switch SectionHandler(indexPath.section) {
-        case .header:
-            let cell = AppDetailsHeaderCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
-            return cell
-        case .images:
-            let cell = AppDetailsImagesCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
-            cell.firstImage = firstImage
-            cell.delegate = self
-            return cell
-        case .text:
-            let cell = AppDetailsTextCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
-            cell.buttonTapped = cellSize.textCellShowMoreButtonTapped
-            cell.delegate = self
-            return cell
-        case .reviews:
-            let cell = AppDetailsReviewsCell.dequeue(from: collectionView, for: indexPath, with: reviews)
-            cell.apply(appDetails: appDetails)
-            return cell
-        case .update:
-            let cell = AppDetailsUpdateCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
-            cell.buttonTapped = cellSize.updateCellShowMoreButtonTapped
-            cell.delegate = self
-            return cell
-        case .information:
-            guard let appDetails = appDetails, let cellKind = AppDetailsInformationCell.CellKindPresenter(indexPath.item) else { return UICollectionViewCell() }
-
-            let cell = AppDetailsInformationCell.dequeue(from: collectionView, for: indexPath, with: (appDetails, cellKind))
-            return cell
-        default: return UICollectionViewCell()
-        }
+//        let appDetails = data.appDetails
+//        let reviews = data.reviews
+//        switch SectionHandler(indexPath.section) {
+//        case .header:
+//            let cell = AppDetailsHeaderCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
+//            return cell
+//        case .images:
+//            let cell = AppDetailsImagesCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
+//            cell.firstImage = firstImage
+//            cell.delegate = self
+//            return cell
+//        case .text:
+//            let cell = AppDetailsTextCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
+//            cell.buttonTapped = cellSize.textCellShowMoreButtonTapped
+//            cell.delegate = self
+//            return cell
+//        case .reviews:
+//            let cell = AppDetailsReviewsCell.dequeue(from: collectionView, for: indexPath, with: reviews)
+//            cell.apply(appDetails: appDetails)
+//            return cell
+//        case .update:
+//            let cell = AppDetailsUpdateCell.dequeue(from: collectionView, for: indexPath, with: appDetails)
+//            cell.buttonTapped = cellSize.updateCellShowMoreButtonTapped
+//            cell.delegate = self
+//            return cell
+//        case .information:
+//            guard let appDetails = appDetails, let cellKind = AppDetailsInformationCell.CellKindPresenter(indexPath.item) else { return UICollectionViewCell() }
+//
+//            let cell = AppDetailsInformationCell.dequeue(from: collectionView, for: indexPath, with: (appDetails, cellKind))
+//            return cell
+//        default: return UICollectionViewCell()
+//        }
+        return UICollectionViewCell()
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

@@ -36,12 +36,13 @@ final class IntroductionListUpCell: UICollectionViewCell, CollectionViewCellPres
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = App
-    var data: App?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: App?) {
+    func apply(with store: StoreType?) {
         iconImageView.image = nil
-        guard let app = data else { return }
+        guard let app = store?.selectedAppsGroup?.apps[indexPath.item] else { return }
 
         titleLabel.text = app.name
 

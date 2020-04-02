@@ -38,15 +38,16 @@ extension AllReviewsVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch SectionHandler(indexPath.section) {
-        case .heading:
-            let cell = AllReviewsHeaderCell.dequeue(from: collectionView, for: indexPath, with: data.appDetails)
-            return cell
-        case .reviews:
-            let cell = AppDetailsReviewCell.dequeue(from: collectionView, for: indexPath, with: data.reviews?[indexPath.item])
-            return cell
-        default: return UICollectionViewCell()
-        }
+//        switch SectionHandler(indexPath.section) {
+//        case .heading:
+//            let cell = AllReviewsHeaderCell.dequeue(from: collectionView, for: indexPath, with: data.appDetails)
+//            return cell
+//        case .reviews:
+//            let cell = AppDetailsReviewCell.dequeue(from: collectionView, for: indexPath, with: data.reviews?[indexPath.item])
+//            return cell
+//        default: return UICollectionViewCell()
+//        }
+        return UICollectionViewCell()
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

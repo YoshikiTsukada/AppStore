@@ -8,7 +8,7 @@
 import RxCocoa
 import RxSwift
 
-final class SelectedAppStore {
+final class SelectedAppStore: StoreBase {
     private let _app = BehaviorRelay<App?>(value: nil)
 
     private let disposeBag = DisposeBag()

@@ -27,20 +27,21 @@ final class AppDetailsHeaderCell: UICollectionViewCell, CollectionViewCellPresen
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = AppDetails
-    var data: AppDetails?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: AppDetails?) {
-        guard let appDetails = data else { return }
-
-        titleLabel.text = appDetails.trackName
-        companyNameLabel.text = appDetails.sellerName
-        getButton.setTitle(appDetails.price, for: .normal)
-        reviewAmountLabel.text = "\(appDetails.userRatingCount)件の評価"
-        targetAgeLabel.text = appDetails.ageLimit
-
-        if let url = URL(string: appDetails.iconUrl) {
-            iconImageView.kf.setImage(with: url)
-        }
+    func apply(with store: StoreType?) {
+//        guard let appDetails = data else { return }
+//
+//        titleLabel.text = appDetails.trackName
+//        companyNameLabel.text = appDetails.sellerName
+//        getButton.setTitle(appDetails.price, for: .normal)
+//        reviewAmountLabel.text = "\(appDetails.userRatingCount)件の評価"
+//        targetAgeLabel.text = appDetails.ageLimit
+//
+//        if let url = URL(string: appDetails.iconUrl) {
+//            iconImageView.kf.setImage(with: url)
+//        }
     }
 }

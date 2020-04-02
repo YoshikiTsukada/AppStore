@@ -17,52 +17,52 @@ final class AppsSearchResultCell: UICollectionViewCell, CollectionViewCellPresen
     @IBOutlet weak var getButton: UIButton!
 
     func addImagesToBackView() {
-        guard let urlString = data?.screenshotUrls.first else { return }
-
-        let firstImageView = UIImageView()
-        if let url = URL(string: urlString) {
-            firstImageView.kf.setImage(with: url) { result in
-                switch result {
-                case let .success(imageValue):
-                    let width = UIScreen.main.bounds.width - 20 * 2
-                    let size = imageValue.image.size
-                    if size.width > size.height {
-                        firstImageView.frame.size = CGSize(width: width, height: size.height * (width / size.width))
-                        firstImageView.clipsToBounds = true
-                        firstImageView.layer.cornerRadius = 20
-                        self.imagesBackView.addSubview(firstImageView)
-                    } else {
-                        self.addOtherImagesToBackViewWith(firstImageView)
-                    }
-                default: break
-                }
-            }
-        }
+//        guard let urlString = data?.screenshotUrls.first else { return }
+//
+//        let firstImageView = UIImageView()
+//        if let url = URL(string: urlString) {
+//            firstImageView.kf.setImage(with: url) { result in
+//                switch result {
+//                case let .success(imageValue):
+//                    let width = UIScreen.main.bounds.width - 20 * 2
+//                    let size = imageValue.image.size
+//                    if size.width > size.height {
+//                        firstImageView.frame.size = CGSize(width: width, height: size.height * (width / size.width))
+//                        firstImageView.clipsToBounds = true
+//                        firstImageView.layer.cornerRadius = 20
+//                        self.imagesBackView.addSubview(firstImageView)
+//                    } else {
+//                        self.addOtherImagesToBackViewWith(firstImageView)
+//                    }
+//                default: break
+//                }
+//            }
+//        }
     }
 
     func addOtherImagesToBackViewWith(_ firstImageView: UIImageView) {
-        guard data?.screenshotUrls.count ?? 0 >= 3 else { return }
-
-        let screenSize = UIScreen.main.bounds.size
-        let width = (screenSize.width - 20 * 2 - 10 * 2) / 3
-        let size = CGSize(width: width, height: screenSize.height * (width / screenSize.width))
-
-        firstImageView.frame.size = size
-        firstImageView.clipsToBounds = true
-        firstImageView.layer.cornerRadius = 10
-        imagesBackView.addSubview(firstImageView)
-
-        [data?.screenshotUrls[1], data?.screenshotUrls[2]].enumerated().forEach { index, urlString in
-            if let url = URL(string: urlString ?? "") {
-                let imageView = UIImageView()
-                imageView.kf.setImage(with: url)
-                imageView.frame.origin.x += CGFloat(index + 1) * (size.width + 10)
-                imageView.frame.size = size
-                imageView.clipsToBounds = true
-                imageView.layer.cornerRadius = 10
-                imagesBackView.addSubview(imageView)
-            }
-        }
+//        guard data?.screenshotUrls.count ?? 0 >= 3 else { return }
+//
+//        let screenSize = UIScreen.main.bounds.size
+//        let width = (screenSize.width - 20 * 2 - 10 * 2) / 3
+//        let size = CGSize(width: width, height: screenSize.height * (width / screenSize.width))
+//
+//        firstImageView.frame.size = size
+//        firstImageView.clipsToBounds = true
+//        firstImageView.layer.cornerRadius = 10
+//        imagesBackView.addSubview(firstImageView)
+//
+//        [data?.screenshotUrls[1], data?.screenshotUrls[2]].enumerated().forEach { index, urlString in
+//            if let url = URL(string: urlString ?? "") {
+//                let imageView = UIImageView()
+//                imageView.kf.setImage(with: url)
+//                imageView.frame.origin.x += CGFloat(index + 1) * (size.width + 10)
+//                imageView.frame.size = size
+//                imageView.clipsToBounds = true
+//                imageView.layer.cornerRadius = 10
+//                imagesBackView.addSubview(imageView)
+//            }
+//        }
     }
 
     func removeAllSubviews(parentView: UIView) {
@@ -83,21 +83,22 @@ final class AppsSearchResultCell: UICollectionViewCell, CollectionViewCellPresen
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = AppDetails
-    var data: AppDetails?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: AppDetails?) {
-        removeAllSubviews(parentView: imagesBackView)
-        guard let appDetails = data else { return }
-
-        titleLabel.text = appDetails.trackName
-        reviewAmountLabel.text = String(appDetails.userRatingCount)
-        getButton.setTitle(appDetails.price, for: .normal)
-
-        if let url = URL(string: appDetails.iconUrl) {
-            iconImageView.kf.setImage(with: url)
-        }
-
-        addImagesToBackView()
+    func apply(with store: StoreType?) {
+//        removeAllSubviews(parentView: imagesBackView)
+//        guard let appDetails = data else { return }
+//
+//        titleLabel.text = appDetails.trackName
+//        reviewAmountLabel.text = String(appDetails.userRatingCount)
+//        getButton.setTitle(appDetails.price, for: .normal)
+//
+//        if let url = URL(string: appDetails.iconUrl) {
+//            iconImageView.kf.setImage(with: url)
+//        }
+//
+//        addImagesToBackView()
     }
 }

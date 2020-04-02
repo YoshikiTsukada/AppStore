@@ -30,32 +30,33 @@ final class AppDetailsInformationCell: UICollectionViewCell, CollectionViewCellP
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = (AppDetails, CellKindPresenter)
-    var data: (AppDetails, CellKindPresenter)?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: (AppDetails, CellKindPresenter)?) {
-        cellKind = data?.1
-        titleLabel.text = title
-
-        guard let appDetails = data?.0 else { return }
-
-        switch cellKind {
-        case .distributor:
-            itemLabel.text = appDetails.sellerName
-        case .dataSize:
-            itemLabel.text = "\(appDetails.fileSizeBytes)Bytes"
-        case .category:
-            itemLabel.text = appDetails.genres.first
-        case .compatible:
-            itemLabel.text = appDetails.supportedDevices.first
-        case .language:
-            itemLabel.text = appDetails.languageCodes.first
-        case .ageLimit:
-            itemLabel.text = appDetails.ageLimit
-        case .billing:
-            itemLabel.text = "なし"
-        default: break
-        }
+    func apply(with store: StoreType?) {
+//        cellKind = data?.1
+//        titleLabel.text = title
+//
+//        guard let appDetails = data?.0 else { return }
+//
+//        switch cellKind {
+//        case .distributor:
+//            itemLabel.text = appDetails.sellerName
+//        case .dataSize:
+//            itemLabel.text = "\(appDetails.fileSizeBytes)Bytes"
+//        case .category:
+//            itemLabel.text = appDetails.genres.first
+//        case .compatible:
+//            itemLabel.text = appDetails.supportedDevices.first
+//        case .language:
+//            itemLabel.text = appDetails.languageCodes.first
+//        case .ageLimit:
+//            itemLabel.text = appDetails.ageLimit
+//        case .billing:
+//            itemLabel.text = "なし"
+//        default: break
+//        }
     }
 }
 

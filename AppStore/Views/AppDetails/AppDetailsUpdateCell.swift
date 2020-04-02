@@ -41,14 +41,15 @@ final class AppDetailsUpdateCell: UICollectionViewCell, CollectionViewCellPresen
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = AppDetails
-    var data: AppDetails?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: AppDetails?) {
-        guard let appDetails = data else { return }
-
-        newestVersionLabel.text = "バージョン\(appDetails.version)"
-        updateDateLabel.text = appDetails.currentVersionReleaseDate?.toISO([.withFullDate])
-        updateDetailsLabel.text = appDetails.releaseNotes
+    func apply(with store: StoreType?) {
+//        guard let appDetails = data else { return }
+//
+//        newestVersionLabel.text = "バージョン\(appDetails.version)"
+//        updateDateLabel.text = appDetails.currentVersionReleaseDate?.toISO([.withFullDate])
+//        updateDetailsLabel.text = appDetails.releaseNotes
     }
 }

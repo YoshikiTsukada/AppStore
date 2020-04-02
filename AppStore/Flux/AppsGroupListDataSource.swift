@@ -33,9 +33,7 @@ extension AppsGroupListDataSource: UICollectionViewDataSource, UICollectionViewD
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let app = appsGroupStore.selectedAppsGroup?.apps[indexPath.item] else { return UICollectionViewCell() }
-
-        let cell = IntroductionListUpCell.dequeue(from: collectionView, for: indexPath, with: app)
+        let cell = IntroductionListUpCell.dequeue(from: collectionView, for: indexPath, with: appsGroupStore)
         cell.insertSectionLineIfNeeded(indexPath.item - 1 < appsGroupStore.selectedAppsGroup?.apps.count ?? 0)
         return cell
     }

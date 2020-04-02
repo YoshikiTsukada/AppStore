@@ -62,8 +62,9 @@ extension AppsSearchVC: UICollectionViewDataSource, UICollectionViewDelegate, UI
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = AppsSearchResultCell.dequeue(from: collectionView, for: indexPath, with: data.resultApps?[indexPath.item])
-        return cell
+//        let cell = AppsSearchResultCell.dequeue(from: collectionView, for: indexPath, with: data.resultApps?[indexPath.item])
+//        return cell
+        return UICollectionViewCell()
     }
 
     //

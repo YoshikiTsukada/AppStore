@@ -8,7 +8,7 @@
 import RxCocoa
 import RxSwift
 
-final class AppsGroupStore {
+final class AppsGroupStore: StoreBase {
     private let _appsGroups = BehaviorRelay<[AppsGroup]>(value: [])
     private let _selectedAppsGroup = BehaviorRelay<AppsGroup?>(value: nil)
 

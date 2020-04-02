@@ -9,18 +9,23 @@
 import UIKit
 
 protocol CollectionViewCellPresenter: class {
-    associatedtype T
+    associatedtype StoreType
 
-    var data: T? { get set }
-    static func dequeue(from collectionView: UICollectionView, for indexPath: IndexPath, with data: T?) -> Self
-    func apply(with data: T?)
+    var store: StoreType? { get set }
+    var indexPath: IndexPath { get set }
+    static func dequeue(from collectionView: UICollectionView, for indexPath: IndexPath, with store: StoreType?) -> Self
+    func apply(with store: StoreType?)
 }
 
-extension CollectionViewCellPresenter where Self: UICollectionViewCell {
-    static func dequeue(from collectionView: UICollectionView, for indexPath: IndexPath, with data: T?) -> Self {
+extension CollectionViewCellPresenter where Self: UICollectionViewCell, StoreType: StoreBase {
+    var store: StoreType? { return nil }
+    var indexPath: IndexPath { return [] }
+
+    static func dequeue(from collectionView: UICollectionView, for indexPath: IndexPath, with store: StoreType?) -> Self {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: self), for: indexPath) as! Self
-        cell.data = data
-        cell.apply(with: data)
+        cell.store = store
+        cell.indexPath = indexPath
+        cell.apply(with: store)
         return cell
     }
 }

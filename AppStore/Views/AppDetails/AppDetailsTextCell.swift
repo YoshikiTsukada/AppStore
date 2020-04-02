@@ -41,13 +41,14 @@ final class AppDetailsTextCell: UICollectionViewCell, CollectionViewCellPresente
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = AppDetails
-    var data: AppDetails?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: AppDetails?) {
-        guard let appDetails = data else { return }
-
-        mainTextLabel.text = appDetails.description
-        developerNameLabel.text = appDetails.sellerName
+    func apply(with store: StoreType?) {
+//        guard let appDetails = data else { return }
+//
+//        mainTextLabel.text = appDetails.description
+//        developerNameLabel.text = appDetails.sellerName
     }
 }

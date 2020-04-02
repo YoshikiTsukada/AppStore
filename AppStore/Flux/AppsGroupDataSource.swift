@@ -47,8 +47,9 @@ extension AppsGroupDataSource: UICollectionViewDataSource, UICollectionViewDeleg
         case .appsGroupHeader?:
             return UICollectionViewCell()
         case .appsGroup?:
-            let appsGroup = appsGroupStore.appsGroups[indexPath.item]
-            let cell = AppsGroupCell.dequeue(from: collectionView, for: indexPath, with: appsGroup)
+//            let appsGroup = appsGroupStore.appsGroups[indexPath.item]
+//            let cell = AppsGroupCell.dequeue(from: collectionView, for: indexPath, with: appsGroup)
+            let cell = AppsGroupCell.dequeue(from: collectionView, for: indexPath, with: appsGroupStore)
 //            cell.delegate = self
             cell.titleConversion()
             return cell

@@ -21,14 +21,15 @@ final class AppDetailsImagesImageCell: UICollectionViewCell, CollectionViewCellP
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = String
-    var data: String?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: String?) {
-        guard let data = data else { return }
-
-        if let url = URL(string: data) {
-            imageView.kf.setImage(with: url)
-        }
+    func apply(with store: StoreType?) {
+//        guard let data = data else { return }
+//
+//        if let url = URL(string: data) {
+//            imageView.kf.setImage(with: url)
+//        }
     }
 }

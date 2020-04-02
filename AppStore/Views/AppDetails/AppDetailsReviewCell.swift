@@ -23,15 +23,16 @@ final class AppDetailsReviewCell: UICollectionViewCell, CollectionViewCellPresen
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = Review
-    var data: Review?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: Review?) {
-        guard let review = data else { return }
-
-        titleLabel.text = review.title
-        ratingLabel.text = String(repeating: "⭐️", count: Int(review.rating) ?? 1)
-        nameLabel.text = review.name
-        reviewLabel.text = review.content
+    func apply(with store: StoreType?) {
+//        guard let review = data else { return }
+//
+//        titleLabel.text = review.title
+//        ratingLabel.text = String(repeating: "⭐️", count: Int(review.rating) ?? 1)
+//        nameLabel.text = review.name
+//        reviewLabel.text = review.content
     }
 }

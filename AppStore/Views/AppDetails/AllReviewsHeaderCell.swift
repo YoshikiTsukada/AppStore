@@ -18,11 +18,12 @@ final class AllReviewsHeaderCell: UICollectionViewCell, CollectionViewCellPresen
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = AppDetails
-    var data: AppDetails?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: AppDetails?) {
-        let appDetails = data
-        auxiliaryView.apply(appDetails: appDetails)
+    func apply(with store: StoreType?) {
+//        let appDetails = data
+//        auxiliaryView.apply(appDetails: appDetails)
     }
 }

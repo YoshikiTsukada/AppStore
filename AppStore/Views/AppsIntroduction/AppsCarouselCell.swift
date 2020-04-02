@@ -38,17 +38,18 @@ final class AppsCarouselCell: UICollectionViewCell, CollectionViewCellPresenter 
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = App
-    var data: App?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: App?) {
-        iconImageView.image = nil
-        guard let app = data else { return }
-
-        titleLabel.text = app.name
-
-        if let url = URL(string: app.iconUrl) {
-            iconImageView.kf.setImage(with: url)
-        }
+    func apply(with store: StoreType?) {
+//        iconImageView.image = nil
+//        guard let app = data else { return }
+//
+//        titleLabel.text = app.name
+//
+//        if let url = URL(string: app.iconUrl) {
+//            iconImageView.kf.setImage(with: url)
+//        }
     }
 }

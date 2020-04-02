@@ -32,11 +32,12 @@ final class AppDetailsReviewsCell: UICollectionViewCell, CollectionViewCellPrese
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = [Review]
-    var data: [Review]?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: [Review]?) {
-        collectionView.reloadData()
+    func apply(with store: StoreType?) {
+//        collectionView.reloadData()
     }
 }
 
@@ -46,13 +47,15 @@ extension AppDetailsReviewsCell: UICollectionViewDataSource, UICollectionViewDel
     //
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(data?.count ?? 0, 6)
+//        return min(data?.count ?? 0, 6)
+        return 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let review = data?[indexPath.item]
-        let cell = AppDetailsReviewCell.dequeue(from: collectionView, for: indexPath, with: review)
-        return cell
+//        let review = data?[indexPath.item]
+//        let cell = AppDetailsReviewCell.dequeue(from: collectionView, for: indexPath, with: review)
+//        return cell
+        return UICollectionViewCell()
     }
 
     //

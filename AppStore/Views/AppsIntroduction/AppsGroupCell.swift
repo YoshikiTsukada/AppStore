@@ -33,7 +33,8 @@ final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
 
         allDisplayButton.rx.tap
             .subscribe { [weak self] _ in
-                self?.actionCreator.showIntroductionList(self?.data)
+                guard let item = self?.indexPath.item else { return }
+                self?.actionCreator.showIntroductionList(self?.store?.appsGroups[item])
             }
             .disposed(by: disposeBag)
     }
@@ -70,15 +71,17 @@ final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = AppsGroup
-    var data: AppsGroup?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
+    // indexPathがnil
 
-    func apply(with data: AppsGroup?) {
-        guard let appsGroup = data else { return }
-
-        titleLabel.text = appsGroup.title
-        setUpAppsCarouselView(with: appsGroup)
-        insertSectionLine()
+    func apply(with store: StoreType?) {
+//        guard let appsGroup = data else { return }
+//
+//        titleLabel.text = appsGroup.title
+//        setUpAppsCarouselView(with: appsGroup)
+//        insertSectionLine()
     }
 }
 

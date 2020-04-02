@@ -37,11 +37,12 @@ final class AppDetailsImagesCell: UICollectionViewCell, CollectionViewCellPresen
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias T = AppDetails
-    var data: AppDetails?
+    typealias StoreType = AppsGroupStore
+    var store: StoreType?
+    var indexPath: IndexPath = []
 
-    func apply(with data: AppDetails?) {
-        collectionView.reloadData()
+    func apply(with store: StoreType?) {
+//        collectionView.reloadData()
     }
 }
 
@@ -51,15 +52,17 @@ extension AppDetailsImagesCell: UICollectionViewDataSource, UICollectionViewDele
     //
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data?.screenshotUrls.count ?? 0
+//        return data?.screenshotUrls.count ?? 0
+        return 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let url = data?.screenshotUrls[indexPath.item] else { return UICollectionViewCell() }
-
-        let cell = AppDetailsImagesImageCell.dequeue(from: collectionView, for: indexPath, with: url)
-        cell.delegate = self
-        return cell
+//        guard let url = data?.screenshotUrls[indexPath.item] else { return UICollectionViewCell() }
+//
+//        let cell = AppDetailsImagesImageCell.dequeue(from: collectionView, for: indexPath, with: url)
+//        cell.delegate = self
+//        return cell
+        return UICollectionViewCell()
     }
 
     //
