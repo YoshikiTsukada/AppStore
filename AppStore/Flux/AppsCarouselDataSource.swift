@@ -8,12 +8,13 @@
 import UIKit
 
 final class AppsCarouselDataSource: NSObject {
-    private let actionCreator: ActionCreator
-    private let appsCarouselStore: AppsCarouselStore
+    private let groupStore: GroupStoreBase
     
-    init(actionCreator: ActionCreator, appsCarouselStore: AppsCarouselStore) {
-        self.actionCreator = actionCreator
-        self.appsCarouselStore = appsCarouselStore
+    private let carouselIndex: IndexPath
+    
+    init(groupStore: GroupStoreBase, carouselIndex: IndexPath) {
+        self.groupStore = groupStore
+        self.carouselIndex = carouselIndex
     }
     
     func configure(_ collectionView: UICollectionView) {
@@ -29,11 +30,13 @@ extension AppsCarouselDataSource: UICollectionViewDataSource, UICollectionViewDe
     //
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return appsCarouselStore.carouselApps.count
+        return groupStore.appsGroups[carouselIndex.item].apps.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = AppsCarouselCell.dequeue(from: collectionView, for: indexPath, with: appsCarouselStore)
+        let app = groupStore.appsGroups[carouselIndex.item].apps[indexPath.item]
+        let cell = AppsCarouselCell.dequeue(from: collectionView, for: indexPath, with: groupStore)
+        cell.apply(with: app)
         cell.insertSectionLineIfNeeded(indexPath.item % 3 != 2)
         return cell
     }
@@ -43,9 +46,8 @@ extension AppsCarouselDataSource: UICollectionViewDataSource, UICollectionViewDe
     //
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-//        let id = data.apps[indexPath.item].id
-//        delegate?.appsCarouselView(didSelectAppIdWith: id)
+        let app = groupStore.appsGroups[carouselIndex.item].apps[indexPath.item]
+        ActionCreator.showAppDetailsFromCarousel(app)
     }
     
     //
@@ -54,20 +56,20 @@ extension AppsCarouselDataSource: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
-        return .init(width: IntroductionVC.DataSet.appsCarouselCellWidth(width), height: IntroductionVC.DataSet.appsCarouselCellHeight)
+        return .init(width: IntroductionDataSet.appsCarouselCellWidth(width), height: IntroductionDataSet.appsCarouselCellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let spacing = IntroductionVC.DataSet.appsCarouselCellHorizontalSectionInset
+        let spacing = IntroductionDataSet.appsCarouselCellHorizontalSectionInset
         return .init(top: 0, left: spacing, bottom: 0, right: spacing)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return IntroductionVC.DataSet.appsCarouselCellHorizontalSpacing
+        return IntroductionDataSet.appsCarouselCellHorizontalSpacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return IntroductionVC.DataSet.appsCarouselCellVerticalSpacing
+        return IntroductionDataSet.appsCarouselCellVerticalSpacing
     }
 }
 

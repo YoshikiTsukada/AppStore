@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class GamesIntroductionVC: IntroductionVC<GamesGroupStore> {
+final class GamesIntroductionVC: IntroductionVC {
     override var accessUrls: [URL] {
         return [
             URLMaker.recommendedNewGames,
@@ -18,7 +18,7 @@ final class GamesIntroductionVC: IntroductionVC<GamesGroupStore> {
     }
 
     init() {
-        super.init(GamesGroupStore.shared as! GamesGroupStore)
+        super.init(GamesGroupStore.shared)
     }
 
     required init?(coder: NSCoder) {

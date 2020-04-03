@@ -10,11 +10,11 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-protocol AppsGroupCellDelegate: class {
-    var classType: String { get }
-    func appsGroupCell(allDisplayButtonTappedWith appsGroup: AppsGroup?)
-    func appsGroupCell(didSelectAppIdWith id: String)
-}
+//protocol AppsGroupCellDelegate: class {
+//    var classType: String { get }
+//    func appsGroupCell(allDisplayButtonTappedWith appsGroup: AppsGroup?)
+//    func appsGroupCell(didSelectAppIdWith id: String)
+//}
 
 final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet var titleLabel: UILabel!
@@ -30,16 +30,10 @@ final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
 
         allDisplayButton.rx.tap
             .subscribe { [weak self] _ in
-                guard let item = self?.indexPath.item else { return }
-                ActionCreator.showIntroductionList(self?.store?.appsGroups[item])
+                guard let index = self?.indexPath else { return }
+                ActionCreator.showIntroductionList(index)
             }
             .disposed(by: disposeBag)
-    }
-
-    func setUpAppsCarouselView(with appsGroup: AppsGroup) {
-//        appsCarouselView.data.apps = appsGroup.apps
-//        appsCarouselView.collectionView.reloadData()
-//        appsCarouselView.loadView(appsCarouselStore: .init(), dataSource: <#T##AppsCarouselDataSource#>)
     }
 
     func insertSectionLine() {
@@ -69,10 +63,11 @@ final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
     var indexPath: IndexPath = []
 
     func apply(with store: StoreType?) {
-        guard let appsGroup = store?.appsGroups[indexPath.item] else { return }
+        guard let store = store else { return }
+        let appsGroup = store.appsGroups[indexPath.item]
 
         titleLabel.text = appsGroup.title
-        setUpAppsCarouselView(with: appsGroup)
+        appsCarouselView.loadView(groupStore: store, carouselIndex: indexPath)
         insertSectionLine()
     }
 }

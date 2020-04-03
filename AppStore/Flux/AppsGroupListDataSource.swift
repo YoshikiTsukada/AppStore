@@ -8,12 +8,10 @@
 import UIKit
 
 final class AppsGroupListDataSource: NSObject {
-    private let actionCreator: ActionCreator
-    private let appsGroupStore: AppsGroupStore
+    private let groupStore: GroupStoreBase
 
-    init(actionCreator: ActionCreator, appsGroupStore: AppsGroupStore) {
-        self.actionCreator = actionCreator
-        self.appsGroupStore = appsGroupStore
+    init(groupStore: GroupStoreBase) {
+        self.groupStore = groupStore
     }
 
     func configure(_ collectionView: UICollectionView) {
@@ -29,12 +27,12 @@ extension AppsGroupListDataSource: UICollectionViewDataSource, UICollectionViewD
     //
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return appsGroupStore.selectedAppsGroup?.apps.count ?? 0
+        return groupStore.appsGroups[groupStore.selectedIndex.item].apps.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = IntroductionListUpCell.dequeue(from: collectionView, for: indexPath, with: appsGroupStore)
-        cell.insertSectionLineIfNeeded(indexPath.item - 1 < appsGroupStore.selectedAppsGroup?.apps.count ?? 0)
+        let cell = IntroductionListUpCell.dequeue(from: collectionView, for: indexPath, with: groupStore)
+        cell.insertSectionLineIfNeeded(indexPath.item - 1 < groupStore.appsGroups[groupStore.selectedIndex.item].apps.count)
         return cell
     }
 
@@ -43,8 +41,8 @@ extension AppsGroupListDataSource: UICollectionViewDataSource, UICollectionViewD
     //
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let app = appsGroupStore.selectedAppsGroup?.apps[indexPath.item] else { return }
-        actionCreator.showAppDetails(app)
+        let app = groupStore.appsGroups[groupStore.selectedIndex.item].apps[indexPath.item]
+        ActionCreator.showAppDetailsFromList(app)
     }
 
     //

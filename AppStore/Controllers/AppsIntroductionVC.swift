@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class AppsIntroductionVC: IntroductionVC<AppsGroupStore> {
+final class AppsIntroductionVC: IntroductionVC {
     override var accessUrls: [URL] {
         return [
             URLMaker.recommendedNewApps,
@@ -21,7 +21,7 @@ final class AppsIntroductionVC: IntroductionVC<AppsGroupStore> {
     }
 
     init() {
-        super.init(AppsGroupStore.shared as! AppsGroupStore)
+        super.init(AppsGroupStore.shared)
     }
 
     required init?(coder: NSCoder) {

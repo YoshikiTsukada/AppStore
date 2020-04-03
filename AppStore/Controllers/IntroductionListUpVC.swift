@@ -13,25 +13,23 @@ import UIKit
 class IntroductionListUpVC: BaseViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
-    private let actionCreator: ActionCreator = .init()
-//    private let appsGroupStore: AppsGroupStore
-    private let selectedAppStore: SelectedAppStore = .init()
+    private let groupStore: GroupStoreBase
 
     private let dataSource: AppsGroupListDataSource
     private let disposeBag = DisposeBag()
 
     private lazy var showAppDetailsDisposable: Disposable = {
-        selectedAppStore.appObservable
+        groupStore.selectedListAppObservable
             .flatMap { $0 == nil ? .empty() : Observable.just(()) }
             .bind(to: Binder(self) { `self`, _ in
-                let vc = AppDetailsVC(selectedAppStore: self.selectedAppStore)
+                let vc = AppDetailsVC()
                 self.navigationController?.pushViewController(vc, animated: true)
             })
     }()
 
-    init() {
-//        self.appsGroupStore = appsGroupStore
-        dataSource = .init(actionCreator: actionCreator, appsGroupStore: appsGroupStore)
+    init(groupStore: GroupStoreBase) {
+        self.groupStore = groupStore
+        dataSource = .init(groupStore: groupStore)
         super.init(nibName: "IntroductionListUpVC", bundle: nil)
     }
 
@@ -50,7 +48,7 @@ class IntroductionListUpVC: BaseViewController {
     }
 
     func applyNavigationItem() {
-        navigationItem.title = appsGroupStore.selectedAppsGroup?.title
+        navigationItem.title = groupStore.appsGroups[groupStore.selectedIndex.item].title
     }
 }
 

@@ -8,8 +8,7 @@
 import UIKit
 
 final class AppsGroupDataSource: NSObject {
-//    private let actionCreator: ActionCreator
-    private let groupStore: GroupStoreBase = .shared
+    private let groupStore: GroupStoreBase
 
     init(groupStore: GroupStoreBase) {
         self.groupStore = groupStore
@@ -46,10 +45,7 @@ extension AppsGroupDataSource: UICollectionViewDataSource, UICollectionViewDeleg
         case .appsGroupHeader?:
             return UICollectionViewCell()
         case .appsGroup?:
-//            let appsGroup = appsGroupStore.appsGroups[indexPath.item]
-//            let cell = AppsGroupCell.dequeue(from: collectionView, for: indexPath, with: appsGroup)
             let cell = AppsGroupCell.dequeue(from: collectionView, for: indexPath, with: groupStore)
-//            cell.delegate = self
             cell.titleConversion()
             return cell
         default: return UICollectionViewCell()

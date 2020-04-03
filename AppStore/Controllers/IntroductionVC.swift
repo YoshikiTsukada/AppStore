@@ -10,11 +10,10 @@ import RxCocoa
 import RxSwift
 import UIKit
 
-class IntroductionVC<Store: GroupStoreBase>: UIViewController {
+class IntroductionVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
-    private let groupStore: Store
-//    private let dataSource: AppsGroupDataSource = .init()
+    let groupStore: GroupStoreBase
     private let dataSource: AppsGroupDataSource
     private let disposeBag = DisposeBag()
 
@@ -31,7 +30,7 @@ class IntroductionVC<Store: GroupStoreBase>: UIViewController {
         groupStore.selectedIndexObservable
             .flatMap { $0 == [] ? .empty() : Observable.just(()) }
             .bind(to: Binder(self) { `self`, _ in
-                let vc = IntroductionListUpVC()
+                let vc = IntroductionListUpVC(groupStore: self.groupStore)
                 self.navigationController?.pushViewController(vc, animated: true)
             })
     }()
@@ -42,9 +41,9 @@ class IntroductionVC<Store: GroupStoreBase>: UIViewController {
         ]
     }
 
-    init(_ store: Store) {
+    init(_ store: GroupStoreBase) {
         groupStore = store
-        dataSource = .init(groupStore: groupStore)
+        dataSource = .init(groupStore: store)
         super.init(nibName: "IntroductionVC", bundle: nil)
     }
 
@@ -69,20 +68,6 @@ class IntroductionVC<Store: GroupStoreBase>: UIViewController {
 
         ActionCreator.fetchApps(by: accessUrls)
     }
-
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        _ = showAppDetailsDisposable
-//        _ = showIntroductionListDisposable
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//
-//        showAppDetailsDisposable.dispose()
-//        showIntroductionListDisposable.dispose()
-//    }
 
     override func loadView() {
         if let view = UINib(nibName: String(describing: IntroductionVC.self), bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView {

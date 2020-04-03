@@ -9,10 +9,7 @@ import RxCocoa
 import RxSwift
 
 final class AppsGroupStore: GroupStoreBase {
-    private static let _shared: AppsGroupStore = .init()
-    override class var shared: GroupStoreBase {
-        return _shared
-    }
+    static let shared: AppsGroupStore = .init()
 
     private override init(dispatcher: Dispatcher = .shared) {
         super.init()
@@ -20,10 +17,7 @@ final class AppsGroupStore: GroupStoreBase {
 }
 
 final class GamesGroupStore: GroupStoreBase {
-    private static let _shared: GamesGroupStore = .init()
-    override class var shared: GroupStoreBase {
-        return _shared
-    }
+    static let shared: GamesGroupStore = .init()
 
     private override init(dispatcher: Dispatcher = .shared) {
         super.init()
@@ -31,11 +25,6 @@ final class GamesGroupStore: GroupStoreBase {
 }
 
 class GroupStoreBase: StoreBase {
-    private static let _shared: GroupStoreBase = .init()
-    class var shared: GroupStoreBase {
-        return _shared
-    }
-
     private let _appsGroups = BehaviorRelay<[AppsGroup]>(value: [])
     private let _selectedIndex = BehaviorRelay<IndexPath>(value: [])
     private let _selectedListApp = BehaviorRelay<App?>(value: nil)

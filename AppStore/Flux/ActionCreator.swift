@@ -30,9 +30,8 @@ extension ActionCreator {
 //
 
 extension ActionCreator {
-    static func showIntroductionList(_ appsGroup: AppsGroup?) {
-//        dispatcher.dispatch(.selectedAppsGroup(appsGroup))
-        dispatcher.dispatch(.didTapAllDisplayButton(appsGroup))
+    static func showIntroductionList(_ index: IndexPath) {
+        dispatcher.dispatch(.didTapAllDisplayButton(index))
     }
 }
 
@@ -42,7 +41,6 @@ extension ActionCreator {
 
 extension ActionCreator {
     static func showAppDetailsFromCarousel(_ app: App) {
-//        dispatcher.dispatch(.selectedApp(app))
         dispatcher.dispatch(.selectedCarouselApp(app))
     }
 }

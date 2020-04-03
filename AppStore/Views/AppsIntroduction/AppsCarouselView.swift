@@ -13,7 +13,7 @@ import UIKit
 class AppsCarouselView: UIView {
     @IBOutlet weak var collectionView: UICollectionView!
 
-    private var appsCarouselStore: AppsCarouselStore?
+    private var groupStore: GroupStoreBase?
     private var dataSource: AppsCarouselDataSource?
 
     override init(frame: CGRect) {
@@ -33,10 +33,10 @@ class AppsCarouselView: UIView {
         }
     }
 
-    func loadView(appsCarouselStore: AppsCarouselStore, dataSource: AppsCarouselDataSource) {
-        self.appsCarouselStore = appsCarouselStore
-        self.dataSource = dataSource
-        dataSource.configure(collectionView)
+    func loadView(groupStore: GroupStoreBase, carouselIndex: IndexPath) {
+        self.groupStore = groupStore
+        dataSource = .init(groupStore: groupStore, carouselIndex: carouselIndex)
+        dataSource?.configure(collectionView)
         collectionView.reloadData()
     }
 }

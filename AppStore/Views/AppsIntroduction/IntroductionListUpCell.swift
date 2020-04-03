@@ -32,22 +32,21 @@ final class IntroductionListUpCell: UICollectionViewCell, CollectionViewCellPres
         contentView.addSubview(view)
     }
 
-    //
-    // MARK: CollectionViewCellPresenter
-    //
-
-    typealias StoreType = AppsGroupStore
-    var store: StoreType?
-    var indexPath: IndexPath = []
-
-    func apply(with store: StoreType?) {
+    func apply(with app: App) {
         iconImageView.image = nil
-        guard let app = store?.selectedAppsGroup?.apps[indexPath.item] else { return }
-
         titleLabel.text = app.name
-
         if let url = URL(string: app.iconUrl) {
             iconImageView.kf.setImage(with: url)
         }
     }
+
+    //
+    // MARK: CollectionViewCellPresenter
+    //
+
+    typealias StoreType = GroupStoreBase
+    var store: StoreType?
+    var indexPath: IndexPath = []
+
+    func apply(with store: StoreType?) {}
 }
