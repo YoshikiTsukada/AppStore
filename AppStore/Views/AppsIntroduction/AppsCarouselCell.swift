@@ -38,7 +38,7 @@ final class AppsCarouselCell: UICollectionViewCell, CollectionViewCellPresenter 
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias StoreType = AppsGroupStore
+    typealias StoreType = AppsCarouselStore
     var store: StoreType?
     var indexPath: IndexPath = []
 

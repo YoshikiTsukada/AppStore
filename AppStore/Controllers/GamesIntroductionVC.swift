@@ -8,12 +8,20 @@
 
 import Foundation
 
-class GamesIntroductionVC: IntroductionVC {
+final class GamesIntroductionVC: IntroductionVC<GamesGroupStore> {
     override var accessUrls: [URL] {
         return [
             URLMaker.recommendedNewGames,
             URLMaker.topFreeGames,
             URLMaker.topPaidGames,
         ]
+    }
+
+    init() {
+        super.init(GamesGroupStore.shared as! GamesGroupStore)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 final class ActionCreator {
-    private let dispatcher: Dispatcher = .shared
+    private static let dispatcher: Dispatcher = .shared
 }
 
 //
@@ -16,7 +16,7 @@ final class ActionCreator {
 //
 
 extension ActionCreator {
-    func fetchApps(by urls: [URL]) {
+    static func fetchApps(by urls: [URL]) {
         urls.forEach { [dispatcher] url in
             GetAppsGroup(url: url).execute(in: .background).then(in: .main) { appsGroup in
                 dispatcher.dispatch(.getAppsGroup(appsGroup))
@@ -30,8 +30,9 @@ extension ActionCreator {
 //
 
 extension ActionCreator {
-    func showIntroductionList(_ appsGroup: AppsGroup?) {
-        dispatcher.dispatch(.selectedAppsGroup(appsGroup))
+    static func showIntroductionList(_ appsGroup: AppsGroup?) {
+//        dispatcher.dispatch(.selectedAppsGroup(appsGroup))
+        dispatcher.dispatch(.didTapAllDisplayButton(appsGroup))
     }
 }
 
@@ -40,7 +41,18 @@ extension ActionCreator {
 //
 
 extension ActionCreator {
-    func showAppDetails(_ app: App) {
-        dispatcher.dispatch(.selectedApp(app))
+    static func showAppDetailsFromCarousel(_ app: App) {
+//        dispatcher.dispatch(.selectedApp(app))
+        dispatcher.dispatch(.selectedCarouselApp(app))
+    }
+}
+
+//
+// MARK: IntroductionListUpCell
+//
+
+extension ActionCreator {
+    static func showAppDetailsFromList(_ app: App) {
+        dispatcher.dispatch(.selectedListApp(app))
     }
 }

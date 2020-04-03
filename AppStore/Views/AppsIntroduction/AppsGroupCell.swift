@@ -21,10 +21,7 @@ final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
     @IBOutlet var allDisplayButton: UIButton!
     @IBOutlet weak var appsCarouselView: AppsCarouselView!
 
-//    var delegate: AppsGroupCellDelegate?
     let titleLabelHeight: CGFloat = 20
-
-    private let actionCreator: ActionCreator = .init()
 
     private let disposeBag = DisposeBag()
 
@@ -34,22 +31,22 @@ final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
         allDisplayButton.rx.tap
             .subscribe { [weak self] _ in
                 guard let item = self?.indexPath.item else { return }
-                self?.actionCreator.showIntroductionList(self?.store?.appsGroups[item])
+                ActionCreator.showIntroductionList(self?.store?.appsGroups[item])
             }
             .disposed(by: disposeBag)
     }
 
     func setUpAppsCarouselView(with appsGroup: AppsGroup) {
-        appsCarouselView.data.apps = appsGroup.apps
-//        appsCarouselView.delegate = self
-        appsCarouselView.collectionView.reloadData()
+//        appsCarouselView.data.apps = appsGroup.apps
+//        appsCarouselView.collectionView.reloadData()
+//        appsCarouselView.loadView(appsCarouselStore: .init(), dataSource: <#T##AppsCarouselDataSource#>)
     }
 
     func insertSectionLine() {
         let frame = CGRect(
-            x: bounds.origin.x + IntroductionVC.DataSet.appsCarouselCellHorizontalSectionInset,
+            x: bounds.origin.x + IntroductionDataSet.appsCarouselCellHorizontalSectionInset,
             y: bounds.origin.y + bounds.height - 1,
-            width: bounds.width - IntroductionVC.DataSet.appsCarouselCellHorizontalSectionInset * 2,
+            width: bounds.width - IntroductionDataSet.appsCarouselCellHorizontalSectionInset * 2,
             height: 0.5
         )
         let view = UIView(frame: frame)
@@ -63,25 +60,20 @@ final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
 //        data?.title = title ?? ""
     }
 
-//    @IBAction func allDisplayButtonTapped(_ sender: Any) {
-//        delegate?.appsGroupCell(allDisplayButtonTappedWith: data)
-//    }
-
     //
     // MARK: CollectionViewCellPresenter
     //
 
-    typealias StoreType = AppsGroupStore
+    typealias StoreType = GroupStoreBase
     var store: StoreType?
     var indexPath: IndexPath = []
-    // indexPathがnil
 
     func apply(with store: StoreType?) {
-//        guard let appsGroup = data else { return }
-//
-//        titleLabel.text = appsGroup.title
-//        setUpAppsCarouselView(with: appsGroup)
-//        insertSectionLine()
+        guard let appsGroup = store?.appsGroups[indexPath.item] else { return }
+
+        titleLabel.text = appsGroup.title
+        setUpAppsCarouselView(with: appsGroup)
+        insertSectionLine()
     }
 }
 
@@ -126,9 +118,3 @@ extension AppsGroupCell {
         }
     }
 }
-
-// extension AppsGroupCell: AppsCarouselViewDelegate {
-//    func appsCarouselView(didSelectAppIdWith id: String) {
-//        delegate?.appsGroupCell(didSelectAppIdWith: id)
-//    }
-// }

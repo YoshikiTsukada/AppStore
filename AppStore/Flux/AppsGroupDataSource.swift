@@ -8,12 +8,11 @@
 import UIKit
 
 final class AppsGroupDataSource: NSObject {
-    private let actionCreator: ActionCreator
-    private let appsGroupStore: AppsGroupStore
+//    private let actionCreator: ActionCreator
+    private let groupStore: GroupStoreBase = .shared
 
-    init(actionCreator: ActionCreator, appsGroupStore: AppsGroupStore) {
-        self.actionCreator = actionCreator
-        self.appsGroupStore = appsGroupStore
+    init(groupStore: GroupStoreBase) {
+        self.groupStore = groupStore
     }
 
     func configure(_ collectionView: UICollectionView) {
@@ -37,7 +36,7 @@ extension AppsGroupDataSource: UICollectionViewDataSource, UICollectionViewDeleg
         case .appsGroupHeader?:
             return 0
         case .appsGroup?:
-            return appsGroupStore.appsGroups.count
+            return groupStore.appsGroups.count
         default: return 0
         }
     }
@@ -49,7 +48,7 @@ extension AppsGroupDataSource: UICollectionViewDataSource, UICollectionViewDeleg
         case .appsGroup?:
 //            let appsGroup = appsGroupStore.appsGroups[indexPath.item]
 //            let cell = AppsGroupCell.dequeue(from: collectionView, for: indexPath, with: appsGroup)
-            let cell = AppsGroupCell.dequeue(from: collectionView, for: indexPath, with: appsGroupStore)
+            let cell = AppsGroupCell.dequeue(from: collectionView, for: indexPath, with: groupStore)
 //            cell.delegate = self
             cell.titleConversion()
             return cell
@@ -68,7 +67,7 @@ extension AppsGroupDataSource: UICollectionViewDataSource, UICollectionViewDeleg
         case .appsGroupHeader?:
             return .zero
         case .appsGroup?:
-            return .init(width: width, height: IntroductionVC.DataSet.appsGroupCellHeight)
+            return .init(width: width, height: IntroductionDataSet.appsGroupCellHeight)
         default: return .zero
         }
     }

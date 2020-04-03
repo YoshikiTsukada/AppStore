@@ -9,14 +9,33 @@ import RxCocoa
 import RxSwift
 
 final class AppsGroupStore: GroupStoreBase {
-    static let shared: AppsGroupStore = .init()
+    private static let _shared: AppsGroupStore = .init()
+    override class var shared: GroupStoreBase {
+        return _shared
+    }
+
+    private override init(dispatcher: Dispatcher = .shared) {
+        super.init()
+    }
 }
 
 final class GamesGroupStore: GroupStoreBase {
-    static let shared: GamesGroupStore = .init()
+    private static let _shared: GamesGroupStore = .init()
+    override class var shared: GroupStoreBase {
+        return _shared
+    }
+
+    private override init(dispatcher: Dispatcher = .shared) {
+        super.init()
+    }
 }
 
 class GroupStoreBase: StoreBase {
+    private static let _shared: GroupStoreBase = .init()
+    class var shared: GroupStoreBase {
+        return _shared
+    }
+
     private let _appsGroups = BehaviorRelay<[AppsGroup]>(value: [])
     private let _selectedIndex = BehaviorRelay<IndexPath>(value: [])
     private let _selectedListApp = BehaviorRelay<App?>(value: nil)
@@ -57,15 +76,15 @@ extension GroupStoreBase {
     var appsGroups: [AppsGroup] {
         return _appsGroups.value
     }
-    
+
     var selectedIndex: IndexPath {
         return _selectedIndex.value
     }
-    
+
     var selectedCarouselApp: App? {
         return _selectedCarouselApp.value
     }
-    
+
     var selectedListApp: App? {
         return _selectedListApp.value
     }
@@ -79,15 +98,15 @@ extension GroupStoreBase {
     var appsGroupsObservable: Observable<[AppsGroup]> {
         return _appsGroups.asObservable()
     }
-    
+
     var selectedIndexObservable: Observable<IndexPath> {
         return _selectedIndex.asObservable()
     }
-    
+
     var selectedCarouselAppObservable: Observable<App?> {
         return _selectedCarouselApp.asObservable()
     }
-    
+
     var selectedListAppObservable: Observable<App?> {
         return _selectedListApp.asObservable()
     }

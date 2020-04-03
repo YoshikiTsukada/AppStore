@@ -14,7 +14,7 @@ class IntroductionListUpVC: BaseViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
     private let actionCreator: ActionCreator = .init()
-    private let appsGroupStore: AppsGroupStore
+//    private let appsGroupStore: AppsGroupStore
     private let selectedAppStore: SelectedAppStore = .init()
 
     private let dataSource: AppsGroupListDataSource
@@ -29,8 +29,8 @@ class IntroductionListUpVC: BaseViewController {
             })
     }()
 
-    init(appsGroupStore: AppsGroupStore) {
-        self.appsGroupStore = appsGroupStore
+    init() {
+//        self.appsGroupStore = appsGroupStore
         dataSource = .init(actionCreator: actionCreator, appsGroupStore: appsGroupStore)
         super.init(nibName: "IntroductionListUpVC", bundle: nil)
     }
