@@ -72,6 +72,14 @@ targets:
     type: application
     platform: iOS
     sources: AppStore
+    dependencies:
+      - package: SwiftyJSON
+      - package: SwiftDate
+      - package: Kingfisher
+      - package: Hydra
+    preBuildScripts:
+      - path: script/swiftpm.sh
+        name: SwiftPM
     settings:
       base:
         ASSETCATALOG_COMPILER_APPICON_NAME: "AppIcon"
@@ -130,3 +138,16 @@ targets:
       configs:
         Debug:
         Release:
+packages:
+  SwiftyJSON:
+    url: https://github.com/SwiftyJSON/SwiftyJSON
+    from: 5.0.0
+  SwiftDate:
+    url: https://github.com/malcommac/SwiftDate
+    from: 6.3.1
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher
+    from: 5.15.8
+  Hydra:
+    url: https://github.com/malcommac/Hydra
+    from: 2.0.5
