@@ -6,6 +6,7 @@
 //  Copyright © 2019 塚田良輝. All rights reserved.
 //
 
+import Hydra
 import UIKit
 
 class IntroductionVC: UIViewController {

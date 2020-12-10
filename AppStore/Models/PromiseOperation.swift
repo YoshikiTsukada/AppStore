@@ -5,6 +5,7 @@
 //  Created by 塚田良輝 on 2019/12/31.
 //
 
+import Foundation
 import Hydra
 import SwiftyJSON
 
