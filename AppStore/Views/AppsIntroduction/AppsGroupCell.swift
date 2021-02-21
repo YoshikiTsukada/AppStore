@@ -42,10 +42,11 @@ final class AppsGroupCell: UICollectionViewCell, CollectionViewCellPresenter {
         contentView.addSubview(view)
     }
 
+    #warning("TODO: title conversion")
     func titleConversion() {
         let title = TitleConversion(delegate?.classType, titleLabel.text)?.rawValue
         titleLabel.text = title
-        data?.title = title ?? ""
+//        data?.title = title ?? ""
     }
 
     @IBAction func allDisplayButtonTapped(_ sender: Any) {

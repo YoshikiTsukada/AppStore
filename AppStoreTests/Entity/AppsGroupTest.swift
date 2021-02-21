@@ -12,7 +12,7 @@ class AppsGroupTest: XCTestCase {
     func testParse() {
         valid_json:
             do {
-            let appsGroup = try JSONDecoder().decode(AppsGroupModel.self, from: validJson)
+            let appsGroup = try JSONDecoder().decode(AppsGroup.self, from: validJson)
             XCTAssertEqual(appsGroup.title, "Top Free iPhone Apps")
             XCTAssertEqual(appsGroup.apps.count, 10)
             let app = appsGroup.apps.first!
@@ -26,7 +26,7 @@ class AppsGroupTest: XCTestCase {
 
         invalid_json:
             do {
-            let appsGroup = try JSONDecoder().decode(AppsGroupModel.self, from: invalidJson)
+            let appsGroup = try JSONDecoder().decode(AppsGroup.self, from: invalidJson)
             XCTAssertNil(appsGroup)
         } catch {
             XCTAssertNotNil(error)

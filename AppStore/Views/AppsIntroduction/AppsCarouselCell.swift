@@ -46,9 +46,6 @@ final class AppsCarouselCell: UICollectionViewCell, CollectionViewCellPresenter 
         guard let app = data else { return }
 
         titleLabel.text = app.name
-
-        if let url = URL(string: app.iconUrl) {
-            iconImageView.kf.setImage(with: url)
-        }
+        iconImageView.kf.setImage(with: app.iconUrl)
     }
 }
