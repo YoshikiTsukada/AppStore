@@ -8,6 +8,7 @@
 import Foundation
 import SwiftyJSON
 
+@available(*, deprecated)
 public struct AppsGroup {
     public var title: String
     public var apps: [App]
@@ -21,6 +22,7 @@ public struct AppsGroup {
     }
 }
 
+@available(*, deprecated)
 public struct App {
     public let id: String
     public let artistId: String
@@ -56,5 +58,40 @@ public class GetAppsGroup: PromiseOperation<AppsGroup?> {
         jsonResponse = { json in
             AppsGroup(json["feed"])
         }
+    }
+}
+
+struct AppsGroupModel: Decodable {
+    // MARK: public
+    var title: String { feed.title }
+    var apps: [AppModel] { feed.results }
+    
+    // MARK: internal
+    private let feed: Feed
+    private struct Feed: Decodable {
+        let title: String
+        let results: [AppModel]
+    }
+}
+
+struct AppModel: Decodable, Identifiable {
+    let id: String
+    var name: String
+    var artistName: String
+    var iconUrl: URL
+    
+    enum Key: String, CodingKey {
+        case id
+        case name
+        case artistName
+        case iconUrl = "artworkUrl100"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        id = try container.decode(String.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        artistName = try container.decode(String.self, forKey: .artistName)
+        iconUrl = try container.decode(URL.self, forKey: .iconUrl)
     }
 }
