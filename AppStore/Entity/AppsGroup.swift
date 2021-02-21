@@ -26,7 +26,7 @@ struct App: Decodable, Identifiable {
     var artistName: String
     var iconUrl: URL
 
-    enum Key: String, CodingKey {
+    private enum Key: String, CodingKey {
         case id
         case name
         case artistName
