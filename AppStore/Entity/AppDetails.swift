@@ -5,9 +5,11 @@
 //  Created by 塚田良輝 on 2019/12/26.
 //
 
+import Foundation
 import SwiftDate
 import SwiftyJSON
 
+@available(*, deprecated)
 public struct AppDetails {
     public let id: Int
     public let artistId: Int
@@ -111,5 +113,76 @@ public class GetSearchResults: PromiseOperation<[AppDetails]> {
         jsonResponse = { json in
             AppDetails.load(json["results"].arrayValue)
         }
+    }
+}
+
+struct AppDetailsModel: Decodable, Identifiable {
+    let id: Int
+    var artistId: Int
+    var screenshotUrls: [URL]
+    var iconUrl: URL
+    var supportedDevices: [String]
+    var languageCodes: [String]
+    var fileSizeBytes: String
+    var ageLimit: String
+    var releaseDate: String
+    var releaseNotes: String?
+    var sellerName: String
+    var genres: [String]
+    var currentVersionReleaseDateString: String
+    var currentVersionReleaseDate: DateInRegion? {
+        return DateInRegion(currentVersionReleaseDateString)
+    }
+
+    var price: String
+    var version: String
+    var trackName: String
+    var description: String
+    var averageUserRating: Float
+    var userRatingCount: Int
+
+    private enum Key: String, CodingKey {
+        case id = "trackId"
+        case artistId
+        case screenshotUrls
+        case iconUrl = "artworkUrl100"
+        case supportedDevices
+        case languageCodes = "languageCodesISO2A"
+        case fileSizeBytes
+        case ageLimit = "contentAdvisoryRating"
+        case releaseDate
+        case releaseNotes
+        case sellerName
+        case genres
+        case currentVersionReleaseDateString = "currentVersionReleaseDate"
+        case price = "formattedPrice"
+        case version
+        case trackName
+        case description
+        case averageUserRating
+        case userRatingCount
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        id = try container.decode(Int.self, forKey: .id)
+        artistId = try container.decode(Int.self, forKey: .artistId)
+        screenshotUrls = try container.decode([URL].self, forKey: .screenshotUrls)
+        iconUrl = try container.decode(URL.self, forKey: .iconUrl)
+        supportedDevices = try container.decode([String].self, forKey: .supportedDevices)
+        languageCodes = try container.decode([String].self, forKey: .languageCodes)
+        fileSizeBytes = try container.decode(String.self, forKey: .fileSizeBytes)
+        ageLimit = try container.decode(String.self, forKey: .ageLimit)
+        releaseDate = try container.decode(String.self, forKey: .releaseDate)
+        releaseNotes = try container.decodeIfPresent(String.self, forKey: .releaseNotes)
+        sellerName = try container.decode(String.self, forKey: .sellerName)
+        genres = try container.decode([String].self, forKey: .genres)
+        currentVersionReleaseDateString = try container.decode(String.self, forKey: .currentVersionReleaseDateString)
+        price = try container.decode(String.self, forKey: .price)
+        version = try container.decode(String.self, forKey: .version)
+        trackName = try container.decode(String.self, forKey: .trackName)
+        description = try container.decode(String.self, forKey: .description)
+        averageUserRating = try container.decode(Float.self, forKey: .averageUserRating)
+        userRatingCount = try container.decode(Int.self, forKey: .userRatingCount)
     }
 }
